@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { saveUser } from '../../actions/user';
 
 import Register from '../Pages/Register';
 import SignIn from '../Pages/SignIn';
@@ -6,6 +9,14 @@ import SignIn from '../Pages/SignIn';
 import './styles.scss';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
+    if (loggedUser) {
+      dispatch(saveUser(loggedUser.username));
+    }
+  }, []);
 
   return (
     <div className="app">
