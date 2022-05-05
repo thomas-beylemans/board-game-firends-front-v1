@@ -21,3 +21,9 @@ export const saveUser = (username, email) => ({
   username,
   email
 });
+
+export const CHANGE_VALUE_CITY = 'CHANGE_VALUE_CITY';
+export const changeValueCity = (newValue) => ({
+  type: CHANGE_VALUE,
+  newValue,
+});

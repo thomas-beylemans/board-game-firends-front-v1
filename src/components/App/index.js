@@ -31,13 +31,13 @@ export default function App() {
         <Route path="/" element={logged ? <Navigate to="/dashboard" /> : <SignIn />} />
         <Route path="/register" element={logged ? <Navigate to="/dashboard" /> : <Register />} />
         {logged && <Route path="/dashboard" element={<Dashboard />} />}
-        {logged && <Route path="/profile" element={<Dashboard />} />}
-        {logged && <Route path="/profile/:username" element={<Dashboard />} />}
-        {logged && <Route path="/events" element={<Dashboard />} />}
-        {logged && <Route path="/events/:id" element={<Dashboard />} />}
+        {logged && <Route path="/profile" element={'profile'} />}
+        {logged && <Route path="/profile/:username" element={'profile user'} />}
+        {logged && <Route path="/events" element={'events'} />}
+        {logged && <Route path="/events/:id" element={'events id'} />}
         {logged && <Route path="/team" element={<Team />} />}
-        <Route path="/faq" element={<Dashboard />} />
-        <Route path="/terms-of-use" element={<Dashboard />} />
+        <Route path="/faq" element={'faq'} />
+        <Route path="/terms-of-use" element={'cgu'} />
         <Route path="*" element={'error'} />
       </Routes>
     </div>
