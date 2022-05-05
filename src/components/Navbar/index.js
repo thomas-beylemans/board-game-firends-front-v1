@@ -4,14 +4,14 @@ import './styles.scss';
 
 export default function Navbar() {
     return (
-        <div className="navbar">
-            <Menu
-                className="navbar__menu"
-                vertical
-                color={'orange'}
-                inverted
-                fitted='vertically'
-            >
+        <Menu
+            className="navbar__menu"
+            color={'orange'}
+            inverted
+            stackable
+        >
+            <Menu.Menu position='left'>
+
                 <Menu.Item>
                     <img alt="small-logo" src='' />
                 </Menu.Item>
@@ -36,36 +36,23 @@ export default function Navbar() {
                 >
                     Luodothèque
                 </Menu.Item>
+            </Menu.Menu>
+            <Menu.Menu position='right'>
                 <Menu.Item>
                     <Button
+                        circular
                         icon='plus circle'
                         color='yellow'
-                        content='Créer un événement'
-                        labelPosition='left'
-                    />  {/* // to replace with custom button component */}
+                    />
                 </Menu.Item>
-                <Menu.Item
-                    link
-                    name='faq'
-                    active={false}   // isActive will be determined by React Router
-                >
-                    F.A.Q
+                <Menu.Item>
+                    <Button
+                        circular
+                        icon='user'
+                        color='yellow'
+                    />
                 </Menu.Item>
-                <Menu.Item
-                    link
-                    name='cgu'
-                    active={false}   // isActive will be determined by React Router
-                >
-                    Conditions d'utilisation
-                </Menu.Item>
-                <Menu.Item
-                    link
-                    name='team'
-                    active={false}   // isActive will be determined by React Router
-                >
-                    Contact
-                </Menu.Item>
-            </Menu>
-        </div>
+            </Menu.Menu>
+        </Menu>
     );
 }
