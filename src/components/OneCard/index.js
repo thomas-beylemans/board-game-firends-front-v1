@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 export default function OneCard({ title, date, location, img, owner }) {
   return (
-    <Card color="orange">
-      <Image src={img} alt="avatar" wrapped ui size="medium" centered />
+    <Card color="orange">      
+      <Image  src={img} alt="avatar" wrapped ui centered />      
       <Card.Content>
         <Card.Header>{title}</Card.Header>
         <Card.Meta>{owner}</Card.Meta>
@@ -17,7 +17,7 @@ export default function OneCard({ title, date, location, img, owner }) {
 }
 
 OneCard.propTypes = {
-  avatar: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
