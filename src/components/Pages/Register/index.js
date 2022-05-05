@@ -64,7 +64,6 @@ export default function Register() {
                 </form>
                 </Grid.Column>
             </Grid.Row>
-
             </Grid>
         </div>
     )
