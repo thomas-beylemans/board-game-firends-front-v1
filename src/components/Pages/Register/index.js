@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../../actions/user';
 
-import { Button } from 'semantic-ui-react';
+import { Button, Grid, Image } from 'semantic-ui-react';
+import bg_img from '../../../assets/img/bg_home.avif';
+
 import ControlledInput from '../../ControlledInput';
 
 import './styles.scss';
@@ -16,7 +18,10 @@ export default function Register() {
 
     return (
         <div className="register">
-            <div className="register__left">
+            <Grid columns={2}>
+            <Grid.Row>
+                <Grid.Column>
+                <Image src={bg_img} />
                 <div className="register__left__titles">
                     <h1 className="register__left__titles__title">Bienvenue sur Board Game Friends</h1>
                     <h2 className="register__left__titles__subtitle">Trouvez des joueurs autour de vous pour compléter vos parties !</h2>
@@ -29,8 +34,8 @@ export default function Register() {
                     <p className="register__left__footer__link">CGU</p>
                     <p className="register__left__footer__link">Contact</p>
                 </div>
-            </div>
-            <div className="register__right">
+                </Grid.Column>
+                <Grid.Column>
                 <div className="register__right__header">
                     <p>Inscrivez-vous</p>
                 </div>
@@ -57,7 +62,10 @@ export default function Register() {
                 Continuer
                 </Button>
                 </form>
-            </div>
+                </Grid.Column>
+            </Grid.Row>
+
+            </Grid>
         </div>
     )
 };

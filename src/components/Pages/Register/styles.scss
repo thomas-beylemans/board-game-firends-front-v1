@@ -1,51 +1,22 @@
 .register {
-    display: flex;
-    flex-flow: row nowrap;
-
     &__left {
-        width: 100%;
-        height: 100vh;
-        position: relative;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-
-        &::before {
-            content: '';
-            background-image: url(../../../assets/img/bg_home.avif);
-            background-size: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: .4;
-            z-index: -1;
-        }
-
         &__titles {
-
             &__title {
                 text-align: center;
                 font-size: 3rem;
-                
             }
-
             &__subtitle {
                 text-align: center;
                 font-size: 2rem;
             }
         }
-
         &__desc {
                 margin-top: 4rem;
-
                 &__content {
                     text-align: center;
                     font-size: 1.5rem;
                 }
         }
-
         &__footer {
             display: flex;
             flex-flow: row nowrap;
@@ -58,26 +29,17 @@
             }
         }
     }
-
     &__right {
-        width: 100%;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-
         &__header {
             font-size: 2rem;
             margin: 3rem;
         }
-
         &__form {
             display: flex;
             flex-flow: row wrap;
             justify-content: center;
             gap: 10rem;
-
             &__infos {
-
                 &__label {
                     display: block;
                     margin-bottom: .5rem;
@@ -89,4 +51,49 @@
 
 .ui.input {
     margin-bottom: 1rem;
+}
+
+.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column {
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.ui.orange.button {
+    width: 50%;
+}
+
+img.ui.image {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    opacity: .2;
+    z-index: -1;
+}
+
+@media screen and (max-width: 1030px) {
+    .register {
+        &__right {
+            &__header {
+                font-size: 2rem;
+                padding-top: 3rem;
+            }
+            &__form {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                gap: 2rem;
+                &__infos {
+                    &__label {
+                        display: block;
+                        margin-bottom: .5rem;
+                    }
+                }
+            }
+        }
+    }
 }
