@@ -1,23 +1,19 @@
 import PropTypes from 'prop-types';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { changeValue } from '../../actions'; // We'll need to adjust the path according to where we'll create the actions folder
+import { useSelector, useDispatch } from 'react-redux';
+import { changeValue } from '../../actions/user';
 import { Input } from 'semantic-ui-react';
 import './styles.scss';
 
 export default function ControlledInput({ name, ...otherProps }) {
-    // const value = useSelector((state) => state[name]);
-    // const dispatch = useDispatch();
-    // const handleChange = (event) => {       
-    //     dispatch(changeValue(name, event.target.value));
-    //     // Same as:
-    //     // dispatch({
-    //     //   type: 'CHANGE_VALUE',
-    //     //   value: event.target.value,
-    //     //   key: name,
-    //     // });
-    // };
+    const value = useSelector((state) => state[name]);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {       
+        dispatch(changeValue(name, e.target.value));
+    };
+
     return (
-        <Input name={'email'} value={'test@toto.com'} onChange={'handleChange'} {...otherProps} />
+        <Input name={name} value={value} onChange={handleChange} {...otherProps} />
     );
 }
 

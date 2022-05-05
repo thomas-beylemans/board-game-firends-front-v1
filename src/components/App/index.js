@@ -1,4 +1,4 @@
-import Navbar from '../Navbar';
+import Home from '../Pages/Home';
 import './styles.scss';
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <Home />
     </div>
   );
 }
