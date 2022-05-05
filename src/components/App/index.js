@@ -1,6 +1,5 @@
-import "./styles.scss";
-import { Card } from "semantic-ui-react";
-import OneCard from "../OneCard";
+import Navbar from '../Navbar';
+import './styles.scss';
 
 export default function App() {
   // user position defined in the user profile - fetched from the database
@@ -14,18 +13,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>Hello boardgame world !</h1>
-      <div className="test">
-        <Card.Group itemsPerRow={3} stackable>
-          <OneCard
-            title="Monopoly à 12"
-            owner="Coraline"
-            date="5 mai 2022"
-            location="Paris"
-            img="https://zupimages.net/up/22/18/zbcp.png"
-          />
-        </Card.Group>
-      </div>
+      <Navbar />
     </div>
   );
 }
