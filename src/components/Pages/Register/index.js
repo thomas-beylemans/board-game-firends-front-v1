@@ -6,7 +6,7 @@ import ControlledInput from '../../ControlledInput';
 
 import './styles.scss';
 
-export default function Home() {
+export default function Register() {
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -57,7 +57,6 @@ export default function Home() {
                 Continuer
                 </Button>
                 </form>
-
             </div>
         </div>
     )

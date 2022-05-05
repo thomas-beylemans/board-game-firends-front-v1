@@ -4,7 +4,6 @@ export const initialState = {
     email: '',
     password: '',
     username: '',
-    accessToken: '',
     logged: false,
     city: '',
     lat:'43.1363587',
@@ -25,7 +24,6 @@ const reducer = (state = initialState, action = {}) => {
                 email: '',
                 password: '',
                 username: action.username,
-                accessToken: action.accessToken,
                 logged: true,
             };
         
