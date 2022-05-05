@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveUser } from '../../actions/user';
 
 import Register from '../Pages/Register';
@@ -10,6 +10,7 @@ import './styles.scss';
 
 export default function App() {
   const dispatch = useDispatch();
+  const logged = useSelector(state => state.user.logged);
 
   useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem('user'));
@@ -21,8 +22,8 @@ export default function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={ logged ? <Navigate to="/dashboard" /> : <SignIn /> } />
+        <Route path="/register" element={logged ? <Navigate to="/dashboard" /> : <Register /> } />
         <Route path="/dashboard" element={'dashboard'} />
         <Route path="/profile" element={'profile'} />
         <Route path="/profile/:username" element={'profile username'} />
