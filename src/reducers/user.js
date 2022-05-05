@@ -22,7 +22,7 @@ const reducer = (state = initialState, action = {}) => {
         case SAVE_USER:
             return {
                 ...state,
-                email: '',
+                email: action.email,
                 password: '',
                 username: action.username,
                 accessToken: action.accessToken,
