@@ -4,3 +4,20 @@ export const changeValue = (name, newValue) => ({
   name,
   newValue,
 });
+
+export const SIGN_UP = 'SIGN_UP';
+export const signUp = () => ({
+  type: SIGN_UP,
+});
+
+export const LOGIN = 'LOGIN';
+export const login = () => ({
+  type: LOGIN,
+});
+
+export const SAVE_USER = 'SAVE_USER';
+export const saveUser = (pseudo, accessToken) => ({
+  type: SAVE_USER,
+  pseudo,
+  accessToken,
+});

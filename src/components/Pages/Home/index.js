@@ -1,9 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../../actions/user';
+
 import { Button } from 'semantic-ui-react';
 import ControlledInput from '../../ControlledInput';
 
 import './styles.scss';
 
 export default function Home() {
+    const dispatch = useDispatch();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(signUp());
+    };
+
     return (
         <div className="home">
             <div className="home__left">
@@ -24,12 +34,12 @@ export default function Home() {
                 <div className="home__right__header">
                     <p>Inscrivez-vous</p>
                 </div>
-                <form className="home__right__form">
+                <form className="home__right__form" onSubmit={handleSubmit}>
                 <div className="home__right__form__infos">
                 <label className="home__right__form__infos__label" htmlFor="email">Email</label>
                 <ControlledInput name="email" type="email" placeholder="Email" />
-                <label className="home__right__form__infos__label" htmlFor="pseudo">Pseudo</label>
-                <ControlledInput name="pseudo" type="text" placeholder="Pseudo" />
+                <label className="home__right__form__infos__label" htmlFor="username">Pseudo</label>
+                <ControlledInput name="username" type="text" placeholder="Pseudo" />
                 <label className="home__right__form__infos__label" htmlFor="city">Ville</label>
                 <ControlledInput name="city" type="text" placeholder="Ville" />
                 </div>
