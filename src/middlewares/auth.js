@@ -26,7 +26,7 @@ const user = (store) => (next) => async (action) => {
                         accessToken,
                     })
                 );
-                store.dispatch(saveUser(username, accessToken));
+                store.dispatch(saveUser(username));
                 api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
             } catch (err) {
                 console.error(err);
