@@ -37,7 +37,7 @@ export default function SignIn() {
                 </Grid.Column>
                 <Grid.Column>
                 <div className="register__right__header">
-                    <p>Inscrivez-vous</p>
+                    <p>Connectez-vous</p>
                 </div>
                 <form className="register__right__form" onSubmit={handleSubmit}>
                 <div className="register__right__form__infos">
