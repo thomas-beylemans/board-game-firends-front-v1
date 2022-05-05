@@ -10,12 +10,14 @@ const user = (store) => (next) => async (action) => {
         case SIGN_UP: {
             const state = store.getState();
             try {
+                // send email / password / username / city to the API to register the account
                 const response = await api.post('/register', {
                     email: state.user.email,
                     password: state.user.password,
                     username: state.user.username,
                     city: state.user.city,
                 });
+                // get the username and JWT Token from the API and store them in local storage
                 const { username, accessToken } = response.data;
                 localStorage.setItem(
                     'user',

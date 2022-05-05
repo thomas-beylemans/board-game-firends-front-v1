@@ -14,6 +14,12 @@ export default function Register() {
         dispatch(signUp());
     };
 
+    const test = (e) => {
+        e.preventDefault();
+        const storage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+        console.log(storage);
+    }
+
     return (
         <div className="home">
             <div className="home__left">
@@ -34,7 +40,7 @@ export default function Register() {
                 <div className="home__right__header">
                     <p>Inscrivez-vous</p>
                 </div>
-                <form className="home__right__form" onSubmit={handleSubmit}>
+                <form className="home__right__form" onSubmit={test}>
                 <div className="home__right__form__infos">
                 <label className="home__right__form__infos__label" htmlFor="email">Email</label>
                 <ControlledInput name="email" type="email" placeholder="Email" />
