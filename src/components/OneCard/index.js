@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 export default function OneCard({ title, date, location, img, owner, className }) {
   return (
-    <Card color="orange" className={className}>      
-      <Image  src={img} alt="avatar" wrapped ui centered />      
+    <Card color="orange" className={className}>
+      <Image src={img} alt="avatar" wrapped ui centered />
       <Card.Content>
         <Card.Header>{title}</Card.Header>
         <Card.Meta>{owner}</Card.Meta>

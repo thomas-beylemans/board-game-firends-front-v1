@@ -106,10 +106,12 @@ section {
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
@@ -122,6 +124,7 @@ q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -144,6 +147,7 @@ del,
 ins {
   text-decoration: none;
 }
+
 a {
   color: inherit;
 }

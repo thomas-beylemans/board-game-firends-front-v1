@@ -14,7 +14,7 @@ import './styles.scss';
 
 export default function App() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if (loggedUser) {
@@ -23,7 +23,7 @@ export default function App() {
       dispatch(saveUser(loggedUser.username, loggedUserEmail));
     }
   }, [dispatch]);
-  
+
   const logged = useSelector(state => state.user.logged);
 
   return (

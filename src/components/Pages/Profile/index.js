@@ -6,11 +6,11 @@ import './styles.scss';
 export default function Profile() {
 
 
-    return (
-        <div className="profile">
-            <Navbar />
-            <ProfileInfos />
-            <Games />
-        </div>
-    );
+  return (
+    <div className="profile">
+      <Navbar />
+      <ProfileInfos />
+      <Games />
+    </div>
+  );
 }
