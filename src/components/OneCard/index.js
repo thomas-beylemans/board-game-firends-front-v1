@@ -2,9 +2,9 @@ import { Card, Image } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
 
-export default function OneCard({ title, date, location, img, owner }) {
+export default function OneCard({ title, date, location, img, owner, className }) {
   return (
-    <Card color="orange">      
+    <Card color="orange" className={className}>      
       <Image  src={img} alt="avatar" wrapped ui centered />      
       <Card.Content>
         <Card.Header>{title}</Card.Header>
@@ -22,4 +22,5 @@ OneCard.propTypes = {
   owner: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
