@@ -9,6 +9,7 @@ export const initialState = {
     city: '',
     lat:'',
     long:'',
+    isLoading: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
