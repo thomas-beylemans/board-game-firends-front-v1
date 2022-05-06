@@ -28,7 +28,6 @@ export default function Register() {
     setPasswordOpen(false);
     setAuthOpen(false);
     if (apiError === 500) {
-      setError(true);
       setAuthOpen(true);
       setErrorAuth('Problème avec le serveur');
     }
