@@ -1,7 +1,8 @@
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../../actions/user';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button, Grid, Image, Checkbox, Header, Icon, Popup } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
@@ -18,10 +19,19 @@ export default function Register() {
   const [errorAuth, setErrorAuth] = useState('');
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [suggestedCity, setSuggestedCity] = useState([]);
 
   const apiError = useSelector(state => state.user.errorMessage);
   const password = useSelector(state => state.user.password);
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
+  const city = useSelector(state => state.user.city);
+
+  useEffect((e) => {
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${city}&fields=code,nom,centre,departement`)
+    .then(res => {
+      setSuggestedCity(res.data);
+    })
+  }, [city]);
 
   const handleSubmit = (e) => {
     setError(false);
@@ -75,7 +85,14 @@ export default function Register() {
                   <ControlledInput className="register__container__column__input" label='Pseudo' name="username" type="text" placeholder="Pseudo" />
                 </Grid.Row>
                 <Grid.Row>
-                  <ControlledInput className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" />
+                  <ControlledInput className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" />
+                  <datalist id="cities">
+                    {
+                      suggestedCity.map(city => (
+                        <option key={city.code} value={city.nom} />
+                      ))
+                    }
+                  </datalist>
                 </Grid.Row>
                 <Grid.Row>
                   <Popup
