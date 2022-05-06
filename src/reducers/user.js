@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, SAVE_USER } from "../actions/user";
+import { CHANGE_VALUE, SAVE_USER, LOGOUT } from "../actions/user";
 
 export const initialState = {
     email: '',
@@ -7,8 +7,8 @@ export const initialState = {
     accessToken: '',
     logged: false,
     city: '',
-    lat:'',
-    long:'',
+    lat: '',
+    long: '',
     isLoading: false,
 };
 
@@ -29,7 +29,17 @@ const reducer = (state = initialState, action = {}) => {
                 accessToken: action.accessToken,
                 logged: true,
             };
-        
+
+        case LOGOUT:
+            return {
+                ...state,
+                email: '',
+                password: '',
+                username: '',
+                accessToken: '',
+                logged: false,
+            };
+
         default:
             return state;
     }

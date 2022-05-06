@@ -8,7 +8,7 @@ export default function Games() {
     return (
         <Segment color='orange' padded>
             <Header as='h1' color= 'orange'>Ludothèque</Header>
-            <Card.Group centered='true' >
+            <Card.Group centered>
                 <OneCard
                     img='https://jeudecarte.net/wp-content/uploads/2019/02/ascension-810x507.jpg'
                     title='Ascension'
