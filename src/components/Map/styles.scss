@@ -1,15 +1,14 @@
 .map {
-
-    &__container {
-
-        &--small {
-            height: 200px;
-            width: 300px;
-        }
-
-        &--large {
-            height: 400px;
-            width: 600px;
-        }
+  &__container {
+    &--small {
+      height: 200px;
+      width: 300px;
     }
+
+    &--large {
+      height: 400px;
+      width: 100%;
+      margin: auto;
+    }
+  }
 }

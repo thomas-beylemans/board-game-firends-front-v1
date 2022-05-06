@@ -1,5 +1,6 @@
-import Navbar from '../Navbar';
-import './styles.scss';
+import Navbar from "../Navbar";
+import PageEvent from "../PageEvent";
+import "./styles.scss";
 
 export default function App() {
   // user position defined in the user profile - fetched from the database
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <div className="app">
       <Navbar />
+      <PageEvent />
     </div>
   );
 }
