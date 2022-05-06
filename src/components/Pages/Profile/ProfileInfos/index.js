@@ -1,4 +1,6 @@
 import { Image, Header, Grid, Container, Button, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
@@ -6,18 +8,21 @@ import games_img from '../../../../assets/img/games.jpg';
 export default function ProfileInfos() {
 
 
+    const username = useSelector(state => state.user.username)
+    const city = useSelector(state => state.user.city)
+
     return (
         <Grid className="profile-infos" columns={2} divided padded stackable >
             <Grid.Row>
-                <Grid.Column >                    
-                    <Container className='infos' textAlign='center'>                    
-                        <Image src={games_img} size='small' circular centered />
-                        <Header as='h1'>Pseudo</Header>
-                        <Header as='h3'>Ville</Header>
+                <Grid.Column >
+                    <Container className='infos' textAlign='center'>
+                        <Image src={games_img} size='small' circular centered />                        
+                        <Header as='h1'>{username}</Header>
+                        <Header as='h3'>{city}</Header>
                     </Container>
                 </Grid.Column>
-                <Grid.Column className="description" >
-                <Button animated='fade' size='tiny' color='orange' floated='right'>
+                <Grid.Column className="description">
+                    <Button as={Link} to={'/editprofile'} animated='fade' size='tiny' color='orange' floated='right'>
                         <Button.Content hidden>Edit</Button.Content>
                         <Button.Content visible>
                             <Icon name='edit' />

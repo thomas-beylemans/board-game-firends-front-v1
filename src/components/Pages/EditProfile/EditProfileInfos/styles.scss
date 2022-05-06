@@ -1,18 +1,23 @@
 .infos {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   background-color: rgb(241, 206, 109);
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.test__flex {
+.form__flex {
   display: flex;
   align-items: center;
   flex-flow: column nowrap;
 }
 
 .infos__input {
-  display: block !important;
+  display: flex !important;
+  justify-content: center !important;
+  width: 200px;
+  margin: auto;
+  padding: 5px;
 }
+

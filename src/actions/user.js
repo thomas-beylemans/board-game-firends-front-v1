@@ -15,6 +15,11 @@ export const login = () => ({
   type: LOGIN,
 });
 
+export const LOGOUT = 'LOGOUT';
+export const logOut = () => ({
+  type: LOGOUT,
+});
+
 export const SAVE_USER = 'SAVE_USER';
 export const saveUser = (username, email) => ({
   type: SAVE_USER,
