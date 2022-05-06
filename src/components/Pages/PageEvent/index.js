@@ -35,7 +35,7 @@ export default function PageEvent() {
           players="Limite de joueurs"
         />
         <OneCardEvent
-          img="https://zupimages.net/up/22/18/zbcp.png"
+          img="https://cdn.pixabay.com/photo/2020/02/26/05/45/cards-4880676_960_720.jpg"
           title="Nom event"
           date="Date et heure"
           location="Lieu"
