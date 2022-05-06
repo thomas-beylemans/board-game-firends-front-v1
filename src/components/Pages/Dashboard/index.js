@@ -1,3 +1,8 @@
+import { useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { saveUser } from '../../../actions/user';
+
 import { Card, Header, Grid } from 'semantic-ui-react';
 
 import Navbar from '../../../components/Navbar';
@@ -8,6 +13,17 @@ import OneCard from '../../OneCard';
 import './styles.scss';
 
 export default function Dashboard() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const loggedUser = JSON.parse(localStorage.getItem('user'));
+        if (loggedUser) {
+          const decodedToken = jwt_decode(loggedUser.accessToken);
+          const loggedUserEmail = decodedToken.user.email;
+          dispatch(saveUser(loggedUser.username, loggedUserEmail));
+        }
+      }, [dispatch]);
+
     return (
         <div className="dashboard">
             <Navbar />

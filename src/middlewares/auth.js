@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser, logError } from "../actions/user";
 
 export const api = axios.create({
     baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
@@ -30,7 +30,8 @@ const user = (store) => (next) => async (action) => {
                 store.dispatch(saveUser(username));
                 api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
             } catch (err) {
-                console.error(err);
+                const errorCode = err.response.status;
+                store.dispatch(logError(errorCode));
             }
             break;
         }

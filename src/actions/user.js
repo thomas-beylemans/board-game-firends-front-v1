@@ -20,6 +20,12 @@ export const logOut = () => ({
   type: LOGOUT,
 });
 
+export const LOG_ERROR = 'LOG_ERROR';
+export const logError = (error) => ({
+  type: LOG_ERROR,
+  error,
+});
+
 export const SAVE_USER = 'SAVE_USER';
 export const saveUser = (username, email) => ({
   type: SAVE_USER,

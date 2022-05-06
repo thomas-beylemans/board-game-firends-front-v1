@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import { Button, Grid, Image, Checkbox, Header, Icon, Popup } from 'semantic-ui-react';
-import bg_img from '../../../assets/img/bg_home.avif';
+import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
 
@@ -14,19 +14,28 @@ export default function Register() {
     const dispatch = useDispatch();
 
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [open, setOpen] = useState(false);
+    const [errorPassword, setErrorPassword] = useState('');
+    const [errorAuth, setErrorAuth] = useState('');
+    const [passwordOpen, setPasswordOpen] = useState(false);
+    const [authOpen, setAuthOpen] = useState(false);
 
+    const apiError = useSelector(state => state.user.errorMessage);
     const password = useSelector(state => state.user.password);
     const passwordConfirm = useSelector(state => state.user.passwordConfirm);
 
     const handleSubmit = (e) => {
         setError(false);
-        setOpen(false);
-        if (password !== passwordConfirm) {
-            setErrorMessage('Les mots de passe ne correspondent pas');
+        setPasswordOpen(false);
+        setAuthOpen(false);
+        if (apiError === 500){
             setError(true);
-            setOpen(true);
+            setAuthOpen(true);
+            setErrorAuth('Problème avec le serveur');
+        } 
+        if (password !== passwordConfirm) {
+            setErrorPassword('Les mots de passe ne correspondent pas');
+            setError(true);
+            setPasswordOpen(true);
         }
         e.preventDefault();
         dispatch(signUp());
@@ -71,11 +80,11 @@ export default function Register() {
                                 </Grid.Row>
                                 <Grid.Row>
                                     <Popup
-                                        content={errorMessage}
-                                        open={open}
+                                        content={errorPassword}
+                                        open={passwordOpen}
                                         position='top center'
                                         on={'click'}
-                                        onClose={() => setOpen(false)}
+                                        onClose={() => setPasswordOpen(false)}
                                         trigger={
                                             <ControlledInput
                                                 className="register__container__column__input"
@@ -99,14 +108,23 @@ export default function Register() {
                                 </Grid.Row>
                                 <Checkbox className="home__container__column__checkbox" toggle label="J'accepte les conditions générales d'utilisation" />
                                 <Grid.Row>
-                                    <Button
-                                        className="register__container__column__button"
-                                        color="orange"
-                                        size="big"
-                                        type="submit"
-                                    >
-                                        S'enregistrer
-                                    </Button>
+                                    <Popup
+                                        content={errorAuth}
+                                        open={authOpen}
+                                        position='top center'
+                                        on={'click'}
+                                        onClose={() => setAuthOpen(false)}
+                                        trigger={
+                                            <Button
+                                                className="register__container__column__button"
+                                                color="orange"
+                                                size="big"
+                                                type="submit"
+                                            >
+                                                S'enregistrer
+                                            </Button>
+                                        }
+                                    />
                                 </Grid.Row>
                             </form>
                         </Grid.Row>

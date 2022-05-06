@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, SAVE_USER, LOGOUT } from "../actions/user";
+import { CHANGE_VALUE, SAVE_USER, LOGOUT, LOG_ERROR } from "../actions/user";
 
 export const initialState = {
     email: '',
@@ -11,6 +11,7 @@ export const initialState = {
     lat: '',
     long: '',
     isLoading: false,
+    errorMessage: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -41,6 +42,12 @@ const reducer = (state = initialState, action = {}) => {
                 username: '',
                 accessToken: '',
                 logged: false,
+            };
+
+        case LOG_ERROR:
+            return {
+                ...state,
+                errorMessage: action.error,
             };
 
         default:
