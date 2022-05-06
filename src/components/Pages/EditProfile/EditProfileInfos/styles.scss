@@ -7,3 +7,12 @@
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
+.test__flex {
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.infos__input {
+  display: block !important;
+}

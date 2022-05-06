@@ -9,14 +9,14 @@ export default function ProfileInfos() {
     return (
         <Grid className="profile-infos" columns={2} divided padded stackable >
             <Grid.Row>
-                <Grid.Column className="infos" >                    
-                    <Container textAlign='center'>                    
+                <Grid.Column >                    
+                    <Container className='infos' textAlign='center'>                    
                         <Image src={games_img} size='small' circular centered />
                         <Header as='h1'>Pseudo</Header>
                         <Header as='h3'>Ville</Header>
                     </Container>
                 </Grid.Column>
-                <Grid.Column className="description" centered>
+                <Grid.Column className="description" >
                 <Button animated='fade' size='tiny' color='orange' floated='right'>
                         <Button.Content hidden>Edit</Button.Content>
                         <Button.Content visible>
