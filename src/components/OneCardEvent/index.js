@@ -2,14 +2,7 @@ import { Card, Image, Icon } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
 
-export default function OneCardEvent({
-  img,
-  title,
-  date,
-  location,
-  players,
-  description,
-}) {
+export default function OneCardEvent({ img, title, date, location, players }) {
   return (
     <Card as="a" color="orange">
       <Image src={img} wrapped ui={false} />
@@ -41,5 +34,4 @@ OneCardEvent.propTypes = {
   players: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
 };
