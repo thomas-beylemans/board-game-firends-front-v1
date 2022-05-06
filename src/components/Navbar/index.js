@@ -15,7 +15,11 @@ export default function Navbar() {
         >
             <Menu.Menu position='left'>
 
-                <Menu.Item>
+                <Menu.Item
+                    as={NavLink}
+                    name='home'
+                    to={'/'}
+                >
                     <img alt="small-logo" src={logo_small} />
                 </Menu.Item>
                 <Menu.Item
@@ -31,13 +35,6 @@ export default function Navbar() {
                     to={'/events'}
                 >
                     Evénements
-                </Menu.Item>
-                <Menu.Item
-                    as={NavLink}
-                    name='my-games'
-                    to={'/team'}
-                >
-                    Luodothèque
                 </Menu.Item>
             </Menu.Menu>
             <Menu.Menu position='right'>
