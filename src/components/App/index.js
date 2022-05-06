@@ -35,7 +35,7 @@ export default function App() {
         {logged && <Route path="/profile/:username" element={'profile user'} />}
         {logged && <Route path="/events" element={'events'} />}
         {logged && <Route path="/events/:id" element={'events id'} />}
-        {logged && <Route path="/team" element={<Team />} />}
+        <Route path="/team" element={<Team />} />
         <Route path="/faq" element={'faq'} />
         <Route path="/terms-of-use" element={'cgu'} />
         <Route path="*" element={'error'} />
