@@ -1,8 +1,11 @@
+import { NavLink } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react'
 
 import './styles.scss';
+import logo_small from '../../../src/assets/img/logo_small.png';
 
 export default function Navbar() {
+
     return (
         <Menu
             className="navbar__menu"
@@ -13,26 +16,26 @@ export default function Navbar() {
             <Menu.Menu position='left'>
 
                 <Menu.Item>
-                    <img alt="small-logo" src='' />
+                    <img alt="small-logo" src={logo_small} />
                 </Menu.Item>
                 <Menu.Item
-                    link
+                    as={NavLink}
                     name='dashboard'
-                    active={true}   // isActive will be determined by React Router
+                    to={'/dashboard'}
                 >
                     Tableau de bord
                 </Menu.Item>
                 <Menu.Item
-                    link
+                    as={NavLink}
                     name='events'
-                    active={false}   // isActive will be determined by React Router
+                    to={'/events'}
                 >
                     Evénements
                 </Menu.Item>
                 <Menu.Item
-                    link
+                    as={NavLink}
                     name='my-games'
-                    active={false}   // isActive will be determined by React Router
+                    to={'/team'}
                 >
                     Luodothèque
                 </Menu.Item>

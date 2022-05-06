@@ -1,7 +1,9 @@
+import Navbar from '../../../components/Navbar';
+
 export default function Team() {
     return (
         <div>
-            <h1>Team</h1>
+            <Navbar />
         </div>
     );
 }
