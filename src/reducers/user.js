@@ -3,6 +3,7 @@ import { CHANGE_VALUE, SAVE_USER, LOGOUT } from "../actions/user";
 export const initialState = {
     email: '',
     password: '',
+    passwordConfirm: '',
     username: '',
     accessToken: '',
     logged: false,
@@ -25,6 +26,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: action.email,
                 password: '',
+                passwordConfirm: '',
                 username: action.username,
                 accessToken: action.accessToken,
                 logged: true,
@@ -35,6 +37,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: '',
                 password: '',
+                passwordConfirm: '',
                 username: '',
                 accessToken: '',
                 logged: false,

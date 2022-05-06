@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../../actions/user';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-import { Button, Grid, Image, Checkbox, Header, Icon } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Popup } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home.avif';
 
 import ControlledInput from '../../ControlledInput';
@@ -12,7 +13,21 @@ import './styles.scss';
 export default function Register() {
     const dispatch = useDispatch();
 
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [open, setOpen] = useState(false);
+
+    const password = useSelector(state => state.user.password);
+    const passwordConfirm = useSelector(state => state.user.passwordConfirm);
+
     const handleSubmit = (e) => {
+        setError(false);
+        setOpen(false);
+        if (password !== passwordConfirm) {
+            setErrorMessage('Les mots de passe ne correspondent pas');
+            setError(true);
+            setOpen(true);
+        }
         e.preventDefault();
         dispatch(signUp());
     };
@@ -55,10 +70,32 @@ export default function Register() {
                                     <ControlledInput className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" />
                                 </Grid.Row>
                                 <Grid.Row>
-                                    <ControlledInput className="register__container__column__input" label='Mot de passe' name="password" type="password" placeholder="Mot de passe" />
+                                    <Popup
+                                        content={errorMessage}
+                                        open={open}
+                                        position='top center'
+                                        on={'click'}
+                                        onClose={() => setOpen(false)}
+                                        trigger={
+                                            <ControlledInput
+                                                className="register__container__column__input"
+                                                label='Mot de passe'
+                                                name="password"
+                                                type="password"
+                                                placeholder="Mot de passe"
+                                                error={error}
+                                            />
+                                        }
+                                    />
                                 </Grid.Row>
                                 <Grid.Row>
-                                    <ControlledInput className="register__container__column__input" label='Répéter' name="password-confirm" type="password" placeholder="Mot de passe" />
+                                    <ControlledInput
+                                        className="register__container__column__input"
+                                        label='Répéter' name="passwordConfirm"
+                                        type="password"
+                                        placeholder="Mot de passe"
+                                        error={error}
+                                    />
                                 </Grid.Row>
                                 <Checkbox className="home__container__column__checkbox" toggle label="J'accepte les conditions générales d'utilisation" />
                                 <Grid.Row>
