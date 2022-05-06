@@ -1,4 +1,4 @@
-import OneCard from '/var/www/html/APO/projet-6-trouvez-des-joueurs-front/src/components/OneCard/index.js'
+import OneCard from '../../../OneCard';
 import { Card, Segment, Header } from 'semantic-ui-react';
 import './styles.scss';
 

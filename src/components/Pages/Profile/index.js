@@ -1,4 +1,4 @@
-import Navbar from '/var/www/html/APO/projet-6-trouvez-des-joueurs-front/src/components/Navbar/index.js';
+import Navbar from '../../Navbar';
 import ProfileInfos from './ProfileInfos';
 import Games from './Games';
 import './styles.scss';
