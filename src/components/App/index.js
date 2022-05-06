@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/terms-of-use" element={'cgu'} />
         <Route path="*" element={'error'} />
       </Routes>
+
     </div>
   );
 }
