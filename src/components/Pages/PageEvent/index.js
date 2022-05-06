@@ -1,6 +1,5 @@
-import Map from "../Map";
-import OneCardEvent from "../Page/OneCardEvent";
-import "./styles.scss";
+import Map from "../../Map";
+import OneCardEvent from "../../OneCardEvent";
 import { Header, Card } from "semantic-ui-react";
 
 // user position defined in the user profile - fetched from the database

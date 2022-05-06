@@ -1,5 +1,5 @@
 import Navbar from "../Navbar";
-import PageEvent from "../PageEvent";
+import PageEvent from "../Pages/PageEvent";
 import "./styles.scss";
 
 export default function App() {
