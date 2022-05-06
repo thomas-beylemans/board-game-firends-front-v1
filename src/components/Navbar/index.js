@@ -34,7 +34,7 @@ export default function Navbar() {
                     name='my-games'
                     active={false}   // isActive will be determined by React Router
                 >
-                    Luodothèque
+                    Ludothèque
                 </Menu.Item>
             </Menu.Menu>
             <Menu.Menu position='right'>

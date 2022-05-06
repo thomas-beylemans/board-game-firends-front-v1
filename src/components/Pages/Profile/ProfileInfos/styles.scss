@@ -1,16 +1,10 @@
-// .profile-infos {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-evenly;
-// }
+.ui.container {
+  background-color: rgb(241, 206, 109);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
 
-// .infos {
-//     background-color: orange;
-//     display: flex;   
-//     flex-direction: column;
-//     align-items: baseline;
-// }
-
-// .description {
-    
+// .ui.column {
+//   text-align:center;
 // }
