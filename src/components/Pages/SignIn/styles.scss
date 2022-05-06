@@ -34,10 +34,6 @@ img.ui.image {
     margin-bottom: 1rem;
 }
 
-.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column {
-    height: 100vh;
-}
-
 .home__footer {
     justify-content: flex-end;
     width: 100%;
@@ -53,6 +49,7 @@ img.ui.image {
 
     &__row {
         padding: 0 !important;
+        height: 100vh;
     }
 
     &__column {
