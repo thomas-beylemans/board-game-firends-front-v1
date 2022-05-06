@@ -33,8 +33,8 @@ export const saveUser = (username, email) => ({
   email
 });
 
-export const CHANGE_VALUE_CITY = 'CHANGE_VALUE_CITY';
-export const changeValueCity = (newValue) => ({
-  type: CHANGE_VALUE,
-  newValue,
+export const SAVE_CITY = 'SAVE_CITY';
+export const saveCity = (city) => ({
+  type: SAVE_CITY,
+  city,
 });

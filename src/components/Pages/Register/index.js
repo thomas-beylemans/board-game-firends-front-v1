@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../../../actions/user';
+import { saveCity, signUp } from '../../../actions/user';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Popup } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Popup, Input } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -20,18 +20,22 @@ export default function Register() {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [suggestedCity, setSuggestedCity] = useState([]);
+  const [city, setCity] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const apiError = useSelector(state => state.user.errorMessage);
   const password = useSelector(state => state.user.password);
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
-  const city = useSelector(state => state.user.city);
+  const postcode = useSelector(state => state.user.postcode);
 
-  useEffect((e) => {
-    axios.get(`https://geo.api.gouv.fr/communes?nom=${city}&fields=code,nom,centre,departement`)
+  const handleChangeCity = (e) => {
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&fields=code,nom,centre,departement,codesPostaux`)
     .then(res => {
-      setSuggestedCity(res.data);
-    })
-  }, [city]);
+          setSuggestedCity(res.data);
+        })
+    setCity(e.target.value);
+  };
+
 
   const handleSubmit = (e) => {
     setError(false);
@@ -47,7 +51,15 @@ export default function Register() {
       setPasswordOpen(true);
     }
     e.preventDefault();
-    dispatch(signUp());
+    setIsLoading(true);
+    const selectedCity = suggestedCity.filter(el => { return el.nom === city; }).filter(el => { return el.codesPostaux.includes(postcode); });
+    dispatch(saveCity(selectedCity[0]))
+    .then(() => {
+      dispatch(signUp());
+    })
+    .finaly(() => {
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -85,7 +97,7 @@ export default function Register() {
                   <ControlledInput className="register__container__column__input" label='Pseudo' name="username" type="text" placeholder="Pseudo" />
                 </Grid.Row>
                 <Grid.Row>
-                  <ControlledInput className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" />
+                  <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} />
                   <datalist id="cities">
                     {
                       suggestedCity.map(city => (
@@ -93,6 +105,9 @@ export default function Register() {
                       ))
                     }
                   </datalist>
+                  <Grid.Row>
+                  <ControlledInput className="register__container__column__input" label='Code Postal' name="postcode" type="text" placeholder="Code Postal" />
+                </Grid.Row>
                 </Grid.Row>
                 <Grid.Row>
                   <Popup
@@ -136,6 +151,7 @@ export default function Register() {
                         color="orange"
                         size="big"
                         type="submit"
+                        loading={isLoading}
                       >
                         S'enregistrer
                       </Button>
