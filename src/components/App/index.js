@@ -8,6 +8,7 @@ import Register from '../Pages/Register';
 import SignIn from '../Pages/SignIn';
 import Dashboard from '../Pages/Dashboard';
 import Team from '../Pages/Team';
+import Profile from '../Pages/Profile';
 
 import './styles.scss';
 
@@ -31,7 +32,7 @@ export default function App() {
         <Route path="/" element={logged ? <Navigate to="/dashboard" /> : <SignIn />} />
         <Route path="/register" element={logged ? <Navigate to="/dashboard" /> : <Register />} />
         {logged && <Route path="/dashboard" element={<Dashboard />} />}
-        {logged && <Route path="/profile" element={'profile'} />}
+        {logged && <Route path="/profile" element={<Profile />} />}
         {logged && <Route path="/profile/:username" element={'profile user'} />}
         {logged && <Route path="/events" element={'events'} />}
         {logged && <Route path="/events/:id" element={'events id'} />}
