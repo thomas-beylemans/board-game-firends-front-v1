@@ -4,12 +4,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "../../actions/user";
 
-import Register from "../Pages/Register";
-import SignIn from "../Pages/SignIn";
-import Dashboard from "../Pages/Dashboard";
-import Team from "../Pages/Team";
-import Profile from "../Pages/Profile";
-import PageEvent from "../Pages/PageEvent";
+import Register from '../Pages/Register';
+import SignIn from '../Pages/SignIn';
+import Dashboard from '../Pages/Dashboard';
+import Team from '../Pages/Team';
+import Profile from '../Pages/Profile';
+import EditProfile from '../Pages/EditProfile';
 
 import "./styles.scss";
 
@@ -40,9 +40,10 @@ export default function App() {
         />
         {logged && <Route path="/dashboard" element={<Dashboard />} />}
         {logged && <Route path="/profile" element={<Profile />} />}
-        {logged && <Route path="/profile/:username" element={"profile user"} />}
-        {logged && <Route path="/events" element={<PageEvent />} />}
-        {logged && <Route path="/events/:id" element={"events id"} />}
+        {logged && <Route path="/editprofile" element={<EditProfile />} />}
+        {logged && <Route path="/profile/:username" element={'profile user'} />}
+        {logged && <Route path="/events" element={'events'} />}
+        {logged && <Route path="/events/:id" element={'events id'} />}
         <Route path="/team" element={<Team />} />
         <Route path="/faq" element={"faq"} />
         <Route path="/terms-of-use" element={"cgu"} />
