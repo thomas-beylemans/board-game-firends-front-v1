@@ -1,11 +1,15 @@
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import ControlledInput from '../../../ControlledInput';
+import { useSelector } from 'react-redux';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
 
 export default function EditProfileInfos(onClick) {
-
+    const username = useSelector(state => state.user.username)
+    const city = useSelector(state => state.user.city)
+    const email = useSelector(state => state.user.email)    
+    const bio = useSelector(state => state.user.bio)    
 
     return (
         <Form className="form__flex">
@@ -20,15 +24,15 @@ export default function EditProfileInfos(onClick) {
                                     <Icon name='edit' />
                                 </Button>
                                 <input type="file" id="file" style={{ display: "none" }} />
-                                <ControlledInput label='Pseudo' name='username' className="infos__input" />
-                                <ControlledInput label='Ville' name='city' className="infos__input" />
+                                <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
+                                <ControlledInput value={city} label='Ville' name='city' className="infos__input" />
                             </Container>
                         </Grid.Column>
                         <Grid.Column className="description">
                             <Header as='h2'>Quelques mots sur moi</Header>
-                            <TextArea rows={8}>
+                            <TextArea rows={8} value={bio}>
                             </TextArea>
-                            <ControlledInput label='Email' name='email' className="infos__input" />
+                            <ControlledInput value={email} label='Email' name='email' className="infos__input" />
                             <ControlledInput label='Mot-de-passe' name='password' className="infos__input" />
                         </Grid.Column>
                     </Grid.Row>

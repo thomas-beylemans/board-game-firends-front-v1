@@ -7,6 +7,8 @@ export const initialState = {
     accessToken: '',
     logged: false,
     city: '',
+    bio:'',
+    avatar:'',
     lat: '',
     long: '',
     isLoading: false,
