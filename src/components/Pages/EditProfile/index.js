@@ -1,6 +1,6 @@
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
-import EditGames from './EditGames';
+import AddGame from './AddGame';
 import Games from '../../Games'
 import './styles.scss';
 
@@ -11,7 +11,7 @@ export default function EditProfile() {
         <div className="profile">
             <Navbar />
             <EditProfileInfos />
-            <EditGames />
+            <AddGame />
             <Games />
         </div>
     );

@@ -26,7 +26,7 @@ export default function EditProfileInfos(onClick) {
                         </Grid.Column>
                         <Grid.Column className="description">
                             <Header as='h2'>Quelques mots sur moi</Header>
-                            <TextArea rows={8}>Vivamus in posuere velit. Donec eu mi enim. Fusce ut nisi rhoncus, egestas magna quis, commodo nisl. Integer blandit ipsum sed ante porttitor egestas. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur tempor fringilla nisi sed ornare. Vestibulum ac ante dapibus, bibendum sem ac, sollicitudin odio. Sed a ornare ex.
+                            <TextArea rows={8}>
                             </TextArea>
                             <ControlledInput label='Email' name='email' className="infos__input" />
                             <ControlledInput label='Mot-de-passe' name='password' className="infos__input" />

@@ -5,7 +5,7 @@ export default function Games() {
 
 
     return (
-        <Segment color='orange' padded>
+        <Segment className='games-segment' color='orange' padded>
             <Header as='h1' color='orange'>Ludothèque</Header>
             <Card.Group centered >
                 <Card>
