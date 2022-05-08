@@ -1,4 +1,4 @@
-import { Card, Header, Grid } from 'semantic-ui-react';
+import {Card, Header, Grid} from 'semantic-ui-react';
 
 import Navbar from '../../../components/Navbar';
 import Banner from '../../Banner';
@@ -9,17 +9,21 @@ import './styles.scss';
 
 export default function Dashboard() {
     return (
-        <div className="dashboard">
+        <div className='dashboard'>
             <Navbar />
             <Banner />
-            <div className="dashboard__content">
-                <Grid columns={2} stackable className="dashboard__content__cardgroups">
+            <div className='dashboard__content'>
+                <Grid
+                    columns={2}
+                    stackable
+                    className='dashboard__content__cardgroups'
+                >
                     <Grid.Row>
                         <Grid.Column>
                             <Header as='h2'>Mes événements à venir</Header>
                             <Card.Group
                                 stackable
-                                className="dashboard__content__cardgroups__cards"
+                                className='dashboard__content__cardgroups__cards'
                             >
                                 <OneCard
                                     img='https://jeudecarte.net/wp-content/uploads/2019/02/ascension-810x507.jpg'
@@ -57,8 +61,7 @@ export default function Dashboard() {
                             <Header as='h2'>Mes événements organisés</Header>
                             <Card.Group
                                 stackable
-                                className="dashboard__content__cardgroups__cards"
-
+                                className='dashboard__content__cardgroups__cards'
                             >
                                 <OneCard
                                     img='https://jeudecarte.net/wp-content/uploads/2019/02/ascension-810x507.jpg'
@@ -83,7 +86,7 @@ export default function Dashboard() {
                             <Header as='h2'>Mes jeux</Header>
                             <Card.Group
                                 stackable
-                                className="dashboard__content__cardgroups__cards"
+                                className='dashboard__content__cardgroups__cards'
                             >
                                 <OneCard
                                     img='https://jeudecarte.net/wp-content/uploads/2019/02/ascension-810x507.jpg'
