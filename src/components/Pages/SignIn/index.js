@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { login } from '../../../actions/user';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Message } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Message, Modal } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -15,6 +15,8 @@ export default function SignIn() {
   const dispatch = useDispatch();
 
   const [isHidden, setIsHidden] = useState(true);
+  const [firstModalOpen, setFirstModalOpen] = useState(false);
+  const [secondModalOpen, setSecondModalOpen] = useState(false);
 
   const errorAPI = useSelector(state => state.user.errorMessage);
 
@@ -83,7 +85,7 @@ export default function SignIn() {
                 color="orange"
                 size="big"
                 type="button"
-                disabled
+                onClick={() => setFirstModalOpen(true)}
               >
                 Mot de passe oublié
               </Button>
@@ -103,6 +105,49 @@ export default function SignIn() {
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <Modal
+        onClose={() => setFirstModalOpen(false)}
+        onOpen={() => setFirstModalOpen(true)}
+        open={firstModalOpen}
+      >
+        <Modal.Header>Récupérez votre mot de passe</Modal.Header>
+        <Modal.Content image>
+          <div className='image'>
+            <Icon name='settings' />
+          </div>
+          <Modal.Description>
+            <p>Entrez votre adresse e-mail</p>
+          <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            onClick={() => setSecondModalOpen(true)} color="orange">
+            Envoyer <Icon name='right chevron' />
+          </Button>
+        </Modal.Actions>
+        <Modal
+          onClose={() => setSecondModalOpen(false)}
+          open={secondModalOpen}
+          size='small'
+        >
+          <Modal.Header>Confirmation d'envoi du lien de récupération</Modal.Header>
+          <Modal.Content>
+            <p>Consultez vos e-mails !</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              icon='check'
+              content='Valider'
+              positive
+              onClick={() => { 
+                setSecondModalOpen(false);
+                setFirstModalOpen(false)
+              }}
+            />
+          </Modal.Actions>
+        </Modal>
+      </Modal>
     </div>
   )
 };

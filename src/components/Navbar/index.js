@@ -35,23 +35,23 @@ export default function Navbar() {
         >
           <img alt="small-logo" src={logo_small} />
         </Menu.Item>
-        <Menu.Item
+        {logged && <Menu.Item
           as={NavLink}
           name='dashboard'
           to={'/dashboard'}
         >
           Tableau de bord
-        </Menu.Item>
-        <Menu.Item
+        </Menu.Item>}
+        {logged && <Menu.Item
           as={NavLink}
           name='events'
           to={'/events'}
         >
           Evénements
-        </Menu.Item>
+        </Menu.Item>}
       </Menu.Menu>
       <Menu.Menu position='right'>
-        <Menu.Item>
+      {logged && <Menu.Item>
           <Button
             circular
             icon='plus circle'
@@ -60,7 +60,7 @@ export default function Navbar() {
             to={'/events'}
             inverted
           />
-        </Menu.Item>
+        </Menu.Item>}
         <Menu.Item>
           <Button
             circular
