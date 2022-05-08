@@ -115,20 +115,6 @@ export default function PageEvent() {
                     location="Lieu"
                     players="Limite de joueurs"
                 />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
             </Card.Group>
 
             <Footer />
