@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { login } from '../../../actions/user';
 
-import { Button, Grid, Image, Checkbox, Header, Icon } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Message } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -13,10 +14,20 @@ import './styles.scss';
 export default function SignIn() {
   const dispatch = useDispatch();
 
+  const [isHidden, setIsHidden] = useState(true);
+
+  const errorAPI = useSelector(state => state.user.errorMessage);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login());
   };
+
+  useEffect(() => {
+    if(errorAPI){
+      setIsHidden(false);
+    }
+  }, [errorAPI]);
 
   return (
     <div className="home">
@@ -45,6 +56,7 @@ export default function SignIn() {
                 <Icon name='unlock' circular />
                 <Header.Content>Connexion</Header.Content>
               </Header>
+              <Message hidden={isHidden} negative floating>{errorAPI}</Message>
               <form onSubmit={handleSubmit}>
                 <Grid.Row>
                   <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />

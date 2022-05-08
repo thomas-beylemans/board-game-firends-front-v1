@@ -17,6 +17,9 @@ const user = (store) => (next) => async (action) => {
           password: state.user.password,
           username: state.user.username,
           city: state.user.city,
+          postcode: state.user.postcode,
+          lat: state.user.lat,
+          long: state.user.long,
         });
         // get the username and JWT Token from the API and store them in local storage
         const { username, accessToken } = response.data;
@@ -53,7 +56,7 @@ const user = (store) => (next) => async (action) => {
         store.dispatch(saveUser(username, accessToken));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
-        console.error(err);
+        store.dispatch(logError(err.response.data.message));
       }
       break;
     }
