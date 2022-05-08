@@ -69,7 +69,9 @@ export default function SignIn() {
                 <Icon name='unlock' circular />
                 <Header.Content>Connexion</Header.Content>
               </Header>
+              <div className="register__container__column__error">
               <Message hidden={isHidden} negative floating>{errorMessage}</Message>
+              </div>
               <form onSubmit={handleSubmit}>
                 <Grid.Row>
                   <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />

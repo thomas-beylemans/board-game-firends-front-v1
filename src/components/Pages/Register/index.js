@@ -115,11 +115,13 @@ export default function Register() {
           </Grid.Column>
           <Grid.Column textAlign="center" className="register__container__column">
             <Grid.Row>
-              <Header as='h2' icon textAlign='center' className="home__container__column__header">
+              <Header as='h2' icon textAlign='center' className="register__container__column__header">
                 <Icon name='save' circular />
                 <Header.Content>S'enregistrer</Header.Content>
               </Header>
+              <div className="register__container__column__error">
               <Message hidden={isHidden} negative floating>{errorMessage}</Message>
+              </div>
               <form onSubmit={handleSubmit} autoComplete="off">
                 <Grid.Row>
                   <ControlledInput className="register__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />
@@ -167,8 +169,11 @@ export default function Register() {
                     size="big"
                     type="submit"
                     loading={isLoading}
+                    icon
+                    labelPosition='right'
                   >
                     S'enregistrer
+                    <Icon name='save' />
                   </Button>
                 </Grid.Row>
               </form>
