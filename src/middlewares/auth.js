@@ -5,6 +5,7 @@ export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
 });
 
+
 const user = (store) => (next) => async (action) => {
   switch (action.type) {
     case SIGN_UP: {
@@ -17,7 +18,6 @@ const user = (store) => (next) => async (action) => {
           username: state.user.username,
           city: state.user.city,
         });
-        console.log(response.data);
         // get the username and JWT Token from the API and store them in local storage
         const { username, accessToken } = response.data;
         localStorage.setItem(
@@ -30,8 +30,7 @@ const user = (store) => (next) => async (action) => {
         store.dispatch(saveUser(username));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
-        const errorCode = err.response.status;
-        store.dispatch(logError(errorCode));
+        store.dispatch(logError(err.message));
       }
       break;
     }

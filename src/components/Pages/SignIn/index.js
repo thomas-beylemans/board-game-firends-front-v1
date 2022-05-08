@@ -22,7 +22,7 @@ export default function SignIn() {
     <div className="home">
       <Grid columns={2} stackable className="home__container">
         <Grid.Row className="home__container__row">
-          <Grid.Column stackable textAlign="left" className="home__container__column">
+          <Grid.Column textAlign="left" className="home__container__column">
             <Image className="home__container__column__img" src={bg_img} />
             <Grid.Row>
               <Header className="home__container__column__h1" as='h1'>Bienvenue sur Board Game Friends</Header>
@@ -39,7 +39,7 @@ export default function SignIn() {
               </Grid.Row>
             </Grid>
           </Grid.Column>
-          <Grid.Column stackable textAlign="center" className="home__container__column">
+          <Grid.Column textAlign="center" className="home__container__column">
             <Grid.Row>
               <Header as='h2' icon textAlign='center' className="home__container__column__header">
                 <Icon name='unlock' circular />
