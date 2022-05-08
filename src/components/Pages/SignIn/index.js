@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { login, clearError } from '../../../actions/user';
+import { login, clearError, saveError } from '../../../actions/user';
+import { checkEmail } from '../../../utils/checkForm';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Message, Modal } from 'semantic-ui-react';
+import { Button, Grid, Image, Header, Icon, Message, Modal } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -17,30 +18,29 @@ export default function SignIn() {
   const [isHidden, setIsHidden] = useState(true);
   const [firstModalOpen, setFirstModalOpen] = useState(false);
   const [secondModalOpen, setSecondModalOpen] = useState(false);
-  const [checked, setChecked] = useState(false);
 
-  const errorAPI = useSelector(state => state.user.errorMessage);
-
-  const handleToggle = (e) => {
-    setChecked(!checked);
-  };
+  const errorMessage = useSelector(state => state.user.errorMessage);
+  const email = useSelector(state => state.user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const checkedEmail = checkEmail(email);
+    if (checkedEmail) {
+      dispatch(saveError(checkedEmail));
+      return;
+    }
     dispatch(login());
   };
 
   useEffect(() => {
-    if (errorAPI) {
+    if (errorMessage) {
       setIsHidden(false);
-    }
-    return () => {
       setTimeout(() => {
-        setIsHidden(true);
         dispatch(clearError());
+        setIsHidden(true);
       }, 3000);
     }
-  }, [dispatch, errorAPI]);
+  }, [dispatch, errorMessage]);
 
   return (
     <div className="home">
@@ -69,7 +69,7 @@ export default function SignIn() {
                 <Icon name='unlock' circular />
                 <Header.Content>Connexion</Header.Content>
               </Header>
-              <Message hidden={isHidden} negative floating>{errorAPI}</Message>
+              <Message hidden={isHidden} negative floating>{errorMessage}</Message>
               <form onSubmit={handleSubmit}>
                 <Grid.Row>
                   <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />
@@ -77,7 +77,6 @@ export default function SignIn() {
                 <Grid.Row>
                   <ControlledInput className="home__container__column__input" label='Mot de passe' name="password" type="password" placeholder="Mot de passe" />
                 </Grid.Row>
-                <Checkbox className="home__container__column__checkbox" toggle checked={checked} label="J'accepte les conditions générales d'utilisation" onClick={handleToggle} />
                 <Grid.Row>
                   <Button
                     className="home__container__column__button"

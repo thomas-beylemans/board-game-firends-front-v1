@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { saveCity, signUp, clearError } from '../../../actions/user';
+import { saveCity, signUp, clearError, saveError } from '../../../actions/user';
 import { checkForm } from '../../../utils/checkForm';
 import { findCity } from '../../../utils/findCity';
 
@@ -18,7 +18,6 @@ export default function Register() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -28,8 +27,9 @@ export default function Register() {
   const password = useSelector(state => state.user.password);
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
   const postcode = useSelector(state => state.user.postcode);
-  const errorAPI = useSelector(state => state.user.errorMessage);
   const email = useSelector(state => state.user.email);
+  const errorMessage = useSelector(state => state.user.errorMessage);
+  const username = useSelector(state => state.user.username);
 
   const handleToggle = (e) => {
     setChecked(!checked);
@@ -49,33 +49,33 @@ export default function Register() {
     e.preventDefault();
     // pass an array, a city and postcode to find it in the array of suggested cities returned by the API GeoGouv
     dispatch(saveCity(findCity(suggestedCity, city, postcode)));
-    const checkedForm = checkForm(password, passwordConfirm, email, checked);
+    const checkedForm = checkForm(password, passwordConfirm, email, username, checked);
     if (checkedForm.passwordChecked) {
       setPasswordError(true);
       setIsHidden(false);
-      setErrorMessage(checkedForm.passwordChecked);
+      dispatch(saveError(checkedForm.passwordChecked));
       setIsLoading(false);
       return;
     }
     if (checkedForm.emailChecked) {
       setIsHidden(false);
-      setErrorMessage(checkedForm.emailChecked);
+      dispatch(saveError(checkedForm.emailChecked));
+      setIsLoading(false);
+      return;
+    }
+    if (checkedForm.usernameChecked) {
+      setIsHidden(false);
+      dispatch(saveError(checkedForm.usernameChecked));
       setIsLoading(false);
       return;
     }
     if (checkedForm.termsChecked) {
       setIsHidden(false);
-      setErrorMessage(checkedForm.termsChecked);
+      dispatch(saveError(checkedForm.termsChecked));
       setIsLoading(false);
       return;
     }
-    if (errorAPI) {
-      setIsHidden(false);
-      setErrorMessage(errorAPI);
-      setIsLoading(false);
-      return;
-    }
-    if (!checkedForm.passwordChecked && !checkedForm.emailChecked && !checkedForm.termsChecked && !errorAPI) {
+    if (!checkedForm.passwordChecked && !checkedForm.emailChecked && !checkedForm.termsChecked) {
       dispatch(signUp());
     }
     setIsLoading(false);
@@ -84,13 +84,10 @@ export default function Register() {
   useEffect(() => {
     if (errorMessage) {
       setIsHidden(false);
-      setIsLoading(false);
-    }
-    return () => {
       setTimeout(() => {
-        setIsHidden(true);
-        setErrorMessage('');
         dispatch(clearError());
+        setPasswordError(false);
+        setIsHidden(true);
       }, 3000);
     }
   }, [dispatch, errorMessage]);

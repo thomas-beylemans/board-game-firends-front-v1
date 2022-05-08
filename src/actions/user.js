@@ -20,9 +20,9 @@ export const logOut = () => ({
   type: LOGOUT,
 });
 
-export const LOG_ERROR = 'LOG_ERROR';
-export const logError = (error) => ({
-  type: LOG_ERROR,
+export const SAVE_ERROR = 'SAVE_ERROR';
+export const saveError = (error) => ({
+  type: SAVE_ERROR,
   error,
 });
 
