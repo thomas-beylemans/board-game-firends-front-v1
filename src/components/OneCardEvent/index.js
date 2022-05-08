@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function OneCardEvent({img, title, date, location, players}) {
     return (
-        <Card as={Link} to={'/profile'} color="orange">
+        <Card as={Link} to={'/events/42'} color="orange">
             <Image src={img} wrapped ui={false} />
             <Card.Content>
                 <Card.Description>

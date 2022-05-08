@@ -1,0 +1,14 @@
+.eventdetail {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 5px 5px 5px rgb(122, 117, 117) !important;
+
+    &__button {
+        width: 200px !important;
+        margin: auto !important;
+    }
+    &__img {
+        box-shadow: 5px 5px 5px rgb(122, 117, 117) !important;
+    }
+}
