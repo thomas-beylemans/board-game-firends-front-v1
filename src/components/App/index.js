@@ -38,22 +38,14 @@ export default function App() {
                 />
                 <Route
                     path="/register"
-                    element={
-                        logged ? <Navigate to="/dashboard" /> : <Register />
-                    }
+                    element={logged ? <Navigate to="/dashboard" /> : <Register />}
                 />
                 {logged && <Route path="/dashboard" element={<Dashboard />} />}
                 {logged && <Route path="/profile" element={<Profile />} />}
-                {logged && (
-                    <Route path="/editprofile" element={<EditProfile />} />
-                )}
-                {logged && (
-                    <Route path="/profile/:username" element={'profile user'} />
-                )}
+                {logged && (<Route path="/editprofile" element={<EditProfile />} />)}
+                {logged && (<Route path="/profile/:username" element={'profile user'} />)}
                 {logged && <Route path="/events" element={<PageEvent />} />}
-                {logged && (
-                    <Route path="/events/:id" element={<EventDetails />} />
-                )}
+                {logged && (<Route path="/events/:id" element={<EventDetails />} />)}
                 <Route path="/team" element={<Team />} />
                 <Route path="/faq" element={'faq'} />
                 <Route path="/terms-of-use" element={'cgu'} />
