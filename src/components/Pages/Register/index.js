@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveCity, signUp } from '../../../actions/user';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { saveCity, signUp, clearError } from '../../../actions/user';
+import { checkForm } from '../../../utils/checkForm';
+import { findCity } from '../../../utils/findCity';
 
 import { Button, Grid, Image, Checkbox, Header, Icon, Input, Message } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
@@ -18,7 +20,8 @@ export default function Register() {
   const [isHidden, setIsHidden] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState(false);
-  
+  const [checked, setChecked] = useState(false);
+
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [city, setCity] = useState('');
 
@@ -26,6 +29,11 @@ export default function Register() {
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
   const postcode = useSelector(state => state.user.postcode);
   const errorAPI = useSelector(state => state.user.errorMessage);
+  const email = useSelector(state => state.user.email);
+
+  const handleToggle = (e) => {
+    setChecked(!checked);
+  };
 
   const handleChangeCity = (e) => {
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&fields=code,nom,centre,departement,codesPostaux`)
@@ -38,25 +46,54 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
-      e.preventDefault();
-      setPasswordError(false);
-        if (password !== passwordConfirm) {
-          setPasswordError(true);
-          setErrorMessage('Les mots de passe ne correspondent pas');
-          setIsHidden(false);
-        }
-      const selectedCity = suggestedCity.filter(el => { return el.nom === city; }).filter(el => { return el.codesPostaux.includes(postcode); });
-      dispatch(saveCity(selectedCity[0]));
-      dispatch(signUp())
+    e.preventDefault();
+    // pass an array, a city and postcode to find it in the array of suggested cities returned by the API GeoGouv
+    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    const checkedForm = checkForm(password, passwordConfirm, email, checked);
+    if (checkedForm.passwordChecked) {
+      setPasswordError(true);
+      setIsHidden(false);
+      setErrorMessage(checkedForm.passwordChecked);
+      setIsLoading(false);
+      return;
+    }
+    if (checkedForm.emailChecked) {
+      setIsHidden(false);
+      setErrorMessage(checkedForm.emailChecked);
+      setIsLoading(false);
+      return;
+    }
+    if (checkedForm.termsChecked) {
+      setIsHidden(false);
+      setErrorMessage(checkedForm.termsChecked);
+      setIsLoading(false);
+      return;
+    }
+    if (errorAPI) {
+      setIsHidden(false);
+      setErrorMessage(errorAPI);
+      setIsLoading(false);
+      return;
+    }
+    if (!checkedForm.passwordChecked && !checkedForm.emailChecked && !checkedForm.termsChecked && !errorAPI) {
+      dispatch(signUp());
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    if(errorAPI){
-      setErrorMessage(errorAPI);
+    if (errorMessage) {
       setIsHidden(false);
       setIsLoading(false);
     }
-  }, [errorAPI]);
+    return () => {
+      setTimeout(() => {
+        setIsHidden(true);
+        setErrorMessage('');
+        dispatch(clearError());
+      }, 3000);
+    }
+  }, [dispatch, errorMessage]);
 
   return (
     <div className="register">
@@ -125,7 +162,7 @@ export default function Register() {
                     error={passwordError}
                   />
                 </Grid.Row>
-                <Checkbox className="home__container__column__checkbox" toggle label="J'accepte les conditions générales d'utilisation" />
+                <Checkbox className="home__container__column__checkbox" toggle checked={checked} label="J'accepte les conditions générales d'utilisation" onClick={handleToggle} />
                 <Grid.Row>
                   <Button
                     className="register__container__column__button"

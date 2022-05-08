@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { login } from '../../../actions/user';
+import { login, clearError } from '../../../actions/user';
 
 import { Button, Grid, Image, Checkbox, Header, Icon, Message, Modal } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
@@ -17,8 +17,13 @@ export default function SignIn() {
   const [isHidden, setIsHidden] = useState(true);
   const [firstModalOpen, setFirstModalOpen] = useState(false);
   const [secondModalOpen, setSecondModalOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const errorAPI = useSelector(state => state.user.errorMessage);
+
+  const handleToggle = (e) => {
+    setChecked(!checked);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,10 +31,16 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if(errorAPI){
+    if (errorAPI) {
       setIsHidden(false);
     }
-  }, [errorAPI]);
+    return () => {
+      setTimeout(() => {
+        setIsHidden(true);
+        dispatch(clearError());
+      }, 3000);
+    }
+  }, [dispatch, errorAPI]);
 
   return (
     <div className="home">
@@ -66,15 +77,17 @@ export default function SignIn() {
                 <Grid.Row>
                   <ControlledInput className="home__container__column__input" label='Mot de passe' name="password" type="password" placeholder="Mot de passe" />
                 </Grid.Row>
-                <Checkbox className="home__container__column__checkbox" toggle label="J'accepte les conditions générales d'utilisation" />
+                <Checkbox className="home__container__column__checkbox" toggle checked={checked} label="J'accepte les conditions générales d'utilisation" onClick={handleToggle} />
                 <Grid.Row>
                   <Button
                     className="home__container__column__button"
                     color="orange"
                     size="big"
                     type="submit"
-                  >
+                    icon
+                    labelPosition='right'>
                     Connexion
+                    <Icon name='sign in' />
                   </Button>
                 </Grid.Row>
               </form>
@@ -85,6 +98,7 @@ export default function SignIn() {
                 color="orange"
                 size="big"
                 type="button"
+                inverted
                 onClick={() => setFirstModalOpen(true)}
               >
                 Mot de passe oublié
@@ -96,9 +110,11 @@ export default function SignIn() {
                   className="home__container__column__button"
                   color="orange"
                   size="big"
-                  type="button"
-                >
-                  Inscrivez-vous
+                  type="submit"
+                  icon
+                  labelPosition='right'>
+                  S'inscrire
+                  <Icon name='signup' />
                 </Button>
               </Link>
             </Grid.Row>
@@ -117,7 +133,7 @@ export default function SignIn() {
           </div>
           <Modal.Description>
             <p>Entrez votre adresse e-mail</p>
-          <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />
+            <ControlledInput className="home__container__column__input" label='E-mail' name="email" type="email" placeholder="Email" />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
@@ -140,7 +156,7 @@ export default function SignIn() {
               icon='check'
               content='Valider'
               positive
-              onClick={() => { 
+              onClick={() => {
                 setSecondModalOpen(false);
                 setFirstModalOpen(false)
               }}

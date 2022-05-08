@@ -26,6 +26,11 @@ export const logError = (error) => ({
   error,
 });
 
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const clearError = () => ({
+  type: CLEAR_ERROR,
+});
+
 export const SAVE_USER = 'SAVE_USER';
 export const saveUser = (username, email) => ({
   type: SAVE_USER,
