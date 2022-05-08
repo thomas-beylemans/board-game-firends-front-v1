@@ -10,6 +10,7 @@ import { Button, Grid, Image, Checkbox, Header, Icon, Input, Message } from 'sem
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
+import Alert from '../../Alert';
 
 import './styles.scss';
 
@@ -120,7 +121,7 @@ export default function Register() {
                 <Header.Content>S'enregistrer</Header.Content>
               </Header>
               <div className="register__container__column__error">
-              <Message hidden={isHidden} negative floating>{errorMessage}</Message>
+                <Alert hidden={isHidden} message={errorMessage} />
               </div>
               <form onSubmit={handleSubmit} autoComplete="off">
                 <Grid.Row>

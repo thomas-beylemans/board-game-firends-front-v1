@@ -9,6 +9,7 @@ import { Button, Grid, Image, Header, Icon, Message, Modal } from 'semantic-ui-r
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
+import Alert from '../../Alert';
 
 import './styles.scss';
 
@@ -70,7 +71,7 @@ export default function SignIn() {
                 <Header.Content>Connexion</Header.Content>
               </Header>
               <div className="register__container__column__error">
-              <Message hidden={isHidden} negative floating>{errorMessage}</Message>
+                <Alert hidden={isHidden} message={errorMessage} />
               </div>
               <form onSubmit={handleSubmit}>
                 <Grid.Row>
