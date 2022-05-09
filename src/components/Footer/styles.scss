@@ -6,4 +6,27 @@
     text-align: center;
     color: white;
     border-radius: 5px;
+
+    &__column {
+      text-align: left;
+      
+      &__title {
+        text-align: center;
+      }
+
+      &__link {
+        text-decoration: none;
+        color: white;
+        text-align: left;
+        font-size: 1.1rem;
+
+        &:hover {
+          color: #000000;
+        }
+      }
+    }
+
+    &__row {
+      margin-bottom: .5rem;
+    }
 }
