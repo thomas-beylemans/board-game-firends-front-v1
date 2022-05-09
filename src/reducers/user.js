@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, CLEAR_ERROR, SAVE_ERROR } from "../actions/user";
+import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY } from "../actions/user";
 
 export const initialState = {
     email: '',

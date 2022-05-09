@@ -41,6 +41,7 @@ export default function Register() {
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
         setSuggestedCity(res.data);
+        console.log(suggestedCity);
       })
     setCity(e.target.value);
   };
@@ -136,7 +137,7 @@ export default function Register() {
                   <datalist id="cities">
                     {
                       suggestedCity.map(city => (
-                        <option key={city.code} value={city.nom} />
+                        <option key={city.code} value={city.nom.normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )} />
                       ))
                     }
                   </datalist>
