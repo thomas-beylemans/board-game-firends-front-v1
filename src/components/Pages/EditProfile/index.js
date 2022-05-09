@@ -1,7 +1,8 @@
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
 import AddGame from './AddGame';
-import Games from '../../Games'
+import Games from '../../Games';
+import Footer from '../../Footer';
 import './styles.scss';
 
 export default function EditProfile() {
@@ -13,6 +14,7 @@ export default function EditProfile() {
             <EditProfileInfos />
             <AddGame />
             <Games />
+            <Footer />
         </div>
     );
 }
