@@ -6,18 +6,18 @@ export default function Footer() {
   return (
     <div className="footer">
       <Grid columns={3}>
-        <Grid.Column>
+        <Grid.Column className="footer__column">
       <Grid.Row>
-        <Header as="h3">Links</Header>
+        <Header as="h2" className="footer__column__title">En savoir plus...</Header>
         </Grid.Row>
-        <Grid.Row>
-        <Link to="/faq">F.A.Q</Link>
+        <Grid.Row className="footer__row">
+        <Link to="/faq" className="footer__column__link">F.A.Q</Link>
         </Grid.Row>
-        <Grid.Row>
-        <Link to="/terms-of-use">CGU</Link>
+        <Grid.Row className="footer__row">
+        <Link to="/terms-of-use" className="footer__column__link">CGU</Link>
         </Grid.Row>
-        <Grid.Row>
-        <Link to="/team">Contact</Link>
+        <Grid.Row className="footer__row">
+        <Link to="/team" className="footer__column__link">Contact</Link>
         </Grid.Row>
         </Grid.Column>
       </Grid>
