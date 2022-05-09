@@ -1,71 +1,73 @@
 .register {
 
-    &__container {
-        margin: 0 !important;
+  &__container {
+    margin: 0 !important;
 
-        &__row {
-            padding: 0 !important;
-            height: 100vh;
-        }
-
-        &__column {
-            display: flex !important;
-            flex-flow: column;
-            justify-content: center;
-
-            &__img {
-                height: 100vh;
-                width: 100%;
-                margin: 0;
-                position: absolute !important;
-                top: 0;
-                left: 0;
-                object-fit: cover;
-                opacity: .5;
-                z-index: -1;
-            }
-
-            &__button {
-                margin-bottom: 1rem !important;
-                width: 50%;
-            }
-
-            &__input {
-                width: 300px;
-                margin-bottom: 1rem;
-            }
-
-            &__header {
-                margin-bottom: 3rem !important;
-            }
-
-            &__checkbox {
-                margin-bottom: 1rem;
-            }
-
-            &__h1 {
-                margin-bottom: 3rem !important;
-                font-size: 4rem !important;
-            }
-
-            &__sub {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-        }
-
-        &__footer {
-            justify-content: flex-end;
-            width: 100%;
-            text-align: right;
-            position: absolute;
-            bottom: 10px;
-            right: 30px;
-
-            &__nav {
-                text-decoration: none;
-                color: black;
-            }
-        }
+    &__row {
+      padding: 0 !important;
+      height: 100vh;
     }
+
+    &__column {
+      display: flex !important;
+      flex-flow: column;
+      justify-content: center;
+      height: 100vh;
+
+      &__img {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        opacity: .5;
+        z-index: -1;
+      }
+      
+      &__button {
+        margin-bottom: 1rem !important;
+        width: 50%;
+      }
+      
+      &__input {
+        width: 300px;
+        margin-bottom: 1rem;
+      }
+
+      &__error {
+        height: 50px;
+        margin-bottom: 1rem;
+      }
+
+      &__checkbox {
+        margin-bottom: 1rem;
+      }
+
+      &__h1 {
+        margin-bottom: 3rem !important;
+        font-size: 4rem !important;
+      }
+
+      &__sub {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    &__footer {
+      justify-content: flex-end;
+      width: 100%;
+      text-align: right;
+      position: absolute;
+      bottom: 10px;
+      right: 30px;
+
+      &__nav {
+        text-decoration: none;
+        color: black;
+      }
+    }
+  }
 }
