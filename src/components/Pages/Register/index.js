@@ -3,7 +3,7 @@ import { signUp } from '../../../actions/user';
 import { Link } from 'react-router-dom';
 
 import { Button, Grid, Image, Checkbox, Header, Icon } from 'semantic-ui-react';
-import bg_img from '../../../assets/img/bg_home.avif';
+import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
 
