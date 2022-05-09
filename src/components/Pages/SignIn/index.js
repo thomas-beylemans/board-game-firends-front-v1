@@ -7,7 +7,7 @@ import { clearError, saveError } from '../../../actions/error';
 import { checkEmail } from '../../../utils/checkForm';
 
 import { Button, Grid, Image, Header, Icon, Modal } from 'semantic-ui-react';
-import bg_img from '../../../assets/img/bg_home2.jpg';
+import bg_img from '../../../assets/img/background_home.jpg';
 
 import ControlledInput from '../../ControlledInput';
 import Alert from '../../Alert';

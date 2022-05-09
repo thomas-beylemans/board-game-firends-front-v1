@@ -8,7 +8,7 @@ import { checkForm } from '../../../utils/checkForm';
 import { findCity } from '../../../utils/findCity';
 
 import { Button, Grid, Image, Checkbox, Header, Icon, Input, Popup } from 'semantic-ui-react';
-import bg_img from '../../../assets/img/bg_home2.jpg';
+import bg_img from '../../../assets/img/background_home.jpg';
 
 import ControlledInput from '../../ControlledInput';
 import Alert from '../../Alert';
