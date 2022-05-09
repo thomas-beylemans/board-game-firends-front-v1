@@ -3,11 +3,9 @@ import OneCard from '../../../OneCard';
 
 export default function CardGroup() {
   return (
-    <Grid.Column>
     <Card.Group
-      stackable
       centered
-      itemsPerRow={4}
+      stackable
     >
       <OneCard
         img='https://jeudecarte.net/wp-content/uploads/2019/02/ascension-810x507.jpg'
@@ -40,6 +38,5 @@ export default function CardGroup() {
         owner='François'
       />
     </Card.Group>
-    </Grid.Column>
   );
 };
