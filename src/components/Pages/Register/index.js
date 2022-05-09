@@ -33,7 +33,7 @@ export default function Register() {
   const username = useSelector(state => state.user.username);
   const errorMessage = useSelector(state => state.error.errorMessage);
 
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     setChecked(!checked);
   };
 
