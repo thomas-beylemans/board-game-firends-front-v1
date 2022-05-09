@@ -1,7 +1,6 @@
 import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, CLEAR_ERROR, SAVE_ERROR } from "../actions/user";
 
 export const initialState = {
-<<<<<<< HEAD
     email: '',
     password: '',
     username: '',
@@ -13,20 +12,6 @@ export const initialState = {
     lat: '',
     long: '',
     isLoading: false,
-=======
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  username: '',
-  accessToken: '',
-  logged: false,
-  city: '',
-  postcode: '',
-  lat: '',
-  long: '',
-  isLoading: false,
-  errorMessage: '',
->>>>>>> signin
 };
 
 const reducer = (state = initialState, action = {}) => {
