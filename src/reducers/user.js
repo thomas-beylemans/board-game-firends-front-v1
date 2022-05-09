@@ -4,7 +4,6 @@ export const initialState = {
     email: '',
     password: '',
     username: '',
-    accessToken: '',
     logged: false,
     city: '',
     bio:'',
