@@ -16,20 +16,7 @@ import './styles.scss';
 export default function Dashboard() {
   const dispatch = useDispatch();
 
-  const getInfos = async () => {
-    const token = JSON.parse(localStorage.getItem('user')).accessToken;
-    console.log(token);
-    const req = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(req.data);
-  }
-
-
   useEffect(() => {
-    // getInfos();
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if (loggedUser) {
       const decodedToken = jwt_decode(loggedUser.accessToken);
