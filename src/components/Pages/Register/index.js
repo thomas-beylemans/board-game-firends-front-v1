@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { saveCity, signUp, clearError, saveError } from '../../../actions/user';
+import { saveCity, signUp } from '../../../actions/user';
+import { clearError, saveError } from '../../../actions/error';
 import { checkForm } from '../../../utils/checkForm';
 import { findCity } from '../../../utils/findCity';
 
@@ -29,15 +30,15 @@ export default function Register() {
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
   const postcode = useSelector(state => state.user.postcode);
   const email = useSelector(state => state.user.email);
-  const errorMessage = useSelector(state => state.user.errorMessage);
   const username = useSelector(state => state.user.username);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   const handleToggle = (e) => {
     setChecked(!checked);
   };
 
   const handleChangeCity = (e) => {
-    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&fields=code,nom,centre,departement,codesPostaux`)
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
         setSuggestedCity(res.data);
       })

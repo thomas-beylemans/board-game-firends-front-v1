@@ -7,7 +7,12 @@ export default function Alert({ hidden, message }) {
   );
 };
 
+Alert.defaultProps = {
+  hidden: true,
+  message: '',
+};
+
 Alert.propTypes = {
-  isHidden: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  isHidden: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };

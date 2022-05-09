@@ -53,18 +53,6 @@ const reducer = (state = initialState, action = {}) => {
         logged: false,
       };
 
-    case SAVE_ERROR:
-      return {
-        ...state,
-        errorMessage: action.error,
-      };
-
-    case CLEAR_ERROR:
-      return {
-        ...state,
-        errorMessage: '',
-      };
-
     default:
       return state;
   }

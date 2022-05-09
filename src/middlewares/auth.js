@@ -1,5 +1,6 @@
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser, saveError } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser } from "../actions/user";
+import { saveError } from "../actions/error";
 
 export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
@@ -33,7 +34,7 @@ const user = (store) => (next) => async (action) => {
         store.dispatch(saveUser(username));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
-        store.dispatch(saveError(err.message));
+        store.dispatch(saveError(err.response.data.errorMessage));
       }
       break;
     }
@@ -56,7 +57,7 @@ const user = (store) => (next) => async (action) => {
         store.dispatch(saveUser(username, accessToken));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
-        store.dispatch(saveError(err.response.data.message));
+        store.dispatch(saveError(err.response.data.errorMessage));
       }
       break;
     }

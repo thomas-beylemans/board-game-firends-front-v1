@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { login, clearError, saveError } from '../../../actions/user';
+import { login } from '../../../actions/user';
+import { clearError, saveError } from '../../../actions/error';
 import { checkEmail } from '../../../utils/checkForm';
 
-import { Button, Grid, Image, Header, Icon, Message, Modal } from 'semantic-ui-react';
+import { Button, Grid, Image, Header, Icon, Modal } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -20,8 +21,8 @@ export default function SignIn() {
   const [firstModalOpen, setFirstModalOpen] = useState(false);
   const [secondModalOpen, setSecondModalOpen] = useState(false);
 
-  const errorMessage = useSelector(state => state.user.errorMessage);
   const email = useSelector(state => state.user.email);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   const handleSubmit = (e) => {
     e.preventDefault();
