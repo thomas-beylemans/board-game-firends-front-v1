@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
@@ -15,12 +16,27 @@ import './styles.scss';
 export default function Dashboard() {
   const dispatch = useDispatch();
 
+  const getInfos = async () => {
+    const token = JSON.parse(localStorage.getItem('user')).accessToken;
+    console.log(token);
+    const req = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(req.data);
+  }
+
+
   useEffect(() => {
+    // getInfos();
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if (loggedUser) {
       const decodedToken = jwt_decode(loggedUser.accessToken);
       const loggedUserEmail = decodedToken.user.email;
-      dispatch(saveUser(loggedUser.username, loggedUserEmail));
+      const loggedUserUsername = decodedToken.user.username;
+      const loggedUserId = decodedToken.user.id;
+      dispatch(saveUser(loggedUserUsername, loggedUserEmail, loggedUserId));
     }
   }, [dispatch]);
 

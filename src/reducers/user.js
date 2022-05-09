@@ -1,6 +1,7 @@
 import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY } from "../actions/user";
 
 export const initialState = {
+    id: '',
     email: '',
     password: '',
     username: '',
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action = {}) => {
     case SAVE_USER:
       return {
         ...state,
+        id: action.id,
         email: action.email,
         password: '',
         passwordConfirm: '',

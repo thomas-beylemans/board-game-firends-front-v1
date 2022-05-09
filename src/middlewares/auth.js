@@ -1,3 +1,4 @@
+import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import { SIGN_UP, LOGIN, saveUser } from "../actions/user";
 import { saveError } from "../actions/error";
@@ -54,7 +55,10 @@ const user = (store) => (next) => async (action) => {
             accessToken,
           })
         );
-        store.dispatch(saveUser(username, accessToken));
+        // decode JWT Token sent by the API
+        const decodedToken = jwt_decode(accessToken);
+        // dispatch the user informations to store them in the state
+        store.dispatch(saveUser(username, decodedToken.user.email, decodedToken.user.id));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));

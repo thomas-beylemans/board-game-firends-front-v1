@@ -32,10 +32,11 @@ export const clearError = () => ({
 });
 
 export const SAVE_USER = 'SAVE_USER';
-export const saveUser = (username, email) => ({
+export const saveUser = (username, email, id) => ({
   type: SAVE_USER,
   username,
-  email
+  email,
+  id
 });
 
 export const SAVE_CITY = 'SAVE_CITY';
