@@ -1,15 +1,15 @@
 .dashboard {
-    &__content {
+  &__content {
 
-        &__cardgroups {
-            margin-top: 1rem !important;
+    &__cardgroups {
+      margin-top: 1rem !important;
 
-            &__cards {
-                height: 420px;
-                justify-content: center;
-                overflow-y: auto;
-                margin-bottom: 5rem !important;
-            }
-        }
+      &__cards {
+        height: 420px;
+        justify-content: center;
+        overflow-y: auto;
+        margin-bottom: 5rem !important;
+      }
     }
+  }
 }

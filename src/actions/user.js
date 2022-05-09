@@ -20,6 +20,17 @@ export const logOut = () => ({
   type: LOGOUT,
 });
 
+export const SAVE_ERROR = 'SAVE_ERROR';
+export const saveError = (error) => ({
+  type: SAVE_ERROR,
+  error,
+});
+
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const clearError = () => ({
+  type: CLEAR_ERROR,
+});
+
 export const SAVE_USER = 'SAVE_USER';
 export const saveUser = (username, email) => ({
   type: SAVE_USER,
@@ -27,8 +38,8 @@ export const saveUser = (username, email) => ({
   email
 });
 
-export const CHANGE_VALUE_CITY = 'CHANGE_VALUE_CITY';
-export const changeValueCity = (newValue) => ({
-  type: CHANGE_VALUE,
-  newValue,
+export const SAVE_CITY = 'SAVE_CITY';
+export const saveCity = (city) => ({
+  type: SAVE_CITY,
+  city,
 });
