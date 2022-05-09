@@ -6,7 +6,7 @@ import { saveCity, signUp, clearError, saveError } from '../../../actions/user';
 import { checkForm } from '../../../utils/checkForm';
 import { findCity } from '../../../utils/findCity';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Input, Message } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Input, Popup } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/bg_home2.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -144,13 +144,17 @@ export default function Register() {
                   </Grid.Row>
                 </Grid.Row>
                 <Grid.Row>
-                  <ControlledInput
-                    className="register__container__column__input"
-                    label='Mot de passe'
-                    name="password"
-                    type="password"
-                    placeholder="Mot de passe"
-                    error={passwordError}
+                  <Popup
+                    content="Le mot de passe doit doit être compris entre 8 et 20 caractères, contenir une majuscule, une minuscule et un caractère spécial"
+                    trigger={
+                      <ControlledInput
+                        className="register__container__column__input"
+                        label='Mot de passe'
+                        name="password"
+                        type="password"
+                        placeholder="Mot de passe"
+                        error={passwordError}
+                      />}
                   />
                 </Grid.Row>
                 <Grid.Row>
