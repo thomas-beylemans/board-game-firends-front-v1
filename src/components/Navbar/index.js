@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Menu, Button } from 'semantic-ui-react'
+import { Menu, Button, Icon } from 'semantic-ui-react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -23,8 +23,8 @@ export default function Navbar() {
     <Menu
       className="navbar__menu"
       color={'orange'}
-      inverted
-      stackable
+      icon
+      inverted    
     >
       <Menu.Menu position='left'>
 
@@ -39,19 +39,21 @@ export default function Navbar() {
           as={NavLink}
           name='dashboard'
           to={'/dashboard'}
+          title='Tableau de bord'
         >
-          Tableau de bord
+          <Icon name='home'/>
         </Menu.Item>}
         {logged && <Menu.Item
           as={NavLink}
           name='events'
           to={'/events'}
+          title='Évènements'
         >
-          Evénements
+          <Icon name='map pin'/>
         </Menu.Item>}
       </Menu.Menu>
       <Menu.Menu position='right'>
-      {logged && <Menu.Item>
+        {logged && <Menu.Item>
           <Button
             circular
             icon='plus circle'
