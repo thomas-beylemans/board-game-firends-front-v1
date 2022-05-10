@@ -1,32 +1,21 @@
 .footer {
-    width: 100%;
-    background-color: #f2711c;
-    margin: auto;
-    padding: 2rem;
-    text-align: center;
+  width: 100%;
+  background-color: #f2711c;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+
+  &__link {
+    text-decoration: none;
     color: white;
-    border-radius: 5px;
+    text-align: left;
+    font-size: 1.1rem;
 
-    &__column {
-      text-align: left;
-      
-      &__title {
-        text-align: center;
-      }
 
-      &__link {
-        text-decoration: none;
-        color: white;
-        text-align: left;
-        font-size: 1.1rem;
-
-        &:hover {
-          color: #000000;
-        }
-      }
+    &:hover {
+      color: #000000;
     }
-
-    &__row {
-      margin-bottom: .5rem;
-    }
+  }
 }
