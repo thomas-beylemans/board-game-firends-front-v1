@@ -5,6 +5,8 @@ import Games from '../../Games';
 import Footer from '../../Footer';
 import './styles.scss';
 
+import gamesArray from '../../../data/games';
+
 export default function EditProfile() {
 
 
@@ -13,7 +15,7 @@ export default function EditProfile() {
             <Navbar />
             <EditProfileInfos />
             <AddGame />
-            <Games />
+            <Games games={gamesArray} />
             <Footer />
         </div>
     );

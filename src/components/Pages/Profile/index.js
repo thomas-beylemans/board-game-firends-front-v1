@@ -4,6 +4,8 @@ import Games from '../../Games';
 import Footer from '../../Footer';
 import './styles.scss';
 
+import gamesArray from '../../../data/games';
+
 export default function Profile() {
 
 
@@ -11,7 +13,7 @@ export default function Profile() {
     <div className="profile">
       <Navbar />
       <ProfileInfos />
-      <Games />
+      <Games games={gamesArray}/>
       <Footer />
     </div>
   );

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
@@ -9,9 +8,10 @@ import { Tab } from 'semantic-ui-react';
 import Navbar from '../../../components/Navbar';
 import Banner from '../../Banner';
 import Footer from '../../Footer';
-import CardGroup from './CardGroup';
+import Games from '../../Games';
 
 import './styles.scss';
+import gamesArray from '../../../data/games';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -31,15 +31,15 @@ export default function Dashboard() {
   const tabPanels = [
     {
       menuItem: 'Mes événements à venir',
-      render: () => <Tab.Pane attached><CardGroup /></Tab.Pane>,
+      render: () => <Tab.Pane attached>"mettre des events"</Tab.Pane>,
     },
     {
       menuItem: 'Mes événements organisés',
-      render: () => <Tab.Pane attached><CardGroup /></Tab.Pane>,
+      render: () => <Tab.Pane attached>"mettre des events"</Tab.Pane>,
     },
     {
       menuItem: 'Mes jeux',
-      render: () => <Tab.Pane attached><CardGroup /></Tab.Pane>,
+      render: () => <Tab.Pane attached><Games games={gamesArray} /></Tab.Pane>,
     },
   ]
 
