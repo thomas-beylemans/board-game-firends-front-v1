@@ -12,6 +12,7 @@ import Profile from "../Pages/Profile";
 import EditProfile from "../Pages/EditProfile";
 import PageEvent from "../Pages/PageEvent";
 import EventDetails from "../Pages/EventDetails";
+import Error from '../Error';
 
 import "./styles.scss";
 
@@ -49,7 +50,7 @@ export default function App() {
                 <Route path="/team" element={<Team />} />
                 <Route path="/faq" element={'faq'} />
                 <Route path="/terms-of-use" element={'cgu'} />
-                <Route path="*" element={'error'} />
+                <Route path="*" element={<Error />} />
             </Routes>
         </div>
     );
