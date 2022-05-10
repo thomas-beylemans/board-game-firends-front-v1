@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { Card, Image, Icon } from 'semantic-ui-react';
 
 import Navbar from '../../../components/Navbar';
