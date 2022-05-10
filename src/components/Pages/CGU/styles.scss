@@ -1,0 +1,10 @@
+.cgu {
+  &__title {
+    text-align: center;
+  }
+
+  &__content {
+    min-height: 100vh;
+    padding: 3rem !important;
+  }
+}

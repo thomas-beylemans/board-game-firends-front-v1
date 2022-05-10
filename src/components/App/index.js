@@ -13,6 +13,7 @@ import EditProfile from "../Pages/EditProfile";
 import PageEvent from "../Pages/PageEvent";
 import EventDetails from "../Pages/EventDetails";
 import FAQ from '../Pages/FAQ';
+import CGU from '../Pages/CGU';
 import Error from '../Error';
 
 import "./styles.scss";
@@ -50,7 +51,7 @@ export default function App() {
                 {logged && (<Route path="/events/:id" element={<EventDetails />} />)}
                 <Route path="/team" element={<Team />} />
                 <Route path="/faq" element={<FAQ />} />
-                <Route path="/terms-of-use" element={'cgu'} />
+                <Route path="/terms-of-use" element={<CGU />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </div>
