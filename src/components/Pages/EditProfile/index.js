@@ -13,9 +13,11 @@ export default function EditProfile() {
     return (
         <div className="profile">
             <Navbar />
+            <div className='profile__container'>
             <EditProfileInfos />
             <AddGame />
             <Games games={gamesArray} />
+            </div>
             <Footer />
         </div>
     );

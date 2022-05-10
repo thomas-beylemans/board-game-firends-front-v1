@@ -16,7 +16,7 @@ const eventsList = [
 
 export default function PageEvent() {
     return (
-        <>
+        <div className="event">
             <Navbar />
             <Header textAlign="center" as="h1">
                 Evénements en cours
@@ -26,6 +26,7 @@ export default function PageEvent() {
                 position={position}
                 eventsList={eventsList}
             />
+            <div className="event__container">
             <Header textAlign="center" as="h2">
                 Mes événements
             </Header>
@@ -116,8 +117,8 @@ export default function PageEvent() {
                     players="Limite de joueurs"
                 />
             </Card.Group>
-
+            </div>
             <Footer />
-        </>
+        </div>
     );
 }

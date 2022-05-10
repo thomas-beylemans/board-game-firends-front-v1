@@ -28,8 +28,10 @@ export default function Profile() {
   return (
     <div className="profile">
       <Navbar />
+      <div className='profile__container'>
       <ProfileInfos />
       <Games games={gamesArray}/>
+      </div>
       <Footer />
     </div>
   );

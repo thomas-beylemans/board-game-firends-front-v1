@@ -22,8 +22,7 @@
         top: 0;
         left: 0;
         object-fit: cover;
-        opacity: .5;
-        z-index: -1;
+        opacity: .6;
       }
 
       &__button {
@@ -48,11 +47,18 @@
       &__h1 {
         margin-bottom: 3rem !important;
         font-size: 4rem !important;
+        position: relative;
+      }
+
+      &__h2 {
+        position: relative;
       }
 
       &__sub {
         font-size: 1.5rem;
         text-align: center;
+        position: relative;
+
       }
     }
 
@@ -67,6 +73,10 @@
       &__nav {
         text-decoration: none;
         color: black;
+
+        &:hover{
+          color: white;
+        }
       }
     }
   }

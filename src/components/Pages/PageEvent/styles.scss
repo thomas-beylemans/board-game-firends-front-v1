@@ -1,7 +1,14 @@
 .events {
-  height: 420px;
+  // height: 420px;
   overflow-y: auto;
   margin-right: -0.3rem !important;
   margin-left: 0.9rem !important;
   margin-bottom: 1rem !important;
+}
+
+.event {
+
+  &__container {
+    min-height: 100vh;
+  }
 }
