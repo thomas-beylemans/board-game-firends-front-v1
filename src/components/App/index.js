@@ -14,6 +14,7 @@ import PageEvent from "../Pages/PageEvent";
 import EventDetails from "../Pages/EventDetails";
 import FAQ from '../Pages/FAQ';
 import Error from '../Error';
+import PublicProfile from '../Pages/PublicProfile';
 
 import "./styles.scss";
 
@@ -45,9 +46,9 @@ export default function App() {
                 {logged && <Route path="/dashboard" element={<Dashboard />} />}
                 {logged && <Route path="/profile" element={<Profile />} />}
                 {logged && (<Route path="/editprofile" element={<EditProfile />} />)}
-                {logged && (<Route path="/profile/:username" element={'profile user'} />)}
+                {logged && (<Route path="/profile/:username" element={<PublicProfile />} />)}
                 {logged && <Route path="/events" element={<PageEvent />} />}
-                {logged && (<Route path="/events/:id" element={<EventDetails />} />)}
+                {logged && (<Route path="/events/:id" element={<EventDetails />} />)}            
                 <Route path="/team" element={<Team />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/terms-of-use" element={'cgu'} />
