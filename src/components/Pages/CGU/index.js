@@ -6,7 +6,7 @@ import Footer from '../../Footer';
 
 import './styles.scss';
 
-export default function FAQ() {
+export default function CGU() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -15,18 +15,18 @@ export default function FAQ() {
   }
 
   return (
-    <div className="faq">
+    <div className="cgu">
       <Navbar />
-      <Header as="h1" className="faq__title">Foire aux Questions</Header>
-      <div className="faq__content">
-        <Accordion styled fluid className="faq__content__accordion">
+      <Header as="h1" className="cgu__title">Conditions générales d'utilisation</Header>
+      <div className="cgu__content">
+        <Accordion styled fluid className="cgu__content__accordion">
           <Accordion.Title
             active={activeIndex === 0}
             index={0}
             onClick={handleClick}
           >
             <Icon name='dropdown' />
-            Que proposons-nous ?
+            Article 1
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <p>
@@ -40,7 +40,7 @@ export default function FAQ() {
             onClick={handleClick}
           >
             <Icon name='dropdown' />
-            Un compte est-il obligatoire ?
+            Article 2
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <p>
@@ -54,7 +54,7 @@ export default function FAQ() {
             onClick={handleClick}
           >
             <Icon name='dropdown' />
-            Le service est-il gratuit ?
+            Article 3
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <p>
