@@ -1,9 +1,13 @@
-.ui.input>input {
-  border-radius: 15px;
-  border-color: orange;
+.ui.input {
+  &>input {
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    border-color: orange !important;
+  }
+  
+  &>.label {
+    background-color: orange !important;
+    color: black !important;
+  }
 }
 
-.ui.label {
-  background-color: orange;
-  color: black;
-}

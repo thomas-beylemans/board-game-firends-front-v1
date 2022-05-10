@@ -27,10 +27,6 @@ export default function PageEvent() {
                 eventsList={eventsList}
             />
             <div className="event__container">
-            <Header textAlign="center" as="h2">
-                Mes événements
-            </Header>
-
             <Card.Group className="events" itemsPerRow={3} stackable>
                 <OneCardEvent
                     img="https://zupimages.net/up/22/18/zbcp.png"

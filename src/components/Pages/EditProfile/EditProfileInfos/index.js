@@ -15,8 +15,8 @@ export default function EditProfileInfos(onClick) {
         <Form className="form__flex">
             <div>
                 <Grid className="profile-infos" columns={2} divided padded stackable >
-                    <Grid.Row>
-                        <Grid.Column >
+                    <Grid.Row columns={2}>
+                        <Grid.Column>
                             <Container className="infos" textAlign='center'>
                                 <Image src={games_img} size='small' circular centered />
                                 {/* Ici, le bouton délenche le input type file qui est dessous et qui est caché */}
@@ -24,16 +24,24 @@ export default function EditProfileInfos(onClick) {
                                     <Icon name='edit' />
                                 </Button>
                                 <input type="file" id="file" style={{ display: "none" }} />
+                                <Grid.Row>
                                 <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
+                                </Grid.Row>
+                                <Grid.Row>
                                 <ControlledInput value={city} label='Ville' name='city' className="infos__input" />
+                                </Grid.Row>
                             </Container>
                         </Grid.Column>
                         <Grid.Column className="description">
                             <Header as='h2'>Quelques mots sur moi</Header>
                             <TextArea rows={8} value={bio}>
                             </TextArea>
-                            <ControlledInput value={email} label='Email' name='email' className="infos__input" />
-                            <ControlledInput label='Mot-de-passe' name='password' className="infos__input" />
+                            <Grid.Row className="description__row">
+                            <ControlledInput value={email} label='Email' name='email' className="description__input" />
+                            </Grid.Row>
+                            <Grid.Row className="description__row">
+                            <ControlledInput label='Mot de passe' name='password' className="description__input" />
+                            </Grid.Row>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

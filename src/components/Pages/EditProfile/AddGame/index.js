@@ -8,8 +8,8 @@ export default function AddGame(onClick) {
             <Segment className="add-game" color='orange' padded>
                 <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
                 <div className='add-game-btn'>
-                    <ControlledInput label='Nom' name='game-name' />
-                    <ControlledInput label='Image' type='file' name='game-pic' />
+                    <ControlledInput label='Nom' name='game-name' className="add-game__input"/>
+                    <ControlledInput label='Image' type='file' name='game-pic' className="add-game__input" />
                     <Button onClick={onClick} color="orange" size='large'>
                         Enregistrer
                     </Button>
