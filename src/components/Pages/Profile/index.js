@@ -5,7 +5,7 @@ import { saveUser } from '../../../actions/user';
 
 import Navbar from '../../Navbar';
 import ProfileInfos from './ProfileInfos';
-import Games from '../../Games';
+import CardGroup from '../../CardGroup';
 import Footer from '../../Footer';
 import './styles.scss';
 
@@ -30,7 +30,7 @@ export default function Profile() {
       <Navbar />
       <div className='profile__container'>
       <ProfileInfos />
-      <Games games={gamesArray}/>
+      <CardGroup array={gamesArray}/>
       </div>
       <Footer />
     </div>
