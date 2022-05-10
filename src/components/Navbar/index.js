@@ -7,6 +7,7 @@ import { logOut } from '../../../src/actions/user';
 
 import './styles.scss';
 import logo_small from '../../../src/assets/img/logo_small.png';
+import ModalEvent from '../Modal';
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -54,14 +55,7 @@ export default function Navbar() {
       </Menu.Menu>
       <Menu.Menu position='right'>
         {logged && <Menu.Item>
-          <Button
-            circular
-            icon='plus circle'
-            color='yellow'
-            as={Link}
-            to={'/events'}
-            inverted
-          />
+          <ModalEvent />
         </Menu.Item>}
         <Menu.Item>
           <Button
