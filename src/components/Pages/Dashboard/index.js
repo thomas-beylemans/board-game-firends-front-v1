@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
+  import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { saveUser } from '../../../actions/user';
+import { getUserInfos } from '../../../actions/user';
 
 import { Tab } from 'semantic-ui-react';
 
@@ -17,15 +16,8 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
-    if (loggedUser) {
-      const decodedToken = jwt_decode(loggedUser.accessToken);
-      const loggedUserEmail = decodedToken.user.email;
-      const loggedUserUsername = decodedToken.user.username;
-      const loggedUserId = decodedToken.user.id;
-      dispatch(saveUser(loggedUserUsername, loggedUserEmail, loggedUserId));
-    }
-  }, [dispatch]);
+    dispatch(getUserInfos());
+    }, [dispatch]);
 
 
   const tabPanels = [
