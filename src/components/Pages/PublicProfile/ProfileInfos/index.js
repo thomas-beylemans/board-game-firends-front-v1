@@ -1,6 +1,6 @@
 import { Image, Header, Grid, Container } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
