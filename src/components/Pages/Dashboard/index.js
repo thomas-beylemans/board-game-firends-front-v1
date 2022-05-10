@@ -11,14 +11,17 @@ import Footer from '../../Footer';
 import CardGroup from '../../CardGroup';
 
 import './styles.scss';
+import PlaceHolder from '../../PlaceHolder';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
   const [games, setGames] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   const fetchUserGames = async () => {
+    setLoading(true);
     const token = JSON.parse(localStorage.getItem('user'));
     const games = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
       headers: {
@@ -27,6 +30,7 @@ export default function Dashboard() {
     });
     setGames(games.data.user.game);
     setUpcomingEvents(games.data.user.event);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export default function Dashboard() {
   const tabPanels = [
     {
       menuItem: 'Mes événements à venir',
-      render: () => <Tab.Pane attached><CardGroup array={upcomingEvents} /></Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} /> : <CardGroup array={upcomingEvents} /> }</Tab.Pane>,
     },
     {
       menuItem: 'Mes événements organisés',
@@ -46,7 +50,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes jeux',
-      render: () => <Tab.Pane attached><CardGroup array={games} /></Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={games} /> : <CardGroup array={games} /> }</Tab.Pane>,
     },
   ]
 
@@ -55,7 +59,7 @@ export default function Dashboard() {
       <Navbar />
       <Banner />
       <div className="dashboard__content">
-        <Tab panes={tabPanels} menu={{ inverted: true, attached: false, tabular: false, color: "orange", stackable: true }} />
+          <Tab panes={tabPanels} menu={{ inverted: true, attached: false, tabular: false, color: "orange", stackable: true }} />
       </div>
       <Footer />
     </div>
