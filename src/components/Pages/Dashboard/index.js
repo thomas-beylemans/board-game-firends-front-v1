@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
 
 import { Tab } from 'semantic-ui-react';
@@ -19,24 +19,35 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [games, setGames] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [myEvents, setMyEvents] = useState([]);
 
-  const fetchUserGames = async () => {
+  const username = useSelector(state => state.user.username);
+
+  const fetchUserInfos = async () => {
     setLoading(true);
     const token = JSON.parse(localStorage.getItem('user'));
-    const games = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
+    const userInfos = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
       headers: {
         Authorization: `Bearer ${token.accessToken}`,
       }
     });
-    setGames(games.data.user.game);
-    setUpcomingEvents(games.data.user.event);
+    const allEvents = userInfos.data.user.event;
+    // allEvents.filter(event => {
+    //   if (event.event_admin.username === username) {
+    //     events.push(event);
+    //   }
+    // });
+    // const events = [];
+    setMyEvents(allEvents);
+    setGames(userInfos.data.user.game);
+    setUpcomingEvents(allEvents);
     setLoading(false);
   }
 
   useEffect(() => {
     dispatch(getUserInfos());
-    fetchUserGames();
-  }, [dispatch]);
+    fetchUserInfos();
+  }, []);
 
 
   const tabPanels = [
@@ -46,7 +57,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes événements organisés',
-      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} title={'Mes événements organisés'} /> : <CardGroup array={upcomingEvents} title={'Mes événements organisés'} /> }</Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={myEvents} title={'Mes événements organisés'} /> : <CardGroup array={myEvents} title={'Mes événements organisés'} /> }</Tab.Pane>,
     },
     {
       menuItem: 'Mes jeux',

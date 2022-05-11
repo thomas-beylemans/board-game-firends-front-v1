@@ -2,16 +2,16 @@
   {
     "id": 1,
     "name": "Monopoly",
-    "image": "https://cdn3.philibertnet.com/375938-large_default/monopoly-classique.jpg"
+    "picture": "https://cdn3.philibertnet.com/375938-large_default/monopoly-classique.jpg"
   },
   {
     "id": 2,
     "name": "Mystic Vale",
-    "image": "https://cdn3.philibertnet.com/358209-large_default/mystic-vale.jpg"
+    "picture": "https://cdn3.philibertnet.com/358209-large_default/mystic-vale.jpg"
   },
   {
     "id": 3,
     "name": "Dice Throne Adventures",
-    "image": "https://cdn1.philibertnet.com/536883-medium_default/dice-throne-adventures.jpg"
+    "picture": "https://cdn1.philibertnet.com/536883-medium_default/dice-throne-adventures.jpg"
   }
 ]

@@ -6,7 +6,6 @@ import {
   Modal,
   TextArea,
   Grid,
-  Segment,
 } from 'semantic-ui-react';
 import ControlledInput from '../ControlledInput';
 
@@ -14,11 +13,6 @@ export default function ModalEvent() {
   const [firstModalCreateEvent, setfirstModalCreateEvent] =
     React.useState(false);
   const [secondOpen, setSecondOpen] = React.useState(false);
-
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log('je viens de Submit');
-  // };
 
   return (
     <div>
@@ -28,7 +22,6 @@ export default function ModalEvent() {
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
-        {/* <form onSubmit={handleSubmit} autoComplete="off"> */}
         <Modal.Header>A propos de mon événement..</Modal.Header>
 
         <Modal.Content image>
@@ -49,7 +42,7 @@ export default function ModalEvent() {
                     <>
                       <Grid.Row>
                         <ControlledInput
-                          className="home__container__column__input"
+                          className="modal__input"
                           label="Nom de l'événement"
                           name="email"
                           type="email"
@@ -59,7 +52,7 @@ export default function ModalEvent() {
 
                       <Grid.Row>
                         <ControlledInput
-                          className="home__container__column__input"
+                          className="modal__input"
                           label="Ville"
                           name="city"
                           type="text"
@@ -69,17 +62,17 @@ export default function ModalEvent() {
                       </Grid.Row>
                       <Grid.Row>
                         <ControlledInput
-                          className="home__container__column__input"
+                          className="modal__input"
                           label="Code Postal"
                           name="postcode"
-                          type="number"
+                          type="text"
                           min="0"
                           placeholder="Code Postal"
                         />
                       </Grid.Row>
                       <Grid.Row>
                         <ControlledInput
-                          className="home__container__column__input"
+                          className="modal__input"
                           label="Nombre de joueurs"
                           name="players"
                           type="number"
@@ -99,6 +92,7 @@ export default function ModalEvent() {
                       <Grid.Row>
                         <ControlledInput
                           className="modal__img__input"
+                          name="img"
                           label="Image"
                           type="file"
                           id="file"
@@ -110,7 +104,7 @@ export default function ModalEvent() {
                       className="textarea"
                       rows={5}
                       style={{ minWidth: 300 }}
-                      placeholder="Decriptions"
+                      placeholder="Description"
                       maxlength="1000"
                     ></TextArea>
                   </Modal.Description>
@@ -140,13 +134,11 @@ export default function ModalEvent() {
           size="small"
         >
           <Modal.Header>Évènement créé !</Modal.Header>
-          <Modal.Content>
-            <p>A propos de mon évènement</p>
-          </Modal.Content>
+
           <Modal.Actions>
             <Button
               icon="check"
-              content="All Done"
+              content="C'est fait !"
               onClick={() => setfirstModalCreateEvent(false)}
             />
           </Modal.Actions>
