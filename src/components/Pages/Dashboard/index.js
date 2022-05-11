@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
 
 import { Tab } from 'semantic-ui-react';
@@ -20,8 +20,6 @@ export default function Dashboard() {
   const [games, setGames] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [myEvents, setMyEvents] = useState([]);
-
-  const username = useSelector(state => state.user.username);
 
   const fetchUserInfos = async () => {
     setLoading(true);
@@ -45,6 +43,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    console.log('je refresh');
     dispatch(getUserInfos());
     fetchUserInfos();
   }, []);
