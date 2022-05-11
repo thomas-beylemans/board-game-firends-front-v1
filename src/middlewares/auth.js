@@ -1,6 +1,6 @@
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos } from "../actions/user";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -65,6 +65,45 @@ const user = (store) => (next) => async (action) => {
       }
       break;
     }
+
+    case GET_USER_INFOS: {
+      try {
+        const token = JSON.parse(localStorage.getItem('user'));
+        let result = await api.get('/dashboard', {
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
+        });
+        result = result.data;
+        const id = result.user.id;
+        const email = result.user.email;
+        const username = result.user.username;
+        const avatar = result.user.avatar;
+        const bio = result.user.bio;
+        const city = result.user.geo.city;
+        const postcode = result.user.geo.postcode;
+        const lat = result.user.geo.lat;
+        const long = result.user.geo.long;
+
+        const user = {
+          id,
+          email,
+          username,
+          avatar,
+          bio,
+          city,
+          postcode,
+          lat,
+          long
+        }
+        store.dispatch(saveUserInfos(user));
+      }
+      catch (err) {
+        store.dispatch(saveError(err.response.data.errorMessage));
+      }
+      break;
+    }
+
     default:
       next(action);
   }
