@@ -7,7 +7,7 @@ import { Tab } from 'semantic-ui-react';
 import Navbar from '../../../components/Navbar';
 import Banner from '../../Banner';
 import Footer from '../../Footer';
-import CardGroup from '../../CardGroup';
+import CardGroup from './CardGroup';
 
 import './styles.scss';
 import PlaceHolder from '../../PlaceHolder';
