@@ -38,11 +38,11 @@ export default function Register() {
   };
 
   const handleChangeCity = (e) => {
-    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
-      .then(res => {
-        setSuggestedCity(res.data);
-        console.log(suggestedCity);
-      })
+    // axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
+    //   .then(res => {
+    //     setSuggestedCity(res.data);
+    //     console.log(suggestedCity);
+    //   })
     setCity(e.target.value);
   };
 
