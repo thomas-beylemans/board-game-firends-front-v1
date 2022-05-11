@@ -32,8 +32,7 @@ const user = (store) => (next) => async (action) => {
             accessToken,
           })
         );
-        const decodedToken = jwt_decode(accessToken);
-        store.dispatch(saveUser(accessToken, username, decodedToken.user.email, decodedToken.user.id));
+        store.dispatch(saveUser(username));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
@@ -56,10 +55,7 @@ const user = (store) => (next) => async (action) => {
             accessToken,
           })
         );
-        // decode JWT Token sent by the API
-        const decodedToken = jwt_decode(accessToken);
-        // dispatch the user informations to store them in the state
-        store.dispatch(saveUser(accessToken, username, decodedToken.user.email, decodedToken.user.id));
+        store.dispatch(saveUser(username));
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
