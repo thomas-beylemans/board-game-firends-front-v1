@@ -16,38 +16,6 @@ export default function CardGroup({ array, title }) {
             </Card.Content>
           </Card>
         ))}
-        {array.map(card => (
-          <Card key={card.id} as={Link} to={`/events/${card.id}`}>
-            <Image src={card.picture} />
-            <Card.Content>
-              <Card.Header>{card.name}</Card.Header>
-            </Card.Content>
-          </Card>
-        ))}
-        {array.map(card => (
-          <Card key={card.id} as={Link} to={`/events/${card.id}`}>
-            <Image src={card.picture} />
-            <Card.Content>
-              <Card.Header>{card.name}</Card.Header>
-            </Card.Content>
-          </Card>
-        ))}
-        {array.map(card => (
-          <Card key={card.id} as={Link} to={`/events/${card.id}`}>
-            <Image src={card.picture} />
-            <Card.Content>
-              <Card.Header>{card.name}</Card.Header>
-            </Card.Content>
-          </Card>
-        ))}
-        {array.map(card => (
-          <Card key={card.id} as={Link} to={`/events/${card.id}`}>
-            <Image src={card.picture} />
-            <Card.Content>
-              <Card.Header>{card.name}</Card.Header>
-            </Card.Content>
-          </Card>
-        ))}
       </Card.Group>
     </Segment>
   );
