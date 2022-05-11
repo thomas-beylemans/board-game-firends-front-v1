@@ -46,7 +46,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes événements organisés',
-      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} title={'Mes événements organisés'} /> : <CardGroup array={upcomingEvents} title={'Mes événements à venir'} /> }</Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} title={'Mes événements organisés'} /> : <CardGroup array={upcomingEvents} title={'Mes événements organisés'} /> }</Tab.Pane>,
     },
     {
       menuItem: 'Mes jeux',
