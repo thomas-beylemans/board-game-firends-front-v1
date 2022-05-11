@@ -31,16 +31,16 @@ export default function Dashboard() {
         Authorization: `Bearer ${token.accessToken}`,
       }
     });
-    setGames(userInfos.data.user.game);
-    setUpcomingEvents(userInfos.data.user.event);
     const allEvents = userInfos.data.user.event;
-    const events = [];
-    allEvents.filter(event => {
+    const events = allEvents.filter(event => {
       if (event.event_admin.username === username) {
         events.push(event);
       }
     });
+    console.log(events);
     setMyEvents(events);
+    setGames(userInfos.data.user.game);
+    setUpcomingEvents(allEvents);
     setLoading(false);
   }
 

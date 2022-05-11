@@ -22,7 +22,7 @@ export default function Profile() {
       <Navbar />
       <div className='profile__container'>
       <ProfileInfos />
-      <CardGroup array={gamesArray}/>
+      <CardGroup array={gamesArray} title={'Ma ludothèque'}/>
       </div>
       <Footer />
     </div>

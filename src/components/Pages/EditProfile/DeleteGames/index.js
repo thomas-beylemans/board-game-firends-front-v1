@@ -10,11 +10,11 @@ console.log('Je supprime un jeu')
 
   return (
     <Segment className='games-segment' color='orange' padded>
-      <Header as='h1' color='orange'>Ludothèque</Header>
+      <Header as='h1' color='orange'>Ma ludothèque</Header>
       <Card.Group centered children={games}>
         {games.map(game => (
           <Card key={game.id}>
-            <Image src={game.image} />
+            <Image src={game.picture} />
             <Card.Content>
               <Card.Header>{game.name}</Card.Header>
             </Card.Content>

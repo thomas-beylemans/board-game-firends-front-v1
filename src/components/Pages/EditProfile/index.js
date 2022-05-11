@@ -16,7 +16,7 @@ export default function EditProfile() {
             <div className='profile__container'>
             <EditProfileInfos />
             <AddGame />
-            <DeleteGames games={gamesArray} />
+            <DeleteGames games={gamesArray} title={'Ma ludothèque'} />
             </div>
             <Footer />
         </div>
