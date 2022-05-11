@@ -8,6 +8,7 @@ import Navbar from '../../../components/Navbar';
 import Banner from '../../Banner';
 import Footer from '../../Footer';
 import CardGroup from './CardGroup';
+import CardGroupGames from '../../CardGroup';
 
 import './styles.scss';
 import PlaceHolder from '../../PlaceHolder';
@@ -54,7 +55,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes jeux',
-      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={games} title={'Mes jeux'} /> : <CardGroup array={games} title={'Mes jeux'} />}</Tab.Pane>,
+      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={games} title={'Mes jeux'} /> : <CardGroupGames array={games} title={'Mes jeux'} />}</Tab.Pane>,
     },
   ]
 
