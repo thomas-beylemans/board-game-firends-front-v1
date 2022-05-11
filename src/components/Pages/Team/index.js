@@ -33,11 +33,11 @@ export default function Team() {
       <div className="team__content">
         {
           team.map((member) => (
-            <div className="team__content__card">
-              <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='medium' circular />
-              <Card key={member.id}>
+            <div className="team__content__card" key={member.id}>
+              <Image src={member.avatar_url} size='medium' circular />
+              <Card>
                 <Card.Content>
-                  <Card.Header>{member.name}</Card.Header>
+                  <Card.Header className="team__content__card__title">{member.name}</Card.Header>
                   <Card.Meta>
                   <Icon name='github' />
                   <a href={member.html_url}>{member.html_url}</a>
