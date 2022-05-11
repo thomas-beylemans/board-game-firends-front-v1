@@ -1,4 +1,3 @@
-import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos } from "../actions/user";
 import { saveError } from "../actions/error";

@@ -46,7 +46,7 @@ export default function Dashboard() {
     console.log('je refresh');
     dispatch(getUserInfos());
     fetchUserInfos();
-  }, []);
+  }, [dispatch]);
 
 
   const tabPanels = [
