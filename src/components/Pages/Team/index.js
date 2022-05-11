@@ -36,11 +36,15 @@ export default function Team() {
             <div className="team__content__card" key={member.id}>
               <Image src={member.avatar_url} size='medium' circular />
               <Card>
-                <Card.Content>
+                <Card.Content className="team__content__card__content">
                   <Card.Header className="team__content__card__title">{member.name}</Card.Header>
                   <Card.Meta>
                   <Icon name='github' />
-                  <a href={member.html_url}>{member.html_url}</a>
+                  <a href={member.html_url}>Page GitHub</a>
+                  </Card.Meta>
+                  <Card.Meta>
+                  <Icon name='linkedin' />
+                  <a href={member.blog}>Profil Linkedin</a>
                   </Card.Meta>
                 </Card.Content>
               </Card>
