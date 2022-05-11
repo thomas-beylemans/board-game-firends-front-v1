@@ -9,7 +9,7 @@ export default function CardGroup({ array, title }) {
       <Card.Group centered children={array}>
         {array.map(card => (
           <Card key={card.id}>
-            <Image src={card.image} />
+            <Image src={card.picture} />
             <Card.Content>
               <Card.Header>{card.name}</Card.Header>
             </Card.Content>

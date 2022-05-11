@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   const username = useSelector(state => state.user.username);
 
-  const fetchUserGames = async () => {
+  const fetchUserInfos = async () => {
     setLoading(true);
     const token = JSON.parse(localStorage.getItem('user'));
     const userInfos = await axios.get('https://boardgamefriends.herokuapp.com/api/v1/dashboard', {
@@ -46,8 +46,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(getUserInfos());
-    fetchUserGames();
-  }, []);
+    fetchUserInfos();
+  }, [dispatch]);
 
 
   const tabPanels = [
@@ -57,7 +57,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes événements organisés',
-      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={myEvents} title={'Mes événements organisés'} /> : <CardGroup array={myEvents} title={'Mes événements à venir'} /> }</Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={myEvents} title={'Mes événements organisés'} /> : <CardGroup array={myEvents} title={'Mes événements organisés'} /> }</Tab.Pane>,
     },
     {
       menuItem: 'Mes jeux',
