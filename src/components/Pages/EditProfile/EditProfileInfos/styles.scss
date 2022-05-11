@@ -1,0 +1,36 @@
+.infos {
+  display: flex;
+  flex-direction: column;  
+  background-color: rgb(241, 206, 109);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form__flex {
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.infos__input {
+  width: 200px;
+  margin-left: -120px;
+  padding: 5px;
+  display: block;
+}
+
+.description {
+  
+    &__row {
+      display: flex;
+      justify-content: center;
+      margin-left: -120px;
+      padding: 5px;
+    }
+
+    &__input {
+      width: 200px;
+      text-align: center;
+    }
+  }

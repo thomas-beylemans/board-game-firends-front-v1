@@ -1,0 +1,12 @@
+.banner {
+  height: 250px;
+  width: 1366px;
+  background-size: fill;
+  background-image: url('../../../src/assets/img/banner.png');
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    display: none;
+  }
+}
