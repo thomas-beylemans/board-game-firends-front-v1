@@ -6,13 +6,15 @@ import './styles.scss';
 import games_img from '../../../../assets/img/games.jpg';
 
 export default function ProfileInfos({ username, city, avatar, bio }) {    
-
+ if (avatar === null) {
+   avatar= games_img
+ }
     return (
         <Grid className="profile-infos" columns={2} divided padded stackable >
             <Grid.Row>
                 <Grid.Column >
                     <Container className='infos' textAlign='center'>
-                        <Image src={games_img} size='small' circular centered />                        
+                        <Image src={avatar} size='small' circular centered />                        
                         <Header as='h1'>{username}</Header>
                         <Header as='h3'>{city}</Header>
                     </Container>
