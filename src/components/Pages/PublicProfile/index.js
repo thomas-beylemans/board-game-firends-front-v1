@@ -1,9 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-// import jwt_decode from 'jwt-decode';
-// import { useDispatch } from 'react-redux';
-// import { saveUser } from '../../../actions/user';
+import { fetchAPI } from '../../../utils/fetchAPI';
+
+import { Segment } from 'semantic-ui-react'
 
 import Navbar from '../../Navbar';
 import ProfileInfos from './ProfileInfos';
@@ -11,59 +10,49 @@ import CardGroup from '../../CardGroup';
 import Footer from '../../Footer';
 import './styles.scss';
 
-import gamesArray from '../../../data/games';
+// import gamesArray from '../../../data/games';
 
 export default function PublicProfile() {
-  // const dispatch = useDispatch();  
-  // useEffect(() => {
-  //   const loggedUser = JSON.parse(localStorage.getItem('user'));
-  //   if (loggedUser) {
-  //     const decodedToken = jwt_decode(loggedUser.accessToken);
-  //     const loggedUserEmail = decodedToken.user.email;
-  //     const loggedUserUsername = decodedToken.user.username;
-  //     const loggedUserId = decodedToken.user.id;
-  //     dispatch(saveUser(loggedUserUsername, loggedUserEmail, loggedUserId));
-  //   }
-  // }, [dispatch]);
-
-
-  const [username, setUsername] = useState(null);
-  const [city, setCity] = useState(null);
-  const [bio, setBio] = useState(null);
-  const [avatar, setAvatar] = useState(null);
+  
+  const [username, setUsername] = useState('');
+  const [city, setCity] = useState('');
+  const [bio, setBio] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [games, setGames] = useState([]);
 
   const { id } = useParams();
 
-  useEffect(() => {    
-      axios.get(`https://boardgamefriends.herokuapp.com/api/v1/profile/${id}`)
-        .then((response) => {
-          console.log(response.data)
-          setUsername(response.data.user.username);
-          setCity(response.data.user.geo.city);
-          setBio(response.data.user.bio);
-          setAvatar(response.data.user.avatar);
-          setGames(response.data.games);
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          console.log('J\'ai tout récupéré')
-        });  
-  }, [id]);
-
-  
-  
-  if (!id) {
-    return <Navigate to="/error" replace />;
+  const fetchSelectedUser = async () => {
+    const selectedUser = await fetchAPI(`profile/${id}`);
+    console.log(selectedUser)
+    setUsername(selectedUser.user.username);
+    setCity(selectedUser.user.geo.city);
+    setBio(selectedUser.user.bio);
+    setAvatar(selectedUser.user.avatar);
+    setGames(selectedUser.user.game);
+    // if (selectedUser) {
+    //   return <Navigate to="/error" replace />;
+    // }
   }
+
+  useEffect(() => {
+    fetchSelectedUser();
+  }, []);
+
+  let gamesTrue;
+  if (games.length > 0) {
+    gamesTrue = true;
+  }
+
+  // if (username === 'error') {
+  //   return <Navigate to="/error" replace />;
+  // }
   return (
     <div className="profile">
       <Navbar />
       <div className='profile__container'>
-      <ProfileInfos username={username} city={city} bio={bio} avatar={avatar} games={games}/>
-      <CardGroup array={gamesArray}/>
+        <ProfileInfos username={username} city={city} bio={bio} avatar={avatar} />
+        {gamesTrue ? <CardGroup title='' array={games} /> : <Segment color='orange' textAlign='center'>Ce joueur n'a pas encore de jeux dans sa ludothèque</Segment>}
       </div>
       <Footer />
     </div>

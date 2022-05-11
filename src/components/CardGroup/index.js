@@ -25,7 +25,7 @@ CardGroup.propTypes = {
   array: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
   })).isRequired,
 };
 
