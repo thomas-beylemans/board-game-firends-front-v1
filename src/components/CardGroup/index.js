@@ -6,7 +6,7 @@ export default function CardGroup({ array, title }) {
   return (
     <Segment className='games-segment' color='orange' padded>
       <Header as='h1' color='orange'>{title}</Header>
-      <Card.Group centered children={array}>
+      <Card.Group centered children={array} itemsPerRow={3} stackable>
         {array.map(card => (
           <Card key={card.id}>
             <Image src={card.picture} />
