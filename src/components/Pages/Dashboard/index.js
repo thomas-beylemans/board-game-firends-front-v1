@@ -32,13 +32,13 @@ export default function Dashboard() {
       }
     });
     const allEvents = userInfos.data.user.event;
-    const events = allEvents.filter(event => {
-      if (event.event_admin.username === username) {
-        events.push(event);
-      }
-    });
-    console.log(events);
-    setMyEvents(events);
+    // allEvents.filter(event => {
+    //   if (event.event_admin.username === username) {
+    //     events.push(event);
+    //   }
+    // });
+    // const events = [];
+    setMyEvents(allEvents);
     setGames(userInfos.data.user.game);
     setUpcomingEvents(allEvents);
     setLoading(false);
@@ -47,7 +47,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(getUserInfos());
     fetchUserInfos();
-  }, [dispatch]);
+  }, []);
 
 
   const tabPanels = [
