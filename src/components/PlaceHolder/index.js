@@ -1,7 +1,11 @@
-import { Grid, Placeholder, Segment } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-export default function PlaceHolder({ array }) {
+import { Grid, Placeholder, Segment, Header } from 'semantic-ui-react';
+
+export default function PlaceHolder({ array, title }) {
   return (
+    <Segment className='games-segment' color='orange' padded>
+    <Header as='h1' color='orange'>{title}</Header>
     <Grid columns={3} stackable>
       {
         array.map((card) => (
@@ -22,5 +26,16 @@ export default function PlaceHolder({ array }) {
         ))
       }
     </Grid>
+    </Segment>
   );
 };
+
+PlaceHolder.propTypes = {
+  title: PropTypes.string.isRequired,
+  array: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
+};
+

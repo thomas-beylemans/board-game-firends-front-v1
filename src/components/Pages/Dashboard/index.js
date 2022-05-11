@@ -42,7 +42,7 @@ export default function Dashboard() {
   const tabPanels = [
     {
       menuItem: 'Mes événements à venir',
-      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} /> : <CardGroup array={upcomingEvents} /> }</Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={upcomingEvents} title={'Mes événements à venir'} /> : <CardGroup array={upcomingEvents} title={'Mes événements à venir'} /> }</Tab.Pane>,
     },
     {
       menuItem: 'Mes événements organisés',
@@ -50,7 +50,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes jeux',
-      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={games} /> : <CardGroup array={games} /> }</Tab.Pane>,
+      render: () => <Tab.Pane attached>{ loading ? <PlaceHolder array={games} title={'Mes jeux'} /> : <CardGroup array={games} title={'Mes jeux'} /> }</Tab.Pane>,
     },
   ]
 
