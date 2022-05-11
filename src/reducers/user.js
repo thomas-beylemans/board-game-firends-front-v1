@@ -12,6 +12,7 @@ export const initialState = {
     lat: '',
     long: '',
     isLoading: false,
+    accessToken: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -65,6 +66,7 @@ const reducer = (state = initialState, action = {}) => {
         postcode: action.user.postcode,
         lat: action.user.lat,
         long: action.user.long,
+        accessToken: action.user.accessToken,
       };
 
     default:

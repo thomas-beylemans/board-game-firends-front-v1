@@ -45,6 +45,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    console.log('je refresh');
     dispatch(getUserInfos());
     fetchUserInfos();
   }, []);

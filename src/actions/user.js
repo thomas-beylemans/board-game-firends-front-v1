@@ -32,8 +32,9 @@ export const clearError = () => ({
 });
 
 export const SAVE_USER = 'SAVE_USER';
-export const saveUser = (username, email, id) => ({
+export const saveUser = (accessToken, username, email, id) => ({
   type: SAVE_USER,
+  accessToken,
   username,
   email,
   id

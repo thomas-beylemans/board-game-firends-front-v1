@@ -22,6 +22,8 @@ import "./styles.scss";
 export default function App() {
     const dispatch = useDispatch();
 
+    const logged = useSelector(state => state.user.logged);
+
     useEffect(() => {
         const loggedUser = JSON.parse(localStorage.getItem("user"));
         if (loggedUser) {
@@ -30,8 +32,6 @@ export default function App() {
             dispatch(saveUser(loggedUser.username, loggedUserEmail));
         }
     }, [dispatch]);
-
-    const logged = useSelector((state) => state.user.logged);
 
     return (
         <div className="app">
@@ -46,10 +46,10 @@ export default function App() {
                 />
                 {logged && <Route path="/dashboard" element={<Dashboard />} />}
                 {logged && <Route path="/profile" element={<Profile />} />}
-                {logged && (<Route path="/editprofile" element={<EditProfile />} />)}
-                {logged && (<Route path="/profile/:username" element={<PublicProfile />} />)}
+                {logged && <Route path="/editprofile" element={<EditProfile />} />}
+                {logged && <Route path="/profile/:username" element={<PublicProfile />} />}
                 {logged && <Route path="/events" element={<PageEvent />} />}
-                {logged && (<Route path="/events/:id" element={<EventDetails />} />)}            
+                {logged && <Route path="/events/:id" element={<EventDetails />} />}            
                 <Route path="/team" element={<Team />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/terms-of-use" element={<CGU />} />
