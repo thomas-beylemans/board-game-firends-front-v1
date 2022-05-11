@@ -80,7 +80,6 @@ const user = (store) => (next) => async (action) => {
         const postcode = result.user.geo.postcode;
         const lat = result.user.geo.lat;
         const long = result.user.geo.long;
-        const accessToken = result.accessToken;
 
         const user = {
           id,
@@ -92,7 +91,6 @@ const user = (store) => (next) => async (action) => {
           postcode,
           lat,
           long,
-          accessToken
         }
         store.dispatch(saveUserInfos(user));
       }

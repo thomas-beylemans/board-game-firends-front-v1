@@ -12,7 +12,6 @@ export const initialState = {
     lat: '',
     long: '',
     isLoading: false,
-    accessToken: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -26,12 +25,9 @@ const reducer = (state = initialState, action = {}) => {
     case SAVE_USER:
       return {
         ...state,
-        id: action.id,
-        email: action.email,
         password: '',
         passwordConfirm: '',
         username: action.username,
-        accessToken: action.accessToken,
         logged: true,
       };
 
@@ -50,7 +46,6 @@ const reducer = (state = initialState, action = {}) => {
         password: '',
         passwordConfirm: '',
         username: '',
-        accessToken: '',
         logged: false,
       };
 
@@ -66,7 +61,6 @@ const reducer = (state = initialState, action = {}) => {
         postcode: action.user.postcode,
         lat: action.user.lat,
         long: action.user.long,
-        accessToken: action.user.accessToken,
       };
 
     default:
