@@ -3,13 +3,12 @@ import ControlledInput from '../../../ControlledInput';
 import { useSelector } from 'react-redux';
 import './styles.scss';
 
-import games_img from '../../../../assets/img/games.jpg';
-
 export default function EditProfileInfos() {
   const username = useSelector(state => state.user.username)
   const city = useSelector(state => state.user.city)
   const email = useSelector(state => state.user.email)
   const bio = useSelector(state => state.user.bio)
+  const avatar = useSelector(state => state.user.avatar);
 
   const handleClickSave = () => {
     console.log('Je sauvegarde mes changements')
@@ -26,7 +25,7 @@ export default function EditProfileInfos() {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Container className="infos" textAlign='center'>
-                <Image src={games_img} size='small' circular centered />
+              <Image src={avatar} size='small' circular centered />                        
                 {/* Ici, le bouton délenche le input type file qui est dessous et qui est caché */}
                 <Button as="label" htmlFor="file" type="button" icon circular title='Modifier mon avatar' color='orange'>
                   <Icon name='edit' />
