@@ -92,6 +92,7 @@ export default function ModalEvent() {
                       <Grid.Row>
                         <ControlledInput
                           className="modal__img__input"
+                          name="img"
                           label="Image"
                           type="file"
                           id="file"
