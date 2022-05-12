@@ -13,7 +13,7 @@ export default function Map({
   eventsList // events list fetched from the database - represented as an array of coordinates for last recent events
 }) {
 
-  console.log(eventsList)
+  console.log('eventsList =>', eventsList)
   return (
     <div className="map">
       <MapContainer

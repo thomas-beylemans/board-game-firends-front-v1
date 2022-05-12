@@ -15,7 +15,7 @@ import './styles.scss';
 // user position defined in the user profile - fetched from the database
 const position = [43.6107, 3.8767];
 // events list fetched from the database - represented as an array of coordinates for last recent events
-const eventsList = [{ lat: 43.5107, long: 3.8767, name: 'Event 1' }, { lat: 43.6107, long: 3.9767, name: 'Event 2' }, { lat: 43.6107, long: 3.7767, name: 'Event 3' }];
+// const eventsList = [{ lat: 43.5107, long: 3.8767, name: 'Event 1' }, { lat: 43.6107, long: 3.9767, name: 'Event 2' }, { lat: 43.6107, long: 3.7767, name: 'Event 3' }];
 
 export default function PageEvent() {
   const dispatch = useDispatch();

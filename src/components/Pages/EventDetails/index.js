@@ -34,6 +34,8 @@ export default function DetailEvent() {
   const [eventLocation, setEventLocation] = useState('');
   const [seatsAvailable, setSeatsAvailable] = useState('');
   const [mapMarker, setMapMarker] = useState([]);
+  
+  console.log('mapMarker =>', mapMarker)
 
 
   const fetchEvent = async () => {
