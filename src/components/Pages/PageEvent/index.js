@@ -10,15 +10,11 @@ import './styles.scss';
 // user position defined in the user profile - fetched from the database
 const position = [43.6107, 3.8767];
 // events list fetched from the database - represented as an array of coordinates for last recent events
-const eventsList = [
-    [43.5107, 3.8767],
-    [43.6107, 3.9767],
-    [43.6107, 3.7767],
-];
+const eventsList = [{lat: 43.5107, long: 3.8767, name: 'Event 1'}, {lat: 43.6107, long: 3.9767, name: 'Event 2'}, {lat: 43.6107, long: 3.7767, name: 'Event 3'}];
 
 export default function PageEvent() {
 
-//   const [name, setName] = useState([]);
+// const [name, setName] = useState([]);
 // const [date, setDate] =useState([]);
 // const [seats, setSeats] =useState([]);
 // const [geo, setGeo] = useState('');
@@ -50,76 +46,6 @@ export default function PageEvent() {
             />
             <div className="event__container">
             <Card.Group className="events" itemsPerRow={3} stackable>
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
-                <OneCardEvent
-                    img="https://zupimages.net/up/22/18/zbcp.png"
-                    title="Nom event"
-                    date="Date et heure"
-                    location="Lieu"
-                    players="Limite de joueurs"
-                />
                 <OneCardEvent
                     img="https://zupimages.net/up/22/18/zbcp.png"
                     title="Nom event"

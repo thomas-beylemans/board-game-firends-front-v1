@@ -9,9 +9,9 @@ import Banner from '../../Banner';
 import Footer from '../../Footer';
 import CardGroupEvents from '../../CardGroupEvents';
 import CardGroupGames from '../../CardGroup';
+import PlaceHolder from '../../PlaceHolder';
 
 import './styles.scss';
-import PlaceHolder from '../../PlaceHolder';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
