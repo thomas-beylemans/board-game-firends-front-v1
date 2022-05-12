@@ -1,6 +1,6 @@
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import { useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import './styles.scss';
 
@@ -18,10 +18,6 @@ export default function EditProfileInfos() {
   const handleClickDelete = () => {
     console.log('Je supprime mon compte')
   }
-
-  // const handleClickBack = () => {
-  // <Navigate to="/profile" replace />
-  // }
 
   return (
     <Form className="form__flex">
@@ -45,9 +41,11 @@ export default function EditProfileInfos() {
               </Container>
             </Grid.Column>
             <Grid.Column className="description">
-              <Header as='h2'>Quelques mots sur moi</Header>
-              <TextArea rows={8} value={bio}>
-              </TextArea>
+              <div className='bio-padding'>
+                <Header as='h2'>Quelques mots sur moi</Header>
+                <TextArea rows={8} value={bio}>
+                </TextArea>
+              </div>
               <Grid.Row className="description__row">
                 <ControlledInput value={email} label='Email' name='email' className="description__input" />
               </Grid.Row>
@@ -61,16 +59,16 @@ export default function EditProfileInfos() {
       <div>
         <Button.Group className='save-btn-group' widths={3}>
           <Button as={Link} to='/profile' basic color="yellow" size='large'>
-          Annuler
-        </Button>
-        <Button onClick={handleClickSave} color="orange" size='large'>
-          Sauvegarder
-        </Button>
-        <Button onClick={handleClickDelete} basic color="red" size='large'>
-          Supprimer le compte
-        </Button>
-      </Button.Group>
-    </div>
+            Annuler
+          </Button>
+          <Button onClick={handleClickSave} color="orange" size='large'>
+            Sauvegarder
+          </Button>
+          <Button onClick={handleClickDelete} basic color="red" size='large'>
+            Supprimer le compte
+          </Button>
+        </Button.Group>
+      </div>
     </Form >
   );
 }

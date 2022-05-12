@@ -21,13 +21,12 @@ export default function ProfileInfos({ username, city, avatar, bio }) {
             <Header as='h3'>{city}</Header>
           </Container>
         </Grid.Column>
-        <Grid.Column className="description">
+        <Grid.Column className="description">        
           <Header as='h2'>Quelques mots sur moi</Header>
-          <p>{bio}
-          </p>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+          <p>{bio}</p>        
+      </Grid.Column>
+    </Grid.Row>
+    </Grid >
   );
 }
 
