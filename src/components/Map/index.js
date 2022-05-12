@@ -32,15 +32,14 @@ export default function Map({
           </Popup>
         </Marker>
         {
-          eventsList.map((event) => {
-            console.log(event.event_admin.id);
+          eventsList.map((event) => {            
             return (
               <Marker key={event.name} position={[event.geo.lat, event.geo.long]}>
                 <Popup>
                   <Card>
                     <Image src={event.picture} wrapped ui={false} />
                     <Card.Content>
-                      <Card.Header>{event.name}</Card.Header>
+                      <Card.Header><Link to={`/events/${event.id}`}>{event.name}</Link></Card.Header>
                       <Card.Meta>
                         Organisé par <Link to={`/profile/${event.event_admin.id}`}>{event.event_admin.username}</Link>
                       </Card.Meta>
