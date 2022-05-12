@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Card, Image } from 'semantic-ui-react';
 
 import './styles.scss';
 
@@ -10,7 +12,8 @@ export default function Map({
   eventsList // events list fetched from the database - represented as an array of coordinates for last recent events
 }) {
 
-    return (
+  console.log(eventsList)
+  return (
     <div className="map">
       <MapContainer
         className={className}
@@ -24,7 +27,7 @@ export default function Map({
         />
         <Marker position={position}>
           <Popup>
-            Vous êtes ici !
+            Je suis ici !
           </Popup>
         </Marker>
         {
@@ -32,7 +35,21 @@ export default function Map({
             return (
               <Marker key={event.name} position={[event.geo.lat, event.geo.long]}>
                 <Popup>
-                  {event.name}
+                  <Card>
+                    <Image src={event.picture} wrapped ui={false} />
+                    <Card.Content>
+                      <Card.Header>{event.name}</Card.Header>
+                      <Card.Meta>
+                        Organisé par {event.event_admin.username}
+                      </Card.Meta>
+                      <Card.Description>
+                        {event.geo.city}
+                      </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                    {moment(event.start_date).format('Do MMMM YYYY, LT')}
+                    </Card.Content>
+                  </Card>
                 </Popup>
               </Marker>
             )
@@ -47,8 +64,7 @@ Map.propTypes = {
   className: PropTypes.string,
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
   eventsList: PropTypes.arrayOf(PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    long: PropTypes.number.isRequired,
+    geo: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired
   })).isRequired
 };

@@ -33,7 +33,9 @@ export default function PageEvent() {
   useEffect(() => {
     fetchSelectedEvent();
   }, [dispatch]);
+
   console.log(allEvents)
+
   return (
     <div className="event">
       <Navbar />
