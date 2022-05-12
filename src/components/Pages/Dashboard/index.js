@@ -7,7 +7,7 @@ import { Tab } from 'semantic-ui-react';
 import Navbar from '../../../components/Navbar';
 import Banner from '../../Banner';
 import Footer from '../../Footer';
-import CardGroup from './CardGroup';
+import CardGroupEvents from '../../CardGroupEvents';
 import CardGroupGames from '../../CardGroup';
 
 import './styles.scss';
@@ -39,14 +39,14 @@ export default function Dashboard() {
   const tabPanels = [
     {
       menuItem: 'Mes événements à venir',
-      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={allEvents} title={'Mes événements à venir'} /> : <CardGroup array={allEvents} title={'Mes événements à venir'} />}</Tab.Pane>,
+      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={allEvents} title={'Mes événements à venir'} /> : <CardGroupEvents array={allEvents} title={'Mes événements à venir'} />}</Tab.Pane>,
     },
     {
       menuItem: 'Mes événements organisés',
       render: () => <Tab.Pane attached>
         {
           loading ? <PlaceHolder array={myEvents} title={'Mes événements organisés'} />
-            : <CardGroup
+            : <CardGroupEvents
               array={myEvents}
               title={'Mes événements organisés'}
             />
