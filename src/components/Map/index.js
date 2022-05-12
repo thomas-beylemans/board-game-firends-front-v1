@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Card, Image } from 'semantic-ui-react';
@@ -32,6 +33,7 @@ export default function Map({
         </Marker>
         {
           eventsList.map((event) => {
+            console.log(event.event_admin.id);
             return (
               <Marker key={event.name} position={[event.geo.lat, event.geo.long]}>
                 <Popup>
@@ -40,7 +42,7 @@ export default function Map({
                     <Card.Content>
                       <Card.Header>{event.name}</Card.Header>
                       <Card.Meta>
-                        Organisé par {event.event_admin.username}
+                        Organisé par <Link to={`/profile/${event.event_admin.id}`}>{event.event_admin.username}</Link>
                       </Card.Meta>
                       <Card.Description>
                         {event.geo.city}
