@@ -28,6 +28,7 @@ export default function DetailEvent() {
   const position = [Number(useSelector((state) => state.user.lat)), Number(useSelector((state) => state.user.long))];
 
   const [eventTitle, setEventTitle] = useState('');
+  const [eventPicture, setEventPicture] = useState('');
   const [eventAdmin, setEventAdmin] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -40,8 +41,9 @@ export default function DetailEvent() {
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
-    console.log(event)
+    console.log('event=>',event)
     setEventTitle(event.events.event.name);   
+    setEventPicture(event.events.event.picture);
     setEventAdmin(event.events.event.event_admin.username);
     setEventDescription(event.events.event.description);
     setEventDate(event.events.event.start_date);
@@ -67,7 +69,7 @@ export default function DetailEvent() {
           alt="Event Image"
           centered
           rounded
-          src="https://cdn.pixabay.com/photo/2020/02/26/05/45/cards-4880676_960_720.jpg"
+          src={eventPicture}
           size="large"
         />
         <Button
