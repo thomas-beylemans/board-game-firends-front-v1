@@ -10,7 +10,7 @@ export default function Map({
   eventsList // events list fetched from the database - represented as an array of coordinates for last recent events
 }) {
 
-  return (
+    return (
     <div className="map">
       <MapContainer
         className={className}
@@ -30,7 +30,7 @@ export default function Map({
         {
           eventsList.map((event) => {
             return (
-              <Marker key={event.name} position={[event.lat, event.long]}>
+              <Marker key={event.name} position={[event.geo.lat, event.geo.long]}>
                 <Popup>
                   {event.name}
                 </Popup>
