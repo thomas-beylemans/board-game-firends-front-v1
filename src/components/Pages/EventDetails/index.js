@@ -27,8 +27,9 @@ import {
 export default function DetailEvent() {
   const dispatch = useDispatch();
 
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
   const eventId = useParams().id;
-  const position = [Number(useSelector((state) => state.user.lat)), Number(useSelector((state) => state.user.long))];
+  const position = [loggedUser.user.lat, loggedUser.user.long];
 
   const [eventTitle, setEventTitle] = useState('');
   const [eventAdmin, setEventAdmin] = useState('');
@@ -55,6 +56,7 @@ export default function DetailEvent() {
     if (loggedUser) {
         dispatch(saveUserInfos(loggedUser.user));
     }
+    console.log(position);
     fetchEvent();
   }, []);
 

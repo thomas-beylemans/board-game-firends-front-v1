@@ -28,7 +28,7 @@ const fetchSelectedEvent = async () => {
   setLoading(true);
   const selectedEvent = await fetchAPI('events');
   setAllEvents(selectedEvent.events.event);
-  setLoading(false);  
+  setLoading(false);
  }
 
 useEffect(() => {
