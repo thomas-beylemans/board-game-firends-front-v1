@@ -1,7 +1,7 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { saveUserInfos } from '../../../actions/user';
 import moment from 'moment';
 import 'moment/locale/fr';
@@ -27,8 +27,8 @@ import {
 export default function DetailEvent() {
   const dispatch = useDispatch();
 
-  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
   const eventId = useParams().id;
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
   const [eventTitle, setEventTitle] = useState('');
@@ -37,7 +37,7 @@ export default function DetailEvent() {
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [seatsAvailable, setSeatsAvailable] = useState('');
-  const [mapMarker, setMapMarker] = useState([]);
+  const [event, setEvent] = useState([]);
 
 
   const fetchEvent = async () => {
@@ -48,7 +48,7 @@ export default function DetailEvent() {
     setEventDate(event.events.event.start_date);
     setSeatsAvailable(event.events.event.seats);
     setEventLocation(event.events.event.geo.city);
-    setMapMarker([{lat: event.events.event.geo.lat, long: event.events.event.geo.long, name: event.events.event.name}]);
+    setEvent([event.events.event]);
   }
 
   useEffect (() => {
@@ -56,7 +56,6 @@ export default function DetailEvent() {
     if (loggedUser) {
         dispatch(saveUserInfos(loggedUser.user));
     }
-    console.log(position);
     fetchEvent();
   }, []);
 
@@ -106,7 +105,7 @@ export default function DetailEvent() {
               <Map
                 className={'map__container--large'}
                 position={position}
-                eventsList={mapMarker}
+                eventsList={event}
               />
             </Grid.Column>
 

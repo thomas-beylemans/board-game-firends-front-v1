@@ -13,13 +13,12 @@ import {Header} from 'semantic-ui-react';
 
 import './styles.scss';
 
-// user position defined in the user profile - fetched from the database
-const position = [43.6107, 3.8767];
-// events list fetched from the database - represented as an array of coordinates for last recent events
-const eventsList = [{lat: 43.5107, long: 3.8767, name: 'Event 1'}, {lat: 43.6107, long: 3.9767, name: 'Event 2'}, {lat: 43.6107, long: 3.7767, name: 'Event 3'}];
 
 export default function PageEvent() {
   const dispatch = useDispatch();
+
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+  const position = [loggedUser.user.lat, loggedUser.user.long];
 
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
@@ -48,12 +47,12 @@ useEffect(() => {
             <Map
                 className={'map__container--large'}
                 position={position}
-                eventsList={eventsList}
+                eventsList={allEvents}
             />
 
             <div className="event__container">
 
-             {loading ? <PlaceHolder array={allEvents} />:<CardGroupEvents array={allEvents}  />}
+             {loading ? <PlaceHolder array={allEvents} title="" />:<CardGroupEvents array={allEvents} title=""  />}
             
             </div>
             <Footer />
