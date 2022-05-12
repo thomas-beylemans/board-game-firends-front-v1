@@ -33,7 +33,7 @@ export default function CardGroupEvents({ array, title }) {
                   color="orange"
                   name="map marker alternate"
                 />
-                {/* Lieu {card.event.geo.city} */}
+              {card.geo.city}
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="users" />

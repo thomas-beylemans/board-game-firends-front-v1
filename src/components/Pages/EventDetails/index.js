@@ -1,6 +1,8 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import 'moment/locale/fr';
 
 import Map from '../../Map';
 import ControlledInput from '../../ControlledInput';
@@ -109,7 +111,7 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="clock outline" />
-                  {eventDate}
+                  {moment({eventDate}).format('Do MMMM YYYY, LT')}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
