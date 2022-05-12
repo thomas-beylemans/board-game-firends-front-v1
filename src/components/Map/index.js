@@ -29,7 +29,7 @@ export default function Map({
         {
           eventsList.map((event) => {
             return (
-              <Marker key={event} position={[event.lat, event.long]}>
+              <Marker key={event.name} position={[event.lat, event.long]}>
                 <Popup>
                   {event.name}
                 </Popup>
