@@ -10,6 +10,7 @@ export const initialState = {
   description: '',
   lat: '',
   long: '',
+  message: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         ...initialState,
+        message: action.message,
       };
 
     default:

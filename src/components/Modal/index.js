@@ -1,38 +1,25 @@
 import React from 'react';
-import './styles.scss';
 import { Button, Image, Modal, TextArea, Grid } from 'semantic-ui-react';
 import EventInput from '../EventInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
+import { useState } from 'react';
+
+import './styles.scss';
 
 export default function ModalEvent() {
 
   const dispatch = useDispatch();
 
-  const [firstModalCreateEvent, setfirstModalCreateEvent] =
-    React.useState(false);
-  const [secondModalCreateEvent, setSecondModalCreateEvent] =
-    React.useState(false);
-
-    const name = useSelector((state) => state.event.name);
-    const city = useSelector((state) => state.event.city);
-    const postcode = Number(useSelector((state) => state.event.postcode));
-    const seats = Number(useSelector((state) => state.event.seats));
-    const start_date = useSelector((state) => state.event.start_date);
-    // const picture = useSelector((state) => state.event.img);
-    const description = useSelector((state) => state.event.description);
-    // const lat = useSelector((state) => state.event.lat);
-    // const long = useSelector((state) => state.event.long);
-
-    const picture = "google.fr";
-    const lat = 32.12345;
-    const long = -123.12345;
+  const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
+  const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    const event = {event: {name, picture, seats, start_date, description, geo: {city, postcode, lat, long}}}
-    dispatch(createEvent(event));
-    };
+    dispatch(createEvent());
+  };
+
+  const message = useSelector(state => state.event.message);
 
   return (
     <div>
@@ -127,7 +114,7 @@ export default function ModalEvent() {
                         placeholder="Description"
                         maxLength="1000"
                         name="description"
-                        onChange={(e) => {dispatch(changeEventValue('description', e.target.value));}}
+                        onChange={(e) => { dispatch(changeEventValue('description', e.target.value)); }}
                       ></TextArea>
                     </Modal.Description>
                   </Grid.Row>
@@ -159,12 +146,12 @@ export default function ModalEvent() {
           open={secondModalCreateEvent}
           size="small"
         >
-          <Modal.Header>Évènement créé !</Modal.Header>
+          <Modal.Header>{message}</Modal.Header>
 
           <Modal.Actions>
             <Button
               icon="check"
-              content="C'est fait !"
+              content="Valider"
               positive
               onClick={() => {
                 setfirstModalCreateEvent(false);
