@@ -3,7 +3,7 @@ import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos } from "../acti
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
-  baseURL: 'http://localhost:46655/api/v1',
+  baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
 });
 
 const user = (store) => (next) => async (action) => {
