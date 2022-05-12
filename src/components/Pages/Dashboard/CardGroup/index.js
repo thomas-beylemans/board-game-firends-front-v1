@@ -5,23 +5,23 @@ import './styles.scss';
 
 export default function CardGroup({ array, title }) {
   return (
-    <Segment className='games-segment' color='orange' padded>
+    <Segment className='cardgroup' color='orange' padded>
       <Header as='h1' color='orange'>{title}</Header>
       <Card.Group centered children={array} itemsPerRow={3} stackable>
         {array.map(card => (
           <Card key={card.id} as={Link} to={`/events/${card.id}`}>
-            <Image src={card.picture} />
+            <Image src={card.picture} className="cardgroup__img" />
             <Card.Content>
               <Card.Header>{card.name}</Card.Header>
             </Card.Content>
             <Card.Content>
               <Card.Description>
                 <Icon color="orange" name="chess queen" />
-                Organisé par {card.event_admin.username}
+                Organisateur : {card.event_admin.username}
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="clock outline" />
-                Date et heure {card.start_date}
+                {card.start_date}
               </Card.Description>
               <Card.Description>
                 <Icon
@@ -32,11 +32,11 @@ export default function CardGroup({ array, title }) {
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="users" />
-                Nombre de joueurs {card.seats}
+                {card.seats} places disponibles
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="talk" />
-                Description {card.description}
+                {card.description}
               </Card.Description>
             </Card.Content>
           </Card>
