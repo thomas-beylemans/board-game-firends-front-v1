@@ -19,20 +19,23 @@ export default function PublicProfile() {
   const [bio, setBio] = useState('');
   const [avatar, setAvatar] = useState('');
   const [games, setGames] = useState([]);
+  const [error, setError] = useState(null);
 
   const { id } = useParams();
 
   const fetchSelectedUser = async () => {
     const selectedUser = await fetchAPI(`profile/${id}`);
-    console.log(selectedUser)
-    setUsername(selectedUser.user.username);
-    setCity(selectedUser.user.geo.city);
-    setBio(selectedUser.user.bio);
-    setAvatar(selectedUser.user.avatar);
-    setGames(selectedUser.user.game);
-    // if (selectedUser) {
-    //   return <Navigate to="/error" replace />;
-    // }
+    try {
+      // console.log(selectedUser)
+      setUsername(selectedUser.user.username);
+      setCity(selectedUser.user.geo.city);
+      setBio(selectedUser.user.bio);
+      setAvatar(selectedUser.user.avatar);
+      setGames(selectedUser.user.game);
+    } catch (error) {
+      setError(error)
+      // console.log(error)
+    }      
   }
 
   useEffect(() => {
@@ -44,9 +47,9 @@ export default function PublicProfile() {
     gamesTrue = true;
   }
 
-  // if (username === 'error') {
-  //   return <Navigate to="/error" replace />;
-  // }
+  if (error) {
+    return <Navigate to="/error" replace />;
+  }
   return (
     <div className="profile">
       <Navbar />
