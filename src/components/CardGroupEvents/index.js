@@ -1,9 +1,14 @@
+import moment from 'moment';
+import 'moment/locale/fr';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Card, Segment, Header, Image, Icon } from 'semantic-ui-react';
 import './styles.scss';
 
+moment.locale('fr');
+
 export default function CardGroupEvents({ array, title }) {
+
   return (
     <Segment className='cardgroup' color='orange' padded>
       <Header as='h1' color='orange'>{title}</Header>
@@ -21,7 +26,7 @@ export default function CardGroupEvents({ array, title }) {
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="clock outline" />
-                {card.start_date}
+                {moment(card.start_date).format('Do MMMM YYYY, LT')}
               </Card.Description>
               <Card.Description>
                 <Icon
