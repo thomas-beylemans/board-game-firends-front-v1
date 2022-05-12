@@ -37,7 +37,7 @@ export default function DetailEvent() {
 
 
   const fetchEvent = async () => {
-    const event = await fetchAPI(`/events/${eventId}`);
+    const event = await fetchAPI(`events/${eventId}`);
     setEventTitle(event.events.event.name);
     setEventAdmin(event.events.event.event_admin.username);
     setEventDescription(event.events.event.description);
