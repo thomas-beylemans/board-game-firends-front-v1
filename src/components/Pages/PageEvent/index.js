@@ -23,7 +23,7 @@ export default function PageEvent() {
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
 
-const fetchSelectedEvent = async () => {
+const fetchAllEvents = async () => {
   setLoading(true);
   const selectedEvent = await fetchAPI('events');
   setAllEvents(selectedEvent.events.event);
@@ -35,7 +35,7 @@ useEffect(() => {
   if (loggedUser) {
       dispatch(saveUserInfos(loggedUser.user));
   }
-  fetchSelectedEvent();
+  fetchAllEvents();
 }, [dispatch]);
 
     return (
