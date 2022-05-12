@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/fr';
 
-import Map from '../../Map';
+import MapDetail from '../../MapDetail';
 import ControlledInput from '../../ControlledInput';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
@@ -34,13 +34,14 @@ export default function DetailEvent() {
   const [eventLocation, setEventLocation] = useState('');
   const [seatsAvailable, setSeatsAvailable] = useState('');
   const [mapMarker, setMapMarker] = useState([]);
-  
+
   console.log('mapMarker =>', mapMarker)
 
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
-    setEventTitle(event.events.event.name);
+    console.log(event)
+    setEventTitle(event.events.event.name);   
     setEventAdmin(event.events.event.event_admin.username);
     setEventDescription(event.events.event.description);
     setEventDate(event.events.event.start_date);
@@ -50,7 +51,7 @@ export default function DetailEvent() {
   }
 
   useEffect (() => {
-    fetchEvent();
+    fetchEvent();    
   }, []);
 
   return (
@@ -96,7 +97,7 @@ export default function DetailEvent() {
         <Grid columns={2} relaxed="very" divided stackable>
           <Grid.Row>
             <Grid.Column>
-              <Map
+              <MapDetail
                 className={'map__container--large'}
                 position={position}
                 eventsList={mapMarker}
