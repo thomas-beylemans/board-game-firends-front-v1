@@ -1,17 +1,5 @@
 .add-game {
-    margin-top: 2.5rem !important;
-}
-
-.add-game-btn {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-
-.add-game__input {
-    width: 200px;
-    text-align: center;
-    display: flex;
-    padding: 5px;
-    display: block;
+  margin-top: 2.5rem !important;
+  flex-flow: row wrap !important;
+  justify-content: space-evenly !important;
 }
