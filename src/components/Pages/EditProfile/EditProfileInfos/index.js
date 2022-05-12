@@ -59,7 +59,7 @@ export default function EditProfileInfos() {
         </Grid>
       </div>
       <div>
-        <Button.Group className='save-btn-group' widths='3'>
+        <Button.Group className='save-btn-group' widths={3}>
           <Button as={Link} to='/profile' basic color="yellow" size='large'>
           Annuler
         </Button>
