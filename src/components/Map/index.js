@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Icon } from 'semantic-ui-react';
 
 import './styles.scss';
 
@@ -28,7 +28,7 @@ export default function Map({
         />
         <Marker position={position}>
           <Popup>
-            Je suis ici !
+            Vous êtes ici ! <Icon name='home'/>
           </Popup>
         </Marker>
         {
