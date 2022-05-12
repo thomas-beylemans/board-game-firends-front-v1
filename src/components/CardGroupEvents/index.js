@@ -17,7 +17,7 @@ export default function CardGroupEvents({ array, title }) {
           <Card key={card.id} as={Link} to={`/events/${card.id}`}>
             <Image src={card.picture} className="cardgroup__img" />
             <Card.Content>
-              <Card.Header>{card.name}</Card.Header>
+              <Card.Header textAlign='center'>{card.name}</Card.Header>
             </Card.Content>
             <Card.Content>
               <Card.Description>
