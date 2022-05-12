@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { saveUserInfos } from '../../../actions/user';
 import { Card, Image, Icon } from 'semantic-ui-react';
 
 import { gitAPI } from '../../../utils/gitAPI';
@@ -10,7 +12,7 @@ import Footer from '../../Footer';
 import './styles.scss';
 
 export default function Team() {
-
+  const dispatch = useDispatch();
   const [team, setTeam] = useState([]);
 
   const fetchTeam = async () => {
@@ -23,6 +25,10 @@ export default function Team() {
   }
 
   useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+        dispatch(saveUserInfos(loggedUser.user));
+    }
     fetchTeam();
   }, []);
 

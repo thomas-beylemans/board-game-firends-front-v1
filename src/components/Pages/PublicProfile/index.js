@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { fetchAPI } from '../../../utils/fetchAPI';
-
+import { saveUserInfos } from '../../../actions/user';
 import { Segment } from 'semantic-ui-react'
 
 import Navbar from '../../Navbar';
@@ -9,11 +9,13 @@ import ProfileInfos from './ProfileInfos';
 import CardGroup from '../../CardGroup';
 import Footer from '../../Footer';
 import './styles.scss';
+import { useDispatch } from 'react-redux';
 
 // import gamesArray from '../../../data/games';
 
 export default function PublicProfile() {
-  
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
   const [city, setCity] = useState('');
   const [bio, setBio] = useState('');
@@ -39,6 +41,10 @@ export default function PublicProfile() {
   }
 
   useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+        dispatch(saveUserInfos(loggedUser.user));
+    }
     fetchSelectedUser();
   }, []);
 

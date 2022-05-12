@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { saveUserInfos } from '../../../actions/user';
+
 import { Accordion, Header, Icon } from 'semantic-ui-react'
 
 import Navbar from '../../../components/Navbar';
@@ -7,12 +10,19 @@ import Footer from '../../Footer';
 import './styles.scss';
 
 export default function FAQ() {
+  const dispatch = useDispatch();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (e, activeIndex) => {
     setActiveIndex(activeIndex.index);
   }
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
+  }, [dispatch]);
 
   return (
     <div className="faq">
@@ -44,7 +54,7 @@ export default function FAQ() {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <p>
-            lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </Accordion.Content>
 
@@ -58,7 +68,7 @@ export default function FAQ() {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <p>
-            lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </Accordion.Content>
         </Accordion>

@@ -1,6 +1,8 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUserInfos } from '../../../actions/user';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -20,10 +22,11 @@ import {
   Button,
   Container,
 } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
 
 
 export default function DetailEvent() {
+  const dispatch = useDispatch();
+
   const eventId = useParams().id;
   const position = [Number(useSelector((state) => state.user.lat)), Number(useSelector((state) => state.user.long))];
 
@@ -48,6 +51,10 @@ export default function DetailEvent() {
   }
 
   useEffect (() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+        dispatch(saveUserInfos(loggedUser.user));
+    }
     fetchEvent();
   }, []);
 

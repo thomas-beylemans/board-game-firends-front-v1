@@ -92,6 +92,12 @@ const user = (store) => (next) => async (action) => {
           lat,
           long,
         }
+        localStorage.setItem(
+          'userInfos',
+          JSON.stringify({
+            user,
+          })
+        );
         store.dispatch(saveUserInfos(user));
       }
       catch (err) {

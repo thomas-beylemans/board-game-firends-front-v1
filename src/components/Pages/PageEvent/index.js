@@ -1,6 +1,7 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { saveUserInfos } from '../../../actions/user';
 
 import Navbar from '../../Navbar';
 import Map from '../../Map';
@@ -31,6 +32,10 @@ const fetchSelectedEvent = async () => {
  }
 
 useEffect(() => {
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+  if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+  }
   fetchSelectedEvent();
 }, [dispatch]);
 

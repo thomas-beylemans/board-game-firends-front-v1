@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Accordion, Header, Icon } from 'semantic-ui-react'
+import { saveUserInfos } from '../../../actions/user';
 
 import Navbar from '../../../components/Navbar';
 import Footer from '../../Footer';
@@ -7,6 +9,7 @@ import Footer from '../../Footer';
 import './styles.scss';
 
 export default function CGU() {
+  const dispatch = useDispatch();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -14,6 +17,13 @@ export default function CGU() {
     setActiveIndex(activeIndex.index);
   }
 
+  useEffect (() => {
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+        if (loggedUser) {
+            dispatch(saveUserInfos(loggedUser.user));
+        }
+  }, [dispatch]);
+  
   return (
     <div className="cgu">
       <Navbar />

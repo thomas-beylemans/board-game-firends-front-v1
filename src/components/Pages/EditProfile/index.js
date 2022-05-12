@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getUserInfos } from '../../../actions/user';
+import { useEffect } from 'react';
+import { saveUserInfos } from '../../../actions/user';
 
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
@@ -15,8 +15,11 @@ export default function EditProfile() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserInfos());
+  useEffect (() => {
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+        if (loggedUser) {
+            dispatch(saveUserInfos(loggedUser.user));
+        }
   }, [dispatch]);
 
     return (
