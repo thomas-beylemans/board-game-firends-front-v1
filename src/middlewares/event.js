@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_EVENT } from "../actions/event";
+import { CREATE_EVENT, saveEvent } from "../actions/event";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -28,9 +28,9 @@ const event = (store) => (next) => async (action) => {
                 "city": state.event.city,
                 "postcode": state.event.postcode,
                 // lat: state.event.lat,
+                // long: state.event.long
                 "lat": 32.12345,
                 "long": -123.12345,
-                // long: state.event.long
               }
           }
         },{
@@ -38,8 +38,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        console.log(response.data);
-        return response.data;
+        store.dispatch(saveEvent());
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));

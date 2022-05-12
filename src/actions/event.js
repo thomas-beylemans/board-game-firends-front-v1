@@ -10,3 +10,8 @@ export const createEvent = (event) => ({
   type: CREATE_EVENT,
   event,
 });
+
+export const SAVE_EVENT = 'SAVE_EVENT';
+export const saveEvent = () => ({
+  type: SAVE_EVENT,
+});
