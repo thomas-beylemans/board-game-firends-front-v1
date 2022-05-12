@@ -1,3 +1,7 @@
+import { fetchAPI } from '../../../utils/fetchAPI';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Map from '../../Map';
 import ControlledInput from '../../ControlledInput';
 import Navbar from '../../Navbar';
@@ -14,18 +18,42 @@ import {
   Button,
   Container,
 } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
 
-// user position defined in the user profile - fetched from the database
-const position = [43.6107, 3.8767];
-// events list fetched from the database - represented as an array of coordinates for last recent events
-const eventsList = [[43.5107, 3.8767]];
 
 export default function DetailEvent() {
+  const eventId = useParams().id;
+  const position = [Number(useSelector((state) => state.user.lat)), Number(useSelector((state) => state.user.long))];
+
+  const [eventTitle, setEventTitle] = useState('');
+  const [eventAdmin, setEventAdmin] = useState('');
+  const [eventDescription, setEventDescription] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [seatsAvailable, setSeatsAvailable] = useState('');
+  const [mapMarker, setMapMarker] = useState([]);
+
+
+  const fetchEvent = async () => {
+    const event = await fetchAPI(`/events/${eventId}`);
+    setEventTitle(event.events.event.name);
+    setEventAdmin(event.events.event.event_admin.username);
+    setEventDescription(event.events.event.description);
+    setEventDate(event.events.event.start_date);
+    setSeatsAvailable(event.events.event.seats);
+    setEventLocation(event.events.event.geo.city);
+    setMapMarker([{lat: event.events.event.geo.lat, long: event.events.event.geo.long, name: event.events.event.name}]);
+  }
+
+  useEffect (() => {
+    fetchEvent();
+  }, []);
+
   return (
     <>
       <Navbar />
       <Header textAlign="center" as="h1">
-        Titre de l'événement
+        {eventTitle}
       </Header>
 
       <Container textAlign="center">
@@ -46,11 +74,12 @@ export default function DetailEvent() {
           circular
           title="edit avatar"
           color="orange"
+          style={{ display: 'none' }}
         >
           <Icon name="edit" />
         </Button>
         <ControlledInput
-          className=""
+          name="event-picture"
           type="file"
           id="file"
           style={{ display: 'none' }}
@@ -66,7 +95,7 @@ export default function DetailEvent() {
               <Map
                 className={'map__container--large'}
                 position={position}
-                eventsList={eventsList}
+                eventsList={mapMarker}
               />
             </Grid.Column>
 
@@ -74,31 +103,31 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="chess queen" />
-                  Organisé par ..
+                  Organisateur : {eventAdmin}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="clock outline" />
-                  Date et heure
+                  {eventDate}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="map marker alternate" />
-                  Lieu
+                  {eventLocation}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                  Limite de joueurs
+                  {seatsAvailable} places disponibles
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="talk" />
-                  Descriptions
+                  {eventDescription}
                 </Card.Description>
               </Grid.Row>
             </Grid.Column>

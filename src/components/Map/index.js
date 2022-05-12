@@ -29,9 +29,9 @@ export default function Map({
         {
           eventsList.map((event) => {
             return (
-              <Marker key={event} position={event}>
+              <Marker key={event} position={[event.lat, event.long]}>
                 <Popup>
-                  Un événement est prévu ici !
+                  {event.name}
                 </Popup>
               </Marker>
             )
@@ -45,5 +45,9 @@ export default function Map({
 Map.propTypes = {
   className: PropTypes.string,
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
-  eventsList: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  eventsList: PropTypes.arrayOf(PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    long: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+  })).isRequired
 };
