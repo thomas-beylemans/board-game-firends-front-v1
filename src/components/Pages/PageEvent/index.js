@@ -1,3 +1,5 @@
+import { fetchAPI } from '../../../utils/fetchAPI';
+import { useEffect, useState } from 'react';
 import Map from '../../Map';
 import OneCardEvent from '../../OneCardEvent';
 import Navbar from '../../Navbar';
@@ -15,6 +17,26 @@ const eventsList = [
 ];
 
 export default function PageEvent() {
+
+//   const [name, setName] = useState([]);
+// const [date, setDate] =useState([]);
+// const [seats, setSeats] =useState([]);
+// const [geo, setGeo] = useState('');
+
+// const fetchSelectedEvent = async () => {
+//   const selectedEvent = await fetchAPI('events');
+//   console.log(selectedEvent,'SELECT')
+
+//   setName(selectedEvent.event[0])
+//   setDate(selectedEvent.events.event.start_date)
+//   setSeats(selectedEvent.events.event.seats)
+//   setGeo(selectedEvent.events.event.geo.city)
+//  }
+
+// useEffect(() => {
+//   fetchSelectedEvent();
+// }, []);
+
     return (
         <div className="event">
             <Navbar />
