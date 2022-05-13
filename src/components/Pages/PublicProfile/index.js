@@ -11,8 +11,6 @@ import Footer from '../../Footer';
 import './styles.scss';
 import { useDispatch } from 'react-redux';
 
-// import gamesArray from '../../../data/games';
-
 export default function PublicProfile() {
   const dispatch = useDispatch();
 
@@ -28,7 +26,6 @@ export default function PublicProfile() {
   const fetchSelectedUser = async () => {
     const selectedUser = await fetchAPI(`profile/${id}`);
     try {
-      // console.log(selectedUser)
       setUsername(selectedUser.user.username);
       setCity(selectedUser.user.geo.city);
       setBio(selectedUser.user.bio);
@@ -37,13 +34,13 @@ export default function PublicProfile() {
     } catch (error) {
       setError(error)
       // console.log(error)
-    }      
+    }
   }
 
   useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
     if (loggedUser) {
-        dispatch(saveUserInfos(loggedUser.user));
+      dispatch(saveUserInfos(loggedUser.user));
     }
     fetchSelectedUser();
   }, []);
