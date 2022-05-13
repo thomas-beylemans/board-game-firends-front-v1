@@ -1,18 +1,26 @@
 import React from 'react';
-import './styles.scss';
 import { Button, Image, Modal, TextArea, Grid, Form } from 'semantic-ui-react';
-import ControlledInput from '../ControlledInput';
+import EventInput from '../EventInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeEventValue, createEvent } from '../../actions/event';
+import { useState } from 'react';
+
+import './styles.scss';
 
 export default function ModalEvent() {
-  const [firstModalCreateEvent, setfirstModalCreateEvent] =
-    React.useState(false);
-  const [secondModalCreateEvent, setSecondModalCreateEvent] =
-    React.useState(false);
+
+  const dispatch = useDispatch();
+
+  const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
+  const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    console.log('je soumets mon formulaire');
+    dispatch(createEvent());
   };
+
+  const message = useSelector(state => state.event.message);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   return (
     <div>
@@ -25,7 +33,6 @@ export default function ModalEvent() {
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
         <Modal.Header>A propos de mon événement..</Modal.Header>
-
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
@@ -37,23 +44,20 @@ export default function ModalEvent() {
                   src="https://react.semantic-ui.com/images/wireframe/image.png"
                 />
               </Grid.Column>
-
               <Grid.Column>
                 <Grid.Row>
                   <Modal.Description>
-                    <>
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__input"
                           label="Nom de l'événement"
-                          name="email"
-                          type="email"
+                          name="name"
+                          type="text"
                           placeholder="Nom de l'événement"
                         />
                       </Grid.Row>
-
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__input"
                           label="Ville"
                           name="city"
@@ -63,7 +67,7 @@ export default function ModalEvent() {
                         />
                       </Grid.Row>
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__input"
                           label="Code Postal"
                           name="postcode"
@@ -73,41 +77,41 @@ export default function ModalEvent() {
                         />
                       </Grid.Row>
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__input"
                           label="Nombre de joueurs"
-                          name="players"
+                          name="seats"
                           type="number"
                           min="0"
                           placeholder="Nombre de joueurs "
                         />
                       </Grid.Row>
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__img__input"
                           label="Date et heure"
-                          name="meeting-time"
+                          name="start_date"
                           placeholder="Date et heure"
                           type="datetime-local"
                         />
                       </Grid.Row>
                       <Grid.Row>
-                        <ControlledInput
+                        <EventInput
                           className="modal__img__input"
-                          name="img"
+                          name="picture"
                           label="Image"
                           type="file"
                           id="file"
                         />
                       </Grid.Row>
-                    </>
-
                     <TextArea
                       className="textarea"
                       rows={5}
                       style={{ minWidth: 300 }}
                       placeholder="Description"
                       maxLength="1000"
+                      name="description"
+                      onChange={(e) => { dispatch(changeEventValue('description', e.target.value)); }}
                     ></TextArea>
                   </Modal.Description>
                 </Grid.Row>
@@ -135,12 +139,12 @@ export default function ModalEvent() {
           open={secondModalCreateEvent}
           size="small"
         >
-          <Modal.Header>Évènement créé !</Modal.Header>
+          <Modal.Header>{errorMessage ? errorMessage : message}</Modal.Header>
 
           <Modal.Actions>
             <Button
               icon="check"
-              content="C'est fait !"
+              content="Valider"
               positive
               onClick={() => {
                 setfirstModalCreateEvent(false);
