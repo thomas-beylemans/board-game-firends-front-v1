@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import './styles.scss';
@@ -7,13 +9,30 @@ import './styles.scss';
 import games_img from '../../../../assets/img/games.jpg';
 
 export default function EditProfileInfos() {
+  const dispatch = useDispatch();
+
+  const [suggestedCity, setSuggestedCity] = useState([]);
+  const [newCity, setNewCity] = useState('');
+
   const username = useSelector(state => state.user.username)
   const city = useSelector(state => state.user.city)
   const email = useSelector(state => state.user.email)
   const bio = useSelector(state => state.user.bio)
   const avatar = useSelector(state => state.user.avatar);  
 
-  const handleClickSave = () => {
+
+  const handleChangeCity = (e) => {
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
+      .then(res => {
+        setSuggestedCity(res.data);
+        console.log(suggestedCity);
+      })
+      setNewCity(e.target.value);
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
     console.log('Je sauvegarde mes changements')
   }
 
@@ -22,7 +41,7 @@ export default function EditProfileInfos() {
   }
 
   return (
-    <Form className="form__flex">
+    <Form onSubmit={handleSubmit} className="form__flex">
       <div>
         <Grid className="profile-infos" columns={2} divided padded stackable >
           <Grid.Row columns={2}>
@@ -39,7 +58,14 @@ export default function EditProfileInfos() {
                   <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
                 </Grid.Row>
                 <Grid.Row>
-                  <ControlledInput value={city} label='Ville' name='city' className="infos__input" />
+                  <ControlledInput defaultValue={city} label='Ville' name='city' className="infos__input" onChange={handleChangeCity} list="cities" />
+                  <datalist id="cities">
+                    {
+                      suggestedCity.map(city => (
+                        <option key={city.code} value={city.nom.normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )} />
+                      ))
+                    }
+                  </datalist>
                 </Grid.Row>
               </Container>
             </Grid.Column>
@@ -64,7 +90,7 @@ export default function EditProfileInfos() {
           <Button as={Link} to='/profile' basic color="yellow" size='large'>
             Annuler
           </Button>
-          <Button onClick={handleClickSave} color="orange" size='large'>
+          <Button type="submit" color="orange" size='large'>
             Sauvegarder
           </Button>
           <Button onClick={handleClickDelete} basic color="red" size='large'>
