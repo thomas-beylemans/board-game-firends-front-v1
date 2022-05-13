@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const fetchAPI = async (route) => {
+export const fetchEvents = async (route) => {
   const token = JSON.parse(localStorage.getItem('user'));
 
   try {
-    const result = await axios.get(`https://boardgamefriends.herokuapp.com/api/v1/${route}`, {
-    // const result = await axios.get(`http://localhost:46655/api/v1/${route}`, {
+    const result = await axios.get(`https://boardgamefriends.herokuapp.com/api/v1/${route}?zoomFactor=10`, {
+      // const result = await axios.get(`http://localhost:46655/api/v1/${route}?zoomFactor=5`, {
       headers: {
         Authorization: `Bearer ${token.accessToken}`,
       }
@@ -16,4 +16,5 @@ export const fetchAPI = async (route) => {
     return err.response.data.errorMessage;
   }
 };
+
 

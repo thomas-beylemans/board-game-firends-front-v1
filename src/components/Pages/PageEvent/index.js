@@ -1,4 +1,4 @@
-import { fetchAPI } from '../../../utils/fetchAPI';
+import { fetchEvents } from '../../../utils/fetchEvent';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { saveUserInfos } from '../../../actions/user';
@@ -25,8 +25,10 @@ export default function PageEvent() {
 
 const fetchAllEvents = async () => {
   setLoading(true);
-  const selectedEvent = await fetchAPI('events');
-  setAllEvents(selectedEvent.events.event);
+  const selectedEvent = await fetchEvents('events');
+    console.log(selectedEvent);
+    setAllEvents(selectedEvent.events);
+    console.log(selectedEvent);
   setLoading(false);
  }
 
@@ -36,7 +38,7 @@ useEffect(() => {
       dispatch(saveUserInfos(loggedUser.user));
   }
   fetchAllEvents();
-}, [dispatch]);
+}, []);
 
     return (
         <div className="event">
@@ -49,11 +51,8 @@ useEffect(() => {
                 position={position}
                 eventsList={allEvents}
             />
-
             <div className="event__container">
-
-             {loading ? <PlaceHolder array={allEvents} title="" />:<CardGroupEvents array={allEvents} title=""  />}
-            
+             {loading ? <PlaceHolder array={allEvents} title="" />:<CardGroupEvents array={allEvents} title="" />}
             </div>
             <Footer />
         </div>
