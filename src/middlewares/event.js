@@ -48,21 +48,21 @@ const event = (store) => (next) => async (action) => {
 
     case SUBSCRIBE_EVENT:
       {
-        const state = store.getState();
+        // const state = store.getState();
+        console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-
-        const response = await api.post(`/events/${id}/subscribe`,
+        const response = await api.post(`/events/${action.id}/subscribe`,
         {
             "event": {
-              "name": state.event.name,              
+              "id": action.id,
           }
         },{
           headers: {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        store.dispatch(subscribeEvent(response.data.events.successMessage));
+        store.dispatch(saveEvent(response.data.events.successMessage));
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));

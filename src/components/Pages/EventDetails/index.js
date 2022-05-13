@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { saveUserInfos } from '../../../actions/user';
-// import { subscribeEvent } from '../../actions/event';
+import { subscribeEvent } from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -60,9 +60,9 @@ export default function DetailEvent() {
     fetchEvent();
   }, []);
 
-  // const handleSubscribeEvent = () =>{
-  //   dispatch(subscribeEvent())
-  // }
+  const handleSubscribeEvent = () =>{
+    dispatch(subscribeEvent(eventId))
+  }
 
   return (
     <>
@@ -149,8 +149,8 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
-      {/* onClick={handleSubscribeEvent} */}
-      <Button  className="eventdetail__button" fluid color="orange" animated>
+      
+      <Button onClick={handleSubscribeEvent} className="eventdetail__button" fluid color="orange" animated>
         <Button.Content visible>Participer à l'événement</Button.Content>
         <Button.Content hidden>
           <Icon name="calendar plus" />
