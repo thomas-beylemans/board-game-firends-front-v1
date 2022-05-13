@@ -1,30 +1,28 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Segment, Header, Button, Grid, Dropdown } from 'semantic-ui-react'
+import { useDispatch } from 'react-redux';
+import { Segment, Header, Button, Grid, Input } from 'semantic-ui-react'
+import { addGame } from '../../../../actions/game';
 
 import './styles.scss';
 
 export default function AddGame() {
+  const dispatch = useDispatch();
 
   const [gameArray, setGameArray] = useState([]);
+  const [gameName, setGameName] = useState('');
 
   const handleClickAdd = () => {
-    console.log('J\'enregistre mon nouveau jeu')
+    const foundGame = gameArray.find(game => game.name === gameName);
+    dispatch(addGame(foundGame));
+    console.log('je click')
   }
 
   const handleChange = async (e) => {
     const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
     const gamesList = response.data.games;
-    formatGameList(gamesList);
-  }
-
-  const formatGameList = (array) => {
-    const games = [];
-    array.forEach(game => {
-      games.push({ key: game.id, text: game.name, value: game.id, picture: game.thumb_url })
-    });
-    console.log(games);
-    return setGameArray(games);
+    setGameArray(gamesList);
+    setGameName(e.target.value);
   }
 
   return (
@@ -33,7 +31,14 @@ export default function AddGame() {
         <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
         <Grid stackable>
           <Grid.Row textAlign="center" className="add-game">
-            <Dropdown search selection scrolling options={gameArray} onSearchChange={handleChange} />
+            <Input label='Nom du jeu' name="game" type="text" placeholder="Taper le nom d'un jeu" list="games" onChange={handleChange} />
+            <datalist id="games">
+                    {
+                      gameArray.map(game => (
+                        <option key={game.id} value={game.name} />
+                      ))
+                    }
+                  </datalist>
             <Button onClick={handleClickAdd} color="orange" size='large'>
               Enregistrer
             </Button>
