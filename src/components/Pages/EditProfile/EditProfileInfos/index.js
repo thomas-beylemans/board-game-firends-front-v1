@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import { findCity } from '../../../../utils/findCity';
-import { saveCity } from '../../../../actions/user';
+import { saveCity, getUserInfos, editUserInfos, saveBio } from '../../../../actions/user';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
@@ -30,15 +30,19 @@ export default function EditProfileInfos() {
         setSuggestedCity(res.data);
         console.log(suggestedCity);
       })
-    //Use dispatch save city ?
-    // dispatch(saveCity(suggestedCity))
     setNewCity(e.target.value);
   };
+
+  const handleTextarea = (event) => {
+    console.log(event.target.value)
+    dispatch(saveBio(event.target.value))
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-    
+    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
+    // dispatch(getUserInfos()) // to update user infos in the local storage
     console.log('Je sauvegarde mes changements')
   }
 
@@ -81,14 +85,14 @@ export default function EditProfileInfos() {
             <Grid.Column className="description">
               <div className='description-padded'>
                 <Header as='h2'>Quelques mots sur moi</Header>
-                <TextArea rows={8} value={bio}>
+                <TextArea rows={8} value={bio} onChange={handleTextarea}>
                 </TextArea>
               </div>
               <Grid.Row className="description__row">
                 <ControlledInput value={email} label='Email' name='email' className="description__input" />
               </Grid.Row>
               <Grid.Row className="description__row">
-                <ControlledInput label='Mot de passe' name='password' className="description__input" />
+                <ControlledInput type='password' label='Mot de passe' name='password' className="description__input" />
               </Grid.Row>
             </Grid.Column>
           </Grid.Row>

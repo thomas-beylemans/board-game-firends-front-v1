@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, SAVE_USER_INFOS } from "../actions/user";
+import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, SAVE_USER_INFOS, SAVE_BIO } from "../actions/user";
 
 export const initialState = {
     id: '',
@@ -37,6 +37,12 @@ const reducer = (state = initialState, action = {}) => {
         city: action.city.nom,
         lat: action.city.centre.coordinates[1],
         long: action.city.centre.coordinates[0],
+      };
+
+      case SAVE_BIO:
+      return {
+        ...state,        
+        bio: action.bio,
       };
 
     case LOGOUT:

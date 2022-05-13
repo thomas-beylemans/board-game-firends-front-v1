@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos, EDIT_USER_INFOS } from "../actions/user";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -66,7 +66,7 @@ const user = (store) => (next) => async (action) => {
       break;
     }
 
-    case GET_USER_INFOS: {
+    case GET_USER_INFOS: {      
       try {
         const token = JSON.parse(localStorage.getItem('user'));
         let result = await api.get('/dashboard', {
@@ -105,6 +105,47 @@ const user = (store) => (next) => async (action) => {
         store.dispatch(saveUserInfos(user));
       }
       catch (err) {
+        store.dispatch(saveError(err.response.data.errorMessage));
+      }
+      break;
+    }
+
+    case EDIT_USER_INFOS: {
+      const state = store.getState();
+      const token = JSON.parse(localStorage.getItem('user'));
+      console.log('je passe dans le edit-user-infos')
+      try {        
+        const response = await api.patch('/profile', {
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
+          "user": {
+            "email": state.user.email,
+            "password": state.user.password,
+            "avatar": state.user.avatar,
+            // "username": state.user.username,
+            "bio": state.user.bio,
+            "geo": {
+              "city": state.user.city,
+              "postcode": state.user.postcode,
+              "lat": state.user.lat,
+              "long": state.user.long
+            }
+          }
+        });
+        console.log(response.data)
+        // // get the username and JWT Token from the API and store them in local storage
+        // const { username, accessToken } = response.data;
+        // localStorage.setItem(
+        //   'user',
+        //   JSON.stringify({
+        //     username,
+        //     accessToken,
+        //   })
+        // );
+        // store.dispatch(saveUser(username));
+        // api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+      } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
       }
       break;

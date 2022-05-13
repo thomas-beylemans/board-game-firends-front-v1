@@ -43,6 +43,12 @@ export const saveCity = (city) => ({
   city,
 });
 
+export const SAVE_BIO = 'SAVE_BIO';
+export const saveBio = (bio) => ({
+  type: SAVE_BIO,
+  bio,
+});
+
 export const GET_USER_INFOS = 'GET_USER_INFOS';
 export const getUserInfos = () => ({
   type: GET_USER_INFOS,
@@ -51,5 +57,11 @@ export const getUserInfos = () => ({
 export const SAVE_USER_INFOS = 'SAVE_USER_INFOS';
 export const saveUserInfos = (user) => ({
   type: SAVE_USER_INFOS,
+  user,
+});
+
+export const EDIT_USER_INFOS = 'EDIT_USER_INFOS';
+export const editUserInfos = (user) => ({
+  type: EDIT_USER_INFOS,
   user,
 });
