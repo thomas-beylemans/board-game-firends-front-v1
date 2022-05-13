@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import { useState } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
+import { findCity } from '../../../../utils/findCity';
+import { saveCity } from '../../../../actions/user';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
@@ -15,10 +17,11 @@ export default function EditProfileInfos() {
   const [newCity, setNewCity] = useState('');
 
   const username = useSelector(state => state.user.username)
+  const postcode = useSelector(state => state.user.postcode)
   const city = useSelector(state => state.user.city)
   const email = useSelector(state => state.user.email)
   const bio = useSelector(state => state.user.bio)
-  const avatar = useSelector(state => state.user.avatar);  
+  const avatar = useSelector(state => state.user.avatar);
 
 
   const handleChangeCity = (e) => {
@@ -27,12 +30,15 @@ export default function EditProfileInfos() {
         setSuggestedCity(res.data);
         console.log(suggestedCity);
       })
-      setNewCity(e.target.value);
+    //Use dispatch save city ?
+    // dispatch(saveCity(suggestedCity))
+    setNewCity(e.target.value);
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
+    
     console.log('Je sauvegarde mes changements')
   }
 
@@ -48,7 +54,7 @@ export default function EditProfileInfos() {
             <Grid.Column>
               <Container className="infos" textAlign='center'>
                 {avatar && <Image src={avatar} size='small' circular centered />}
-                {avatar===null && <Image src={games_img} size='small' circular centered />}                
+                {avatar === null && <Image src={games_img} size='small' circular centered />}
                 {/* Ici, le bouton délenche le input type file qui est dessous et qui est caché */}
                 <Button as="label" htmlFor="file" type="button" icon circular title='Modifier mon avatar' color='orange'>
                   <Icon name='edit' />
@@ -62,18 +68,21 @@ export default function EditProfileInfos() {
                   <datalist id="cities">
                     {
                       suggestedCity.map(city => (
-                        <option key={city.code} value={city.nom.normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )} />
+                        <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
                       ))
                     }
                   </datalist>
+                  <Grid.Row>
+                    <ControlledInput value={postcode} label='Code postal' name='postcode' className="infos__input" />
+                  </Grid.Row>
                 </Grid.Row>
               </Container>
             </Grid.Column>
             <Grid.Column className="description">
               <div className='description-padded'>
-              <Header as='h2'>Quelques mots sur moi</Header>
-              <TextArea rows={8} value={bio}>
-              </TextArea>
+                <Header as='h2'>Quelques mots sur moi</Header>
+                <TextArea rows={8} value={bio}>
+                </TextArea>
               </div>
               <Grid.Row className="description__row">
                 <ControlledInput value={email} label='Email' name='email' className="description__input" />
