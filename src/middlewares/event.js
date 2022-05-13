@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT } from "../actions/event";
+import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT,saveSubscribeEvent} from "../actions/event";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -48,8 +48,8 @@ const event = (store) => (next) => async (action) => {
 
     case SUBSCRIBE_EVENT:
       {
-        // const state = store.getState();
-        console.log(action.id);
+        
+        // console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
         const response = await api.post(`/events/${action.id}/subscribe`,
@@ -62,7 +62,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        store.dispatch(saveEvent(response.data.events.successMessage));
+        store.dispatch(saveSubscribeEvent(response.data.events.validation));
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));

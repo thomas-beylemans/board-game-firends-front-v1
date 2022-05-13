@@ -1,4 +1,4 @@
-import { CHANGE_EVENT_VALUE, SAVE_EVENT } from "../actions/event";
+import { CHANGE_EVENT_VALUE, SAVE_EVENT, SAVE_SUBSCRIBE_EVENT} from "../actions/event";
 
 export const initialState = {
   name: '',
@@ -27,6 +27,12 @@ const reducer = (state = initialState, action = {}) => {
         ...initialState,
         message: action.message,
       };
+      
+      case SAVE_SUBSCRIBE_EVENT:
+        return {
+          ...state,
+          validation: action.validation
+        }
 
     default:
       return state;

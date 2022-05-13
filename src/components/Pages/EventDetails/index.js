@@ -63,7 +63,8 @@ export default function DetailEvent() {
   const handleSubscribeEvent = () =>{
     dispatch(subscribeEvent(eventId))
   }
-
+  console.log(handleSubscribeEvent)
+  
   return (
     <>
       <Navbar />
