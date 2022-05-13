@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import moment from 'moment';
@@ -26,7 +26,9 @@ export default function Map({
         />
         <Marker position={position}>
           <Popup>
-            Vous êtes ici !
+          <Popup>
+            Vous êtes ici ! <Icon name='home'/>
+          </Popup>
           </Popup>
         </Marker>
         {

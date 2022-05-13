@@ -4,6 +4,7 @@ import { saveError } from "../actions/error";
 
 export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
+  // baseURL: 'http://localhost:46655/api/v1',
 });
 
 const user = (store) => (next) => async (action) => {
@@ -13,13 +14,17 @@ const user = (store) => (next) => async (action) => {
       try {
         // send email / password / username / city to the API to register the account
         const response = await api.post('/register', {
-          email: state.user.email,
-          password: state.user.password,
-          username: state.user.username,
-          city: state.user.city,
-          postcode: state.user.postcode,
-          lat: state.user.lat,
-          long: state.user.long,
+          "user": {
+            "email": state.user.email,
+            "password": state.user.password,
+            "username": state.user.username,
+            "geo": {
+              "city": state.user.city,
+              "postcode": state.user.postcode,
+              "lat": state.user.lat,
+              "long": state.user.long
+            }
+          }
         });
         // get the username and JWT Token from the API and store them in local storage
         const { username, accessToken } = response.data;

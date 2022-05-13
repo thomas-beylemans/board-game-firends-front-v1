@@ -1,15 +1,17 @@
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import { useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import './styles.scss';
+
+import games_img from '../../../../assets/img/games.jpg';
 
 export default function EditProfileInfos() {
   const username = useSelector(state => state.user.username)
   const city = useSelector(state => state.user.city)
   const email = useSelector(state => state.user.email)
   const bio = useSelector(state => state.user.bio)
-  const avatar = useSelector(state => state.user.avatar);
+  const avatar = useSelector(state => state.user.avatar);  
 
   const handleClickSave = () => {
     console.log('Je sauvegarde mes changements')
@@ -19,10 +21,6 @@ export default function EditProfileInfos() {
     console.log('Je supprime mon compte')
   }
 
-  // const handleClickBack = () => {
-  // <Navigate to="/profile" replace />
-  // }
-
   return (
     <Form className="form__flex">
       <div>
@@ -30,7 +28,8 @@ export default function EditProfileInfos() {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Container className="infos" textAlign='center'>
-                <Image src={avatar} size='small' circular centered />
+                {avatar && <Image src={avatar} size='small' circular centered />}
+                {avatar===null && <Image src={games_img} size='small' circular centered />}                
                 {/* Ici, le bouton délenche le input type file qui est dessous et qui est caché */}
                 <Button as="label" htmlFor="file" type="button" icon circular title='Modifier mon avatar' color='orange'>
                   <Icon name='edit' />
@@ -45,9 +44,11 @@ export default function EditProfileInfos() {
               </Container>
             </Grid.Column>
             <Grid.Column className="description">
+              <div className='description-padded'>
               <Header as='h2'>Quelques mots sur moi</Header>
               <TextArea rows={8} value={bio}>
               </TextArea>
+              </div>
               <Grid.Row className="description__row">
                 <ControlledInput value={email} label='Email' name='email' className="description__input" />
               </Grid.Row>
@@ -61,16 +62,16 @@ export default function EditProfileInfos() {
       <div>
         <Button.Group className='save-btn-group' widths={3}>
           <Button as={Link} to='/profile' basic color="yellow" size='large'>
-          Annuler
-        </Button>
-        <Button onClick={handleClickSave} color="orange" size='large'>
-          Sauvegarder
-        </Button>
-        <Button onClick={handleClickDelete} basic color="red" size='large'>
-          Supprimer le compte
-        </Button>
-      </Button.Group>
-    </div>
+            Annuler
+          </Button>
+          <Button onClick={handleClickSave} color="orange" size='large'>
+            Sauvegarder
+          </Button>
+          <Button onClick={handleClickDelete} basic color="red" size='large'>
+            Supprimer le compte
+          </Button>
+        </Button.Group>
+      </div>
     </Form >
   );
 }
