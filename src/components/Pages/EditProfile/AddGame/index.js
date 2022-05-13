@@ -15,7 +15,7 @@ export default function AddGame() {
   const handleClickAdd = () => {
     const foundGame = gameArray.find(game => game.name === gameName);
     dispatch(addGame(foundGame));
-    console.log('je click')
+    setGameName('');
   }
 
   const handleChange = async (e) => {

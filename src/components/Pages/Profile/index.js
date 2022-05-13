@@ -16,7 +16,6 @@ export default function Profile() {
 
   const fetchUserInfos = async () => {
     const userInfos = await fetchAPI('dashboard');
-    console.log(userInfos);
     setGames(userInfos.user.game);
   }
 

@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { saveUserInfos } from '../../../actions/user';
+import { fetchAPI } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
@@ -9,17 +10,22 @@ import DeleteGames from './DeleteGames';
 import Footer from '../../Footer';
 import './styles.scss';
 
-import gamesArray from '../../../data/games';
-
 export default function EditProfile() {
-
   const dispatch = useDispatch();
+
+  const [games, setGames] = useState([]);
+
+  const fetchUserInfos = async () => {
+    const userInfos = await fetchAPI('dashboard');
+    setGames(userInfos.user.game);
+  }
 
   useEffect (() => {
   const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
         if (loggedUser) {
             dispatch(saveUserInfos(loggedUser.user));
         }
+    fetchUserInfos();
   }, [dispatch]);
 
     return (
@@ -28,7 +34,7 @@ export default function EditProfile() {
             <div className='profile__container'>
             <EditProfileInfos />
             <AddGame />
-            <DeleteGames games={gamesArray} title={'Ma ludothèque'} />
+            <DeleteGames games={games} title={'Ma ludothèque'} />
             </div>
             <Footer />
         </div>
