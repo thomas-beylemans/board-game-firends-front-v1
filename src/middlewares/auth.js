@@ -6,7 +6,6 @@ export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
 });
 
-
 const user = (store) => (next) => async (action) => {
   switch (action.type) {
     case SIGN_UP: {

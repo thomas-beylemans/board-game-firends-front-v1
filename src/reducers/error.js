@@ -1,7 +1,6 @@
 import { CLEAR_ERROR, SAVE_ERROR } from "../actions/user";
 
 export const initialState = {
-  isLoading: false,
   errorMessage: '',
 };
 

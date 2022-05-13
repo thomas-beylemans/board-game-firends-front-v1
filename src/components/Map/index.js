@@ -16,7 +16,7 @@ export default function Map({
       <MapContainer
         className={className}
         center={position}
-        zoom={5}
+        zoom={10}
         scrollWheelZoom={true}
         closePopupOnClick={true}
       >
