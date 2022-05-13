@@ -1,7 +1,8 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { saveUserInfos } from '../../../actions/user';
 import { subscribeEvent } from '../../../actions/event';
 import moment from 'moment';
@@ -60,11 +61,14 @@ export default function DetailEvent() {
     fetchEvent();
   }, []);
 
+  const message = useSelector(state => state.event.message);
+  const errorMessage = useSelector(state => state.error.errorMessage);
+
   const handleSubscribeEvent = () =>{
     dispatch(subscribeEvent(eventId))
   }
   console.log(handleSubscribeEvent)
-  
+
   return (
     <>
       <Navbar />
