@@ -13,7 +13,6 @@ const event = (store) => (next) => async (action) => {
       const state = store.getState();
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-        console.log(token.accessToken);
 
         const response = await api.post('/events',
         {
@@ -38,7 +37,8 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        store.dispatch(saveEvent(response.data.events.errorMessage));
+        console.log(response.data);
+        store.dispatch(saveEvent(response.data.events.successMessage));
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));

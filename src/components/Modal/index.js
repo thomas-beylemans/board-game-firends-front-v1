@@ -20,6 +20,7 @@ export default function ModalEvent() {
   };
 
   const message = useSelector(state => state.event.message);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   return (
     <div>
@@ -146,7 +147,7 @@ export default function ModalEvent() {
           open={secondModalCreateEvent}
           size="small"
         >
-          <Modal.Header>{message}</Modal.Header>
+          <Modal.Header>{errorMessage ? errorMessage : message}</Modal.Header>
 
           <Modal.Actions>
             <Button
