@@ -16,3 +16,8 @@ export const saveEvent = (message) => ({
   type: SAVE_EVENT,
   message,
 });
+
+export const SUBSCRIBE_EVENT = 'SUBSCRIBE_EVENT';
+export const subscribeEvent = () => ({
+  type: SUBSCRIBE_EVENT
+})
