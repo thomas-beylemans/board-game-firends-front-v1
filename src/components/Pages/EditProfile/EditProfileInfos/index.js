@@ -30,12 +30,18 @@ export default function EditProfileInfos() {
         setSuggestedCity(res.data);
         console.log(suggestedCity);
       })
-    setNewCity(e.target.value);
+    setNewCity(e.target.value);    
   };
 
-  const handleTextarea = (event) => {
-    console.log(event.target.value)
+  const handleTextarea = (event) => {    
     dispatch(saveBio(event.target.value))
+  }
+
+  const handleAvatar = (event) => {
+    dispatch(saveBio(event.target.value))
+    // Charger le fichier de l'avatar
+    // L'envoyer dans le store
+    console.log('Avatar')
   }
 
   const handleSubmit = (event) => {
@@ -48,7 +54,7 @@ export default function EditProfileInfos() {
 
   const handleClickDelete = () => {
     console.log('Je supprime mon compte')
-  }
+  }  
 
   return (
     <Form onSubmit={handleSubmit} className="form__flex">
@@ -63,7 +69,7 @@ export default function EditProfileInfos() {
                 <Button as="label" htmlFor="file" type="button" icon circular title='Modifier mon avatar' color='orange'>
                   <Icon name='edit' />
                 </Button>
-                <input type="file" id="file" style={{ display: "none" }} />
+                <input type="file" id="file" onChange={handleAvatar} style={{ display: "none" }} />
                 <Grid.Row>
                   <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
                 </Grid.Row>

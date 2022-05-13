@@ -66,7 +66,7 @@ const user = (store) => (next) => async (action) => {
       break;
     }
 
-    case GET_USER_INFOS: {      
+    case GET_USER_INFOS: {
       try {
         const token = JSON.parse(localStorage.getItem('user'));
         let result = await api.get('/dashboard', {
@@ -114,16 +114,13 @@ const user = (store) => (next) => async (action) => {
       const state = store.getState();
       const token = JSON.parse(localStorage.getItem('user'));
       console.log('je passe dans le edit-user-infos')
-      try {        
+      try {
         const response = await api.patch('/profile', {
-          headers: {
-            Authorization: `Bearer ${token.accessToken}`,
-          },
           "user": {
             "email": state.user.email,
             "password": state.user.password,
             "avatar": state.user.avatar,
-            // "username": state.user.username,
+            "username": state.user.username,
             "bio": state.user.bio,
             "geo": {
               "city": state.user.city,
@@ -131,9 +128,15 @@ const user = (store) => (next) => async (action) => {
               "lat": state.user.lat,
               "long": state.user.long
             }
+          }},
+            {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+            }
           }
-        });
+        );
         console.log(response.data)
+
         // // get the username and JWT Token from the API and store them in local storage
         // const { username, accessToken } = response.data;
         // localStorage.setItem(
@@ -147,6 +150,7 @@ const user = (store) => (next) => async (action) => {
         // api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
+        console.log(err.response.data.errorMessage)
       }
       break;
     }
