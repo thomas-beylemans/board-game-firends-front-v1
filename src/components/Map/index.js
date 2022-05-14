@@ -16,7 +16,7 @@ export default function Map({
       <MapContainer
         className={className}
         center={position}
-        zoom={10}
+        zoom={9}
         scrollWheelZoom={true}
         closePopupOnClick={true}
       >
@@ -26,9 +26,7 @@ export default function Map({
         />
         <Marker position={position}>
           <Popup>
-          <Popup>
             Vous êtes ici ! <Icon name='home'/>
-          </Popup>
           </Popup>
         </Marker>
         {
