@@ -31,6 +31,7 @@ const reducer = (state = initialState, action = {}) => {
       case SAVE_SUBSCRIBE_EVENT:
         return {
           ...state,
+          ...initialState,
           message: action.validation
         }
 

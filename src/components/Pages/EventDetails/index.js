@@ -96,6 +96,7 @@ export default function DetailEvent() {
           color="orange"
           style={{ display: 'none' }}
         >
+          {/* <Header as="h2">Test: {errorMessage ? errorMessage : message} </Header> */}
           <Icon name="edit" />
         </Button>
         <ControlledInput
