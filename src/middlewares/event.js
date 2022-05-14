@@ -62,6 +62,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
+        console.log(response.data)
         store.dispatch(saveSubscribeEvent(response.data.events.validation));
       }
       catch (err) {
