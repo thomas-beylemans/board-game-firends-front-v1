@@ -2,17 +2,18 @@ import axios from 'axios';
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import { findCity } from '../../../../utils/findCity';
-import { saveCity, getUserInfos, editUserInfos, saveBio } from '../../../../actions/user';
+import { saveCity, getUserInfos, editUserInfos, saveBio, saveAvatar } from '../../../../actions/user';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
 
 export default function EditProfileInfos() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+ 
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [newCity, setNewCity] = useState('');
 
@@ -28,20 +29,18 @@ export default function EditProfileInfos() {
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
         setSuggestedCity(res.data);
-        console.log(suggestedCity);
+        // console.log(suggestedCity);
       })
-    setNewCity(e.target.value);    
+    setNewCity(e.target.value);
   };
 
-  const handleTextarea = (event) => {    
+  const handleTextarea = (event) => {
     dispatch(saveBio(event.target.value))
   }
 
   const handleAvatar = (event) => {
-    dispatch(saveBio(event.target.value))
-    // Charger le fichier de l'avatar
-    // L'envoyer dans le store
-    console.log('Avatar')
+    dispatch(saveAvatar(event.target.value))    
+    // console.log('Avatar')
   }
 
   const handleSubmit = (event) => {
@@ -49,12 +48,13 @@ export default function EditProfileInfos() {
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
     dispatch(editUserInfos())// to dispatch the action to trigger the api patch
     // dispatch(getUserInfos()) // to update user infos in the local storage
-    console.log('Je sauvegarde mes changements')
+    navigate('/profile')
+    // console.log('Je sauvegarde mes changements')
   }
 
   const handleClickDelete = () => {
     console.log('Je supprime mon compte')
-  }  
+  }
 
   return (
     <Form onSubmit={handleSubmit} className="form__flex">

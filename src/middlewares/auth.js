@@ -136,18 +136,30 @@ const user = (store) => (next) => async (action) => {
           }
         );
         console.log(response.data)
+        
+        const id = response.data.user.id;
+        const email = response.data.user.email;
+        const username = response.data.user.username;
+        const avatar = response.data.user.avatar;
+        const bio = response.data.user.bio;
+        const city = response.data.user.geo.city;
+        const postcode = response.data.user.geo.postcode;
+        const lat = response.data.user.geo.lat;
+        const long = response.data.user.geo.long;
 
-        // // get the username and JWT Token from the API and store them in local storage
-        // const { username, accessToken } = response.data;
-        // localStorage.setItem(
-        //   'user',
-        //   JSON.stringify({
-        //     username,
-        //     accessToken,
-        //   })
-        // );
-        // store.dispatch(saveUser(username));
-        // api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+        const user = {
+          id,
+          email,
+          username,
+          avatar,
+          bio,
+          city,
+          postcode,
+          lat,
+          long,
+        }
+        store.dispatch(saveUserInfos(user));
+       
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
         console.log(err.response.data.errorMessage)

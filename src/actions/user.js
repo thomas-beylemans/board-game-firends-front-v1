@@ -49,6 +49,12 @@ export const saveBio = (bio) => ({
   bio,
 });
 
+export const SAVE_AVATAR = 'SAVE_AVATAR';
+export const saveAvatar = (avatar) => ({
+  type: SAVE_AVATAR,
+  avatar,
+});
+
 export const GET_USER_INFOS = 'GET_USER_INFOS';
 export const getUserInfos = () => ({
   type: GET_USER_INFOS,
