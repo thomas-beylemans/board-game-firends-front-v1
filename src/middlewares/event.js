@@ -52,6 +52,7 @@ const event = (store) => (next) => async (action) => {
         console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
+        console.log("je passe dans le SubscribeEvent")
         const response = await api.post(`/events/${action.id}/subscribe`,
         {
             "event": {
@@ -64,9 +65,11 @@ const event = (store) => (next) => async (action) => {
         });
         console.log(response.data, "RESPONSE DATA")
         store.dispatch(saveSubscribeEvent(response.data.events.validation));
+        
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));
+        console.log(err.response.data.errorMessage, "ERROR")
       }
       break;
 
