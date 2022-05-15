@@ -47,7 +47,7 @@ export default function EditProfileInfos() {
     event.preventDefault();
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
     dispatch(editUserInfos())// to dispatch the action to trigger the api patch
-    // dispatch(getUserInfos()) // to update user infos in the local storage
+    dispatch(getUserInfos()) // to update user infos in the local storage
     navigate('/profile')
     // console.log('Je sauvegarde mes changements')
   }
@@ -91,7 +91,7 @@ export default function EditProfileInfos() {
             <Grid.Column className="description">
               <div className='description-padded'>
                 <Header as='h2'>Quelques mots sur moi</Header>
-                <TextArea rows={8} value={bio} onChange={handleTextarea}>
+                <TextArea rows={8} value={bio} placeholder='Merci de renseigner une description' onChange={handleTextarea}>
                 </TextArea>
               </div>
               <Grid.Row className="description__row">

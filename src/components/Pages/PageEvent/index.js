@@ -17,16 +17,23 @@ import './styles.scss';
 export default function PageEvent() {
   const dispatch = useDispatch();
 
-  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));  
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
 
+  console.log(allEvents)
+
 const fetchAllEvents = async () => {
   setLoading(true);
   const selectedEvent = await fetchAPI('events');
-  setAllEvents(selectedEvent.events.event);
+  console.log(selectedEvent)
+  if (selectedEvent.isEventFound) {
+  setAllEvents(selectedEvent.events);
+  } else {
+    setAllEvents([])
+  }
   setLoading(false);
  }
 
