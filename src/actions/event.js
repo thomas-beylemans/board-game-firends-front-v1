@@ -22,3 +22,26 @@ export const saveCity = (city) => ({
   type: SAVE_CITY,
   city,
 });
+export const SUBSCRIBE_EVENT = 'SUBSCRIBE_EVENT';
+export const subscribeEvent = (id) => ({
+  type: SUBSCRIBE_EVENT,
+  id,
+})
+
+export const SAVE_SUBSCRIBE_EVENT = 'SAVE_SUBSCRIBE_EVENT';
+export const saveSubscribeEvent = (validation) => ({
+  type: SAVE_SUBSCRIBE_EVENT,
+  validation,
+})
+
+export const UNSUBSCRIBE_EVENT ='UNSUBSCRIBE_EVENT';
+export const unsubscribeEvent = (id) => ({
+  type: UNSUBSCRIBE_EVENT,
+  id,
+})
+
+export const SAVE_UNSUBSCRIBE_EVENT ='SAVE_UNSUBSCRIBE_EVENT';
+export const saveUnsubscribeEvent = (validation) => ({
+  type: SAVE_UNSUBSCRIBE_EVENT,
+  validation,
+})
