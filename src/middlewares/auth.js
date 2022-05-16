@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos, EDIT_USER_INFOS, getUserInfos } from "../actions/user";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -106,6 +106,64 @@ const user = (store) => (next) => async (action) => {
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
+      }
+      break;
+    }
+
+    case EDIT_USER_INFOS: {
+      const state = store.getState();
+      const token = JSON.parse(localStorage.getItem('user'));
+      console.log('je passe dans le edit-user-infos')
+      try {
+        const response = await api.patch('/profile', {
+          "user": {
+            "email": state.user.email,
+            "password": state.user.password,
+            "avatar": state.user.avatar,
+            "username": state.user.username,
+            "bio": state.user.bio,
+            "geo": {
+              "city": state.user.city,
+              "postcode": state.user.postcode,
+              "lat": state.user.lat,
+              "long": state.user.long
+            }
+          }},
+            {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+            }
+          }
+        );
+        console.log(response.data)
+        
+        const id = response.data.user.id;
+        const email = response.data.user.email;
+        const username = response.data.user.username;
+        const avatar = response.data.user.avatar;
+        const bio = response.data.user.bio;
+        const city = response.data.user.geo.city;
+        const postcode = response.data.user.geo.postcode;
+        const lat = response.data.user.geo.lat;
+        const long = response.data.user.geo.long;
+
+        const user = {
+          id,
+          email,
+          username,
+          avatar,
+          bio,
+          city,
+          postcode,
+          lat,
+          long,
+        }
+        store.dispatch(getUserInfos(user));
+        store.dispatch(saveUser(username)); // Put the username in the store
+       
+      } catch (err) {
+        store.dispatch(saveError(err.response.data.errorMessage));
+        console.log(err.response.data.errorMessage)
       }
       break;
     }
