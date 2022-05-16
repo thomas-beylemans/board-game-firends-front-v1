@@ -23,7 +23,7 @@ export default function EditProfile() {
   useEffect(() => {
     dispatch(getUserInfos());
     fetchUserInfos();
-  }, [myGames]);
+  }, []);
 
     return (
         <div className="profile">
