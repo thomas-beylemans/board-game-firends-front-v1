@@ -14,6 +14,7 @@ export default function EditProfile() {
 
   useEffect(() => {
     dispatch(getUserInfos());
+    fetchUserInfos();
   }, []);
 
     return (
