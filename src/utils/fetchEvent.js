@@ -5,7 +5,7 @@ export const fetchEvents = async (route) => {
 
   try {
     const result = await axios.get(`https://boardgamefriends.herokuapp.com/api/v1/${route}?zoomFactor=10`, {
-      // const result = await axios.get(`http://localhost:46655/api/v1/${route}?zoomFactor=5`, {
+      // const result = await axios.get(`http://localhost:46655/api/v1/${route}?zoomFactor=10`, {
       headers: {
         Authorization: `Bearer ${token.accessToken}`,
       }

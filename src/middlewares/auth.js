@@ -102,12 +102,6 @@ const user = (store) => (next) => async (action) => {
             user,
           })
         );
-        localStorage.setItem(
-          'userGames',
-          JSON.stringify({
-            games: result.user.game,
-          })
-        );
         store.dispatch(saveUserInfos(user));
       }
       catch (err) {
