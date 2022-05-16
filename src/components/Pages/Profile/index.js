@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
+import { fetchAPI } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
 import ProfileInfos from './ProfileInfos';
@@ -8,21 +9,29 @@ import CardGroup from '../../CardGroup';
 import Footer from '../../Footer';
 import './styles.scss';
 
-import gamesArray from '../../../data/games';
-
 export default function Profile() {
   const dispatch = useDispatch();
 
+  const [myGames, setMyGames] = useState([]);
+
+  const fetchUserInfos = async () => {
+    const userInfos = await fetchAPI('dashboard');
+    setMyGames(userInfos.user.game);
+  }
+
   useEffect(() => {
     dispatch(getUserInfos());
-  }, [dispatch]);
+    fetchUserInfos();
+  }, []);
 
+
+  
   return (
     <div className="profile">
       <Navbar />
       <div className='profile__container'>
       <ProfileInfos />
-      <CardGroup array={gamesArray} title={'Ma ludothèque'}/>
+      <CardGroup array={myGames} title={'Ma ludothèque'}/>
       </div>
       <Footer />
     </div>

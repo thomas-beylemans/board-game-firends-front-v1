@@ -47,7 +47,7 @@ export default function App() {
                 {logged && <Route path="/dashboard" element={<Dashboard />} />}
                 {logged && <Route path="/profile" element={<Profile />} />}
                 {logged && <Route path="/editprofile" element={<EditProfile />} />}
-                {logged && <Route path="/profile/:username" element={<PublicProfile />} />}
+                {logged && <Route path="/profile/:id" element={<PublicProfile />} />}
                 {logged && <Route path="/events" element={<PageEvent />} />}
                 {logged && <Route path="/events/:id" element={<EventDetails />} />}
                 <Route path="/team" element={<Team />} />

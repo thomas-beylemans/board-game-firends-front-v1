@@ -1,29 +1,55 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import { Button, Image, Modal, TextArea, Grid, Form, Input } from 'semantic-ui-react';
+import EventInput from '../EventInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeEventValue, createEvent } from '../../actions/event';
+import { saveCity } from '../../actions/event';
+import { findCity } from '../../utils/findCity';
+
 import './styles.scss';
-import {
-  Button,
-  Image,
-  Modal,
-  TextArea,
-  Grid,
-} from 'semantic-ui-react';
-import ControlledInput from '../ControlledInput';
 
 export default function ModalEvent() {
-  const [firstModalCreateEvent, setfirstModalCreateEvent] =
-    React.useState(false);
-  const [secondOpen, setSecondOpen] = React.useState(false);
+
+  const dispatch = useDispatch();
+
+  const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
+  const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
+  const [suggestedCity, setSuggestedCity] = useState([]);
+  const [city, setCity] = useState('');
+
+  const postcode = useSelector(state => state.event.postcode);
+
+
+  const handleChangeCity = (e) => {
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
+      .then(res => {
+        setSuggestedCity(res.data);
+      })
+    setCity(e.target.value);
+  };
+
+  const handleSubmitCreate = (e) => {
+    e.preventDefault();
+    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    dispatch(createEvent());
+  };
+
+  const message = useSelector(state => state.event.message);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   return (
     <div>
       <Modal
+        as={Form}
+        onSubmit={handleSubmitCreate}
         onClose={() => setfirstModalCreateEvent(false)}
         onOpen={() => setfirstModalCreateEvent(true)}
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
         <Modal.Header>A propos de mon événement..</Modal.Header>
-
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
@@ -35,77 +61,74 @@ export default function ModalEvent() {
                   src="https://react.semantic-ui.com/images/wireframe/image.png"
                 />
               </Grid.Column>
-
               <Grid.Column>
                 <Grid.Row>
                   <Modal.Description>
-                    <>
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__input"
-                          label="Nom de l'événement"
-                          name="email"
-                          type="email"
-                          placeholder="Nom de l'événement"
-                        />
-                      </Grid.Row>
-
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__input"
-                          label="Ville"
-                          name="city"
-                          type="text"
-                          min="0"
-                          placeholder="Ville"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__input"
-                          label="Code Postal"
-                          name="postcode"
-                          type="text"
-                          min="0"
-                          placeholder="Code Postal"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__input"
-                          label="Nombre de joueurs"
-                          name="players"
-                          type="number"
-                          min="0"
-                          placeholder="Nombre de joueurs "
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__img__input"
-                          label="Date et heure"
-                          name="meeting-time"
-                          placeholder="Date et heure"
-                          type="datetime-local"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <ControlledInput
-                          className="modal__img__input"
-                          name="img"
-                          label="Image"
-                          type="file"
-                          id="file"
-                        />
-                      </Grid.Row>
-                    </>
-
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Nom de l'événement"
+                        name="name"
+                        type="text"
+                        placeholder="Nom de l'événement"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
+                      <datalist id="cities">
+                        {
+                          suggestedCity.map(city => (
+                            <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
+                          ))
+                        }
+                      </datalist>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Code Postal"
+                        name="postcode"
+                        type="text"
+                        min="0"
+                        placeholder="Code Postal"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Nombre de joueurs"
+                        name="seats"
+                        type="number"
+                        min="0"
+                        placeholder="Nombre de joueurs "
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__img__input"
+                        label="Date et heure"
+                        name="start_date"
+                        placeholder="Date et heure"
+                        type="datetime-local"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__img__input"
+                        name="picture"
+                        label="Image"
+                        type="file"
+                        id="file"
+                      />
+                    </Grid.Row>
                     <TextArea
                       className="textarea"
                       rows={5}
                       style={{ minWidth: 300 }}
                       placeholder="Description"
-                      maxlength="1000"
+                      maxLength="1000"
+                      name="description"
+                      onChange={(e) => { dispatch(changeEventValue('description', e.target.value)); }}
                     ></TextArea>
                   </Modal.Description>
                 </Grid.Row>
@@ -119,27 +142,31 @@ export default function ModalEvent() {
             Retour
           </Button>
           <Button
+            type="submit"
             content="Créer mon événement !"
             labelPosition="right"
             icon="checkmark"
-            onClick={() => setSecondOpen(true)}
+            onClick={() => setSecondModalCreateEvent(true)}
             positive
           />
         </Modal.Actions>
-        {/* </form> */}
 
         <Modal
-          onClose={() => setSecondOpen(false)}
-          open={secondOpen}
+          onClose={() => setSecondModalCreateEvent(false)}
+          open={secondModalCreateEvent}
           size="small"
         >
-          <Modal.Header>Évènement créé !</Modal.Header>
+          <Modal.Header>{errorMessage ? errorMessage : message}</Modal.Header>
 
           <Modal.Actions>
             <Button
               icon="check"
-              content="C'est fait !"
-              onClick={() => setfirstModalCreateEvent(false)}
+              content="Valider"
+              positive
+              onClick={() => {
+                setfirstModalCreateEvent(false);
+                setSecondModalCreateEvent(false);
+              }}
             />
           </Modal.Actions>
         </Modal>

@@ -17,6 +17,7 @@ export default function Navbar() {
   const handleLogOut = () => {
     dispatch(logOut());
     localStorage.removeItem('user');
+    localStorage.removeItem('userInfos');
     navigate("/");
   }
 

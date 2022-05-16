@@ -1,25 +1,50 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Segment, Header, Button, Grid, Input } from 'semantic-ui-react'
+import { addGame } from '../../../../actions/game';
+
 import './styles.scss';
-import { Segment, Header, Button } from 'semantic-ui-react'
-import ControlledInput from '../../../ControlledInput';
 
 export default function AddGame() {
+  const dispatch = useDispatch();
 
-const handleClickAdd = () => {
-console.log('J\'enregistre mon nouveau jeu')
-}
+  const [gameArray, setGameArray] = useState([]);
+  const [gameName, setGameName] = useState('');
 
-    return (
-        <div>
-            <Segment className="add-game" color='orange' padded>
-                <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
-                <div className='add-game-btn'>
-                    <ControlledInput label='Nom' name='game-name' className="add-game__input"/>
-                    <ControlledInput label='Image' type='file' name='game-pic' className="add-game__input" />
-                    <Button onClick={handleClickAdd} color="orange" size='large'>
-                        Enregistrer
-                    </Button>
-                </div>
-            </Segment>
-        </div>
-    );
+  const handleClickAdd = () => {
+    const foundGame = gameArray.find(game => game.name === gameName);
+    dispatch(addGame(foundGame));
+    setGameName('');
+  }
+
+  const handleChange = async (e) => {
+    setGameName(e.target.value);
+    const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
+    const gamesList = response.data.games;
+    setGameArray(gamesList);
+  }
+
+  return (
+    <div>
+      <Segment className="add-game" color='orange' padded>
+        <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
+        <Grid stackable>
+          <Grid.Row textAlign="center" className="add-game">
+            <Input label='Nom du jeu' name="game" type="text" placeholder="Taper le nom d'un jeu" list="games" onChange={handleChange} value={gameName} />
+            <datalist id="games">
+                    {
+                      gameArray.map(game => (
+                        <option key={game.id} value={game.name} />
+                      ))
+                    }
+                  </datalist>
+            <Button onClick={handleClickAdd} color="orange" size='large'>
+              Enregistrer
+            </Button>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+    </div>
+  );
 };
