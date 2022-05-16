@@ -68,7 +68,6 @@ const event = (store) => (next) => async (action) => {
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));
-        console.log(err.response.data.errorMessage, "ERROR")
       }
       break;        
       }
@@ -96,7 +95,6 @@ const event = (store) => (next) => async (action) => {
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.events.errorMessage));
-        console.log(err.response.data.errorMessage, "ERROR")
       }
       break;        
       }
