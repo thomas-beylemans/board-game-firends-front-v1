@@ -16,3 +16,9 @@ export const saveEvent = (message) => ({
   type: SAVE_EVENT,
   message,
 });
+
+export const SAVE_CITY = 'SAVE_CITY';
+export const saveCity = (city) => ({
+  type: SAVE_CITY,
+  city,
+});

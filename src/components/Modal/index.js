@@ -1,9 +1,12 @@
 import React from 'react';
-import { Button, Image, Modal, TextArea, Grid, Form } from 'semantic-ui-react';
+import { useState } from 'react';
+import axios from 'axios';
+import { Button, Image, Modal, TextArea, Grid, Form, Input } from 'semantic-ui-react';
 import EventInput from '../EventInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
-import { useState } from 'react';
+import { saveCity } from '../../actions/event';
+import { findCity } from '../../utils/findCity';
 
 import './styles.scss';
 
@@ -13,9 +16,23 @@ export default function ModalEvent() {
 
   const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
   const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
+  const [suggestedCity, setSuggestedCity] = useState([]);
+  const [city, setCity] = useState('');
+
+  const postcode = useSelector(state => state.event.postcode);
+
+
+  const handleChangeCity = (e) => {
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
+      .then(res => {
+        setSuggestedCity(res.data);
+      })
+    setCity(e.target.value);
+  };
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
+    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
     dispatch(createEvent());
   };
 
@@ -47,63 +64,63 @@ export default function ModalEvent() {
               <Grid.Column>
                 <Grid.Row>
                   <Modal.Description>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__input"
-                          label="Nom de l'événement"
-                          name="name"
-                          type="text"
-                          placeholder="Nom de l'événement"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__input"
-                          label="Ville"
-                          name="city"
-                          type="text"
-                          min="0"
-                          placeholder="Ville"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__input"
-                          label="Code Postal"
-                          name="postcode"
-                          type="text"
-                          min="0"
-                          placeholder="Code Postal"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__input"
-                          label="Nombre de joueurs"
-                          name="seats"
-                          type="number"
-                          min="0"
-                          placeholder="Nombre de joueurs "
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__img__input"
-                          label="Date et heure"
-                          name="start_date"
-                          placeholder="Date et heure"
-                          type="datetime-local"
-                        />
-                      </Grid.Row>
-                      <Grid.Row>
-                        <EventInput
-                          className="modal__img__input"
-                          name="picture"
-                          label="Image"
-                          type="file"
-                          id="file"
-                        />
-                      </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Nom de l'événement"
+                        name="name"
+                        type="text"
+                        placeholder="Nom de l'événement"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
+                      <datalist id="cities">
+                        {
+                          suggestedCity.map(city => (
+                            <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
+                          ))
+                        }
+                      </datalist>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Code Postal"
+                        name="postcode"
+                        type="text"
+                        min="0"
+                        placeholder="Code Postal"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__input"
+                        label="Nombre de joueurs"
+                        name="seats"
+                        type="number"
+                        min="0"
+                        placeholder="Nombre de joueurs "
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__img__input"
+                        label="Date et heure"
+                        name="start_date"
+                        placeholder="Date et heure"
+                        type="datetime-local"
+                      />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <EventInput
+                        className="modal__img__input"
+                        name="picture"
+                        label="Image"
+                        type="file"
+                        id="file"
+                      />
+                    </Grid.Row>
                     <TextArea
                       className="textarea"
                       rows={5}

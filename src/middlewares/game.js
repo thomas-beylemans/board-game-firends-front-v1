@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_GAME } from "../actions/game";
+import { ADD_GAME, DELETE_GAME } from "../actions/game";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -29,6 +29,29 @@ const game = (store) => (next) => async (action) => {
             },
           });
         return (response.data.successMessage);
+      }
+      catch (err) {
+        store.dispatch(saveError(err.response.data.errorMessage));
+      }
+      break;
+    }
+    case DELETE_GAME: {
+      try {
+        const token = JSON.parse(localStorage.getItem('user'));
+
+        const response = await api.delete('/profile/my-games',
+          {
+            "game": {
+                "id": action.game.id,
+            }
+          }
+          , {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+          });
+          console.log(response.data);
+        // return (response.data.successMessage);
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
