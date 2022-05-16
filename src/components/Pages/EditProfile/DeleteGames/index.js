@@ -5,7 +5,7 @@ import './styles.scss';
 export default function DeleteGames({ games }) {
 
 const handleClick = () => {
-console.log('Je supprime un jeu')
+console.log('Je supprime un jeu');
 }
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { getUserInfos } from '../../../actions/user';
 import { Tab } from 'semantic-ui-react';
@@ -17,15 +17,14 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [games, setGames] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [myEvents, setMyEvents] = useState([]);
+  const [myGames, setMyGames] = useState([]);
 
   const fetchUserInfos = async () => {
     setLoading(true);
     const userInfos = await fetchAPI('dashboard');
-    console.log(userInfos);
-    setGames(userInfos.user.game);
+    setMyGames(userInfos.user.game);
     setAllEvents(userInfos.user.event);
     setMyEvents(userInfos.user.event.filter(event => event.event_admin.username === userInfos.user.username));
     setLoading(false);
@@ -34,7 +33,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(getUserInfos());
     fetchUserInfos();
-  }, [dispatch]);
+  }, []);
 
 
   const tabPanels = [
@@ -56,7 +55,7 @@ export default function Dashboard() {
     },
     {
       menuItem: 'Mes jeux',
-      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={games} title={'Mes jeux'} /> : <CardGroupGames array={games} title={'Mes jeux'} />}</Tab.Pane>,
+      render: () => <Tab.Pane attached>{loading ? <PlaceHolder array={myGames} title={'Mes jeux'} /> : <CardGroupGames array={myGames} title={'Mes jeux'} />}</Tab.Pane>,
     },
   ]
 
