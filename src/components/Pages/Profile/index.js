@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { saveUserInfos } from '../../../actions/user';
+import { getUserInfos } from '../../../actions/user';
 import { fetchAPI } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
@@ -12,27 +12,25 @@ import './styles.scss';
 export default function Profile() {
   const dispatch = useDispatch();
 
-  const [games, setGames] = useState([]);
+  const [myGames, setMyGames] = useState([]);
 
   const fetchUserInfos = async () => {
     const userInfos = await fetchAPI('dashboard');
-    setGames(userInfos.user.game);
+    setMyGames(userInfos.user.game);
   }
 
-  useEffect (() => {
-  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
-        if (loggedUser) {
-            dispatch(saveUserInfos(loggedUser.user));
-        }
-  fetchUserInfos();
-  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserInfos());
+    fetchUserInfos();
+  }, []);
+
 
   return (
     <div className="profile">
       <Navbar />
       <div className='profile__container'>
       <ProfileInfos />
-      <CardGroup array={games} title={'Ma ludothèque'}/>
+      <CardGroup array={myGames} title={'Ma ludothèque'}/>
       </div>
       <Footer />
     </div>

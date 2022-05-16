@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { saveUserInfos } from '../../../actions/user';
-import { fetchAPI } from '../../../utils/fetchAPI';
+import { getUserInfos } from '../../../actions/user';
+import { fetchAPI, } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
@@ -12,21 +12,18 @@ import './styles.scss';
 
 export default function EditProfile() {
   const dispatch = useDispatch();
-
-  const [games, setGames] = useState([]);
+  
+  const [myGames, setMyGames] = useState([]);
 
   const fetchUserInfos = async () => {
     const userInfos = await fetchAPI('dashboard');
-    setGames(userInfos.user.game);
+    setMyGames(userInfos.user.game);
   }
 
-  useEffect (() => {
-  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
-        if (loggedUser) {
-            dispatch(saveUserInfos(loggedUser.user));
-        }
+  useEffect(() => {
+    dispatch(getUserInfos());
     fetchUserInfos();
-  }, [dispatch]);
+  }, [myGames]);
 
     return (
         <div className="profile">
@@ -34,7 +31,7 @@ export default function EditProfile() {
             <div className='profile__container'>
             <EditProfileInfos />
             <AddGame />
-            <DeleteGames games={games} title={'Ma ludothèque'} />
+            <DeleteGames games={myGames} title={'Ma ludothèque'} />
             </div>
             <Footer />
         </div>
