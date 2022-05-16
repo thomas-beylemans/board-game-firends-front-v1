@@ -27,10 +27,8 @@ const event = (store) => (next) => async (action) => {
               "geo": {
                 "city": state.event.city,
                 "postcode": state.event.postcode,
-                // lat: state.event.lat,
-                // long: state.event.long
-                "lat": 32.12345,
-                "long": -123.12345,
+                "lat": state.event.lat,
+                "long": state.event.long
               }
             }
           }, {
