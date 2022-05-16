@@ -31,7 +31,7 @@ export default function AddGame() {
         <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
         <Grid stackable>
           <Grid.Row textAlign="center" className="add-game">
-            <Input label='Nom du jeu' name="game" type="text" placeholder="Taper le nom d'un jeu" list="games" onChange={handleChange} value={gameName} />
+            <Input label='Nom du jeu' name="game" type="text" placeholder="Chercher un jeu" list="games" onChange={handleChange} value={gameName} />
             <datalist id="games">
                     {
                       gameArray.map(game => (

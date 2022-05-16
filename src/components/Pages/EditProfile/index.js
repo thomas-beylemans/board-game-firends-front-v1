@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
-import { fetchAPI, } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
@@ -12,17 +11,9 @@ import './styles.scss';
 
 export default function EditProfile() {
   const dispatch = useDispatch();
-  
-  const [myGames, setMyGames] = useState([]);
-
-  const fetchUserInfos = async () => {
-    const userInfos = await fetchAPI('dashboard');
-    setMyGames(userInfos.user.game);
-  }
 
   useEffect(() => {
     dispatch(getUserInfos());
-    fetchUserInfos();
   }, []);
 
     return (
@@ -31,7 +22,7 @@ export default function EditProfile() {
             <div className='profile__container'>
             <EditProfileInfos />
             <AddGame />
-            <DeleteGames games={myGames} title={'Ma ludothèque'} />
+            <DeleteGames title={'Ma ludothèque'} />
             </div>
             <Footer />
         </div>

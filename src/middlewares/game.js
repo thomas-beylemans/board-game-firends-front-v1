@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ADD_GAME, DELETE_GAME } from "../actions/game";
-import { saveError } from "../actions/error";
+import { saveError, successMessage } from "../actions/error";
 
 export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
@@ -40,18 +40,18 @@ const game = (store) => (next) => async (action) => {
         const token = JSON.parse(localStorage.getItem('user'));
 
         const response = await api.delete('/profile/my-games',
-          {
-            "game": {
-                "id": action.game.id,
-            }
+        {
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
+          
+          data: {
+          "game":{
+            "id" : action.gameId,
           }
-          , {
-            headers: {
-              Authorization: `Bearer ${token.accessToken}`,
-            },
-          });
-          console.log(response.data);
-        // return (response.data.successMessage);
+        }
+      });
+        store.dispatch(successMessage(response.data.successMessage));
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));

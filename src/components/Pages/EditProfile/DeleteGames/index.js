@@ -1,24 +1,39 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { Card, Segment, Header, Image, Button, Icon } from 'semantic-ui-react';
+import { deleteGame } from '../../../../actions/game';
+import { fetchAPI } from '../../../../utils/fetchAPI';
 import './styles.scss';
 
-export default function DeleteGames({ games }) {
+export default function DeleteGames({ title }) {
+  const dispatch = useDispatch();
 
-const handleClick = () => {
-console.log('Je supprime un jeu');
-}
+  const [myGames, setMyGames] = useState([]);
+
+  const handleClick = (e) => {
+    dispatch(deleteGame(e.target.value));
+  }
+
+  const fetchUserInfos = async () => {
+    const userInfos = await fetchAPI('dashboard');
+    setMyGames(userInfos.user.game);
+  }
+  useEffect(() => {
+    fetchUserInfos();
+  }, [myGames]);
 
   return (
     <Segment className='games-segment' color='orange' padded>
-      <Header as='h1' color='orange'>Ma ludothèque</Header>
-      <Card.Group centered children={games}>
-        {games.map(game => (
+      <Header as='h1' color='orange'>{title}</Header>
+      <Card.Group centered children={myGames}>
+        {myGames.map(game => (
           <Card key={game.id}>
             <Image src={game.picture} />
             <Card.Content>
               <Card.Header>{game.name}</Card.Header>
             </Card.Content>
-            <Button icon color='red' onClick={handleClick}>
+            <Button color='red' onClick={handleClick} value={game.id} icon>
               <Icon name='trash alternate' />
             </Button>
           </Card>
@@ -29,11 +44,7 @@ console.log('Je supprime un jeu');
 };
 
 DeleteGames.propTypes = {
-  games: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-  })).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 
