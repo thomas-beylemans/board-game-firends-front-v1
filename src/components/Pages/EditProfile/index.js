@@ -13,8 +13,7 @@ export default function EditProfile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfos());
-    fetchUserInfos();
+    dispatch(getUserInfos());    
   }, []);
 
     return (
