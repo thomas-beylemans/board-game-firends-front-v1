@@ -46,8 +46,7 @@ export default function EditProfileInfos() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
-    dispatch(getUserInfos()) // to update user infos in the local storage
+    dispatch(editUserInfos())// to dispatch the action to trigger the api patch   
     navigate('/profile')
     // console.log('Je sauvegarde mes changements')
   }

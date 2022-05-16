@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos, EDIT_USER_INFOS } from "../actions/user";
+import { SIGN_UP, LOGIN, saveUser, GET_USER_INFOS, saveUserInfos, EDIT_USER_INFOS, getUserInfos } from "../actions/user";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -158,7 +158,8 @@ const user = (store) => (next) => async (action) => {
           lat,
           long,
         }
-        store.dispatch(saveUserInfos(user));
+        store.dispatch(getUserInfos(user));
+        store.dispatch(saveUser(username)); // Put the username in the store
        
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
