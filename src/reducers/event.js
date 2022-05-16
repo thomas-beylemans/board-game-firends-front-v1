@@ -1,4 +1,4 @@
-import { CHANGE_EVENT_VALUE, SAVE_EVENT, SAVE_SUBSCRIBE_EVENT} from "../actions/event";
+import { CHANGE_EVENT_VALUE, SAVE_EVENT, SAVE_CITY, SAVE_SUBSCRIBE_EVENT, SAVE_UNSUBSCRIBE_EVENT} from "../actions/event";
 
 export const initialState = {
   name: '',
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         [action.name]: action.newValue,
       };
-    
+
     case SAVE_EVENT:
       return {
         ...state,
@@ -34,7 +34,21 @@ const reducer = (state = initialState, action = {}) => {
           ...initialState,
           message: action.validation
         }
+      case SAVE_UNSUBSCRIBE_EVENT:
+        return {
+          ...state,
+          ...initialState,
+          message: action.validation
+        }
 
+    case SAVE_CITY:
+      return {
+        ...state,
+        city: action.city.nom,
+        lat: action.city.centre.coordinates[1],
+        long: action.city.centre.coordinates[0],
+      };
+    
     default:
       return state;
   }

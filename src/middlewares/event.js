@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT,saveSubscribeEvent} from "../actions/event";
+import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT,saveSubscribeEvent, UNSUBSCRIBE_EVENT, saveUnsubscribeEvent} from "../actions/event";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -27,10 +27,8 @@ const event = (store) => (next) => async (action) => {
               "geo": {
                 "city": state.event.city,
                 "postcode": state.event.postcode,
-                // lat: state.event.lat,
-                // long: state.event.long
-                "lat": 32.12345,
-                "long": -123.12345,
+                "lat": state.event.lat,
+                "long": state.event.long
               }
             }
           }, {
@@ -72,10 +70,35 @@ const event = (store) => (next) => async (action) => {
         store.dispatch(saveError(err.response.data.events.errorMessage));
         console.log(err.response.data.errorMessage, "ERROR")
       }
-      break;
+      break;        
+      }
 
-
+    case UNSUBSCRIBE_EVENT:
+      {
         
+        console.log(action.id);
+      try {
+        const token = JSON.parse(localStorage.getItem('user'));
+        console.log("je passe dans le unsubcribeEvent")
+        const response = await api.delete(`/events/${action.id}/subscribe`,
+        {
+            "event": {
+              "id": action.id,
+          }
+        },{
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
+        });
+        console.log(response.data, "RESPONSE DATA")
+        store.dispatch(saveUnsubscribeEvent(response.data.events.validation));
+        
+      }
+      catch (err) {
+        store.dispatch(saveError(err.response.data.events.errorMessage));
+        console.log(err.response.data.errorMessage, "ERROR")
+      }
+      break;        
       }
 
 

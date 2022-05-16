@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { saveUserInfos } from '../../../actions/user';
-import { subscribeEvent } from '../../../actions/event';
+import { subscribeEvent, unsubscribeEvent } from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -22,8 +22,7 @@ import {
   Icon,
   Divider,
   Button,
-  Container,
-  Message,
+  Container,  
   Modal,
 } from 'semantic-ui-react';
 
@@ -63,13 +62,18 @@ export default function DetailEvent() {
   }, []);
 
   const [modalValidation, setmodalValidation] = useState(false);
-  const message = useSelector((state) => state.event.message);
-  const errorMessage = useSelector((state) => state.error.errorMessage);
+  const [modalUnsubscribe, setmodalUnsubscribe] = useState(false);
+
+  // const message = useSelector((state) => state.event.message);
+  // const errorMessage = useSelector((state) => state.error.errorMessage);
 
   const handleSubscribeEvent = () => {
     dispatch(subscribeEvent(eventId));
   };
-  // console.log(handleSubscribeEvent)
+  
+  const handleUnsubscribeEvent = () => {
+    dispatch(unsubscribeEvent(eventId))
+  }
 
   return (
     <>
@@ -192,12 +196,43 @@ export default function DetailEvent() {
         </Modal.Actions>
       </Modal>
 
-      {/* <Button onClick={handleSubscribeEvent} className="eventdetail__button" fluid color="orange" animated>
-        <Button.Content visible>Participer à l'événement</Button.Content>
-        <Button.Content hidden>
-          <Icon name="calendar plus" />
-        </Button.Content>
-      </Button> */}
+
+
+      <Modal
+        closeIcon
+        onClose={() => setmodalUnsubscribe(false)}
+        onOpen={() => setmodalUnsubscribe(true)}
+        open={modalUnsubscribe}
+        trigger={
+          <Button
+            onClick={handleUnsubscribeEvent}
+            className="eventdetail__button"
+            fluid
+            color="red"
+            animated
+          >
+            <Button.Content visible>Se déinscrire de l'événement</Button.Content>
+            <Button.Content hidden>
+              <Icon name="calendar plus" />
+            </Button.Content>
+          </Button>
+        }
+      >
+        <Header icon="chess" content="Désinscription validée" />
+        <Modal.Content>
+          <p>
+            Votre participation vient d'être supprimée de votre{' '}
+            <Link to="/dashboard"> Menu principal! </Link>
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color="green" onClick={() => setmodalUnsubscribe(false)}>
+            <Icon name="checkmark" /> Retour
+          </Button>
+        </Modal.Actions>
+      </Modal>
+     
+
       <Divider />
 
       <Footer />
