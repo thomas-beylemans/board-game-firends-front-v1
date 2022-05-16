@@ -72,7 +72,7 @@ export default function SignIn() {
                 <Header.Content>Connexion</Header.Content>
               </Header>
               <div className="register__container__column__error">
-                <Alert hidden={isHidden} message={errorMessage} />
+              <Alert hidden={isHidden} message={errorMessage} positive={false} negative={true} />
               </div>
               <form onSubmit={handleSubmit}>
                 <Grid.Row>

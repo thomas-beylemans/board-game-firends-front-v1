@@ -2,10 +2,10 @@ import axios from 'axios';
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import { findCity } from '../../../../utils/findCity';
-import { saveCity, getUserInfos, editUserInfos, saveBio, saveAvatar } from '../../../../actions/user';
+import { saveCity, editUserInfos, saveBio, saveAvatar } from '../../../../actions/user';
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
@@ -29,7 +29,6 @@ export default function EditProfileInfos() {
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
         setSuggestedCity(res.data);
-        // console.log(suggestedCity);
       })
     setNewCity(e.target.value);
   };
@@ -48,7 +47,6 @@ export default function EditProfileInfos() {
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
     dispatch(editUserInfos())// to dispatch the action to trigger the api patch   
     navigate('/profile')
-    // console.log('Je sauvegarde mes changements')
   }
 
   const handleClickDelete = () => {
@@ -90,7 +88,7 @@ export default function EditProfileInfos() {
             <Grid.Column className="description">
               <div className='description-padded'>
                 <Header as='h2'>Quelques mots sur moi</Header>
-                <TextArea rows={8} value={bio} placeholder='Merci de renseigner une description' onChange={handleTextarea}>
+                <TextArea rows={8} value={bio === null ? '' : bio} placeholder='Merci de renseigner une description' onChange={handleTextarea}>
                 </TextArea>
               </div>
               <Grid.Row className="description__row">

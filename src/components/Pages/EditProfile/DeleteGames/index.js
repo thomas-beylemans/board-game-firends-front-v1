@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Card, Segment, Header, Image, Button, Icon } from 'semantic-ui-react';
+import { deleteGame } from '../../../../actions/game';
 import './styles.scss';
 
 export default function DeleteGames({ games }) {
+  const dispatch = useDispatch();
 
-const handleClick = () => {
-console.log('Je supprime un jeu');
+const handleClick = (e) => {
+  dispatch(deleteGame(e.target.value));
 }
 
   return (
@@ -18,7 +21,7 @@ console.log('Je supprime un jeu');
             <Card.Content>
               <Card.Header>{game.name}</Card.Header>
             </Card.Content>
-            <Button icon color='red' onClick={handleClick}>
+            <Button color='red' onClick={handleClick} value={game.id} icon>
               <Icon name='trash alternate' />
             </Button>
           </Card>
