@@ -33,8 +33,12 @@ export default function DetailEvent() {
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
+  const userId = useSelector(state => state.user.id);
+
+  const [isAdmin, setIsAdmin] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const [eventAdmin, setEventAdmin] = useState('');
+  const [eventAdminId, setEventAdminId] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
@@ -45,12 +49,16 @@ export default function DetailEvent() {
     const event = await fetchAPI(`events/${eventId}`);
     console.log(event);
     setEventTitle(event.events.event.name);
+    setEventAdminId(event.events.event.event_admin.id);
     setEventAdmin(event.events.event.event_admin.username);
     setEventDescription(event.events.event.description);
     setEventDate(event.events.event.start_date);
     setSeatsAvailable(event.events.event.seats);
     setEventLocation(event.events.event.geo.city);
     setEvent([event.events.event]);
+    if (userId === eventAdminId) {
+      setIsAdmin(true);
+    } 
   };
 
   useEffect(() => {
@@ -59,6 +67,7 @@ export default function DetailEvent() {
       dispatch(saveUserInfos(loggedUser.user));
     }
     fetchEvent();
+    console.log(userId, eventAdminId);
   }, []);
 
   const [modalValidation, setmodalValidation] = useState(false);
@@ -101,8 +110,7 @@ export default function DetailEvent() {
           title="edit avatar"
           color="orange"
           style={{ display: 'none' }}
-        >
-          {/* <Header as="h2">Test: {errorMessage ? errorMessage : message} </Header> */}
+        >          
           <Icon name="edit" />
         </Button>
         <ControlledInput
@@ -162,6 +170,7 @@ export default function DetailEvent() {
         </Grid>
       </Segment>
 
+      { isAdmin ? (
       <Modal
         closeIcon
         onClose={() => setmodalValidation(false)}
@@ -195,7 +204,7 @@ export default function DetailEvent() {
           </Button>
         </Modal.Actions>
       </Modal>
-
+      ) : ( 
 
 
       <Modal
@@ -211,7 +220,7 @@ export default function DetailEvent() {
             color="red"
             animated
           >
-            <Button.Content visible>Se déinscrire de l'événement</Button.Content>
+            <Button.Content visible>Se désinscrire de l'événement</Button.Content>
             <Button.Content hidden>
               <Icon name="calendar plus" />
             </Button.Content>
@@ -230,8 +239,8 @@ export default function DetailEvent() {
             <Icon name="checkmark" /> Retour
           </Button>
         </Modal.Actions>
-      </Modal>
-     
+      </Modal>     
+      )}
 
       <Divider />
 

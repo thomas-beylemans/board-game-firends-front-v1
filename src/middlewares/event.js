@@ -51,7 +51,7 @@ const event = (store) => (next) => async (action) => {
         console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-        console.log("je passe dans le SubscribeEvent")
+        console.log('token 1 =>',token.accessToken)        
         const response = await api.post(`/events/${action.id}/subscribe`,
         {
             "event": {
@@ -63,45 +63,43 @@ const event = (store) => (next) => async (action) => {
           },
         });
         console.log(response.data, "RESPONSE DATA")
-        store.dispatch(saveSubscribeEvent(response.data.events.validation));
-        
+        store.dispatch(saveSubscribeEvent(response.data.event.successMessage));
+        console.log(response.data.event.successMessage) //undefined.. => bad     
       }
       catch (err) {
-        store.dispatch(saveError(err.response.data.events.errorMessage));
+        store.dispatch(saveError(err.response.data.event.errorMessage));
+        // {errorMessage: 'Vous êtes déjà inscrit à cet événement.'}  => good
       }
       break;        
       }
 
     case UNSUBSCRIBE_EVENT:
-      {
-        
+      {        
         console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-        console.log("je passe dans le unsubcribeEvent")
-        const response = await api.delete(`/events/${action.id}/subscribe`,
-        {
-            "event": {
-              "id": action.id,
-          }
-        },{
+        console.log('token 2 =>', token.accessToken)        
+
+        const response = await api.delete(`/events/${action.id}/subscribe`, {
+          data: {
+            "event":{
+            "id": action.id,
+            }
+          },
           headers: {
             Authorization: `Bearer ${token.accessToken}`,
-          },
-        });
+          }
+        });        
         console.log(response.data, "RESPONSE DATA")
-        store.dispatch(saveUnsubscribeEvent(response.data.events.validation));
+        store.dispatch(saveUnsubscribeEvent(response.data.event.successMessage));
+        console.log(response.data.event.successMessage)
         
       }
       catch (err) {
-        store.dispatch(saveError(err.response.data.events.errorMessage));
+        store.dispatch(saveError(err.response.data.event.errorMessage));
       }
       break;        
       }
-
-
-
-
     default:
       return next(action);
   }
