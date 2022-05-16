@@ -1,4 +1,4 @@
-import { fetchEvents } from '../../../utils/fetchEvent';
+import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { saveUserInfos } from '../../../actions/user';
@@ -9,7 +9,7 @@ import Footer from '../../Footer';
 import CardGroupEvents from '../../CardGroupEvents';
 import PlaceHolder from '../../PlaceHolder';
 
-import {Header} from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 
 import './styles.scss';
 
@@ -23,38 +23,43 @@ export default function PageEvent() {
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
 
-const fetchAllEvents = async () => {
-  setLoading(true);
-  const selectedEvent = await fetchEvents('events');
-    console.log(selectedEvent);
-    setAllEvents(selectedEvent.events);
-    console.log(selectedEvent);
-  setLoading(false);
- }
+  console.log(allEvents)
 
-useEffect(() => {
-  const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
-  if (loggedUser) {
-      dispatch(saveUserInfos(loggedUser.user));
+  const fetchAllEvents = async () => {
+    setLoading(true);
+    const selectedEvent = await fetchAPI('events');
+    console.log(selectedEvent)
+    if (selectedEvent.isEventFound) {
+      setAllEvents(selectedEvent.events);
+    } else {
+      setAllEvents([])
+    }
+    setLoading(false);
   }
-  fetchAllEvents();
-}, []);
 
-    return (
-        <div className="event">
-            <Navbar />
-            <Header textAlign="center" as="h1">
-                Evénements en cours
-            </Header>
-            <Map
-                className={'map__container--large'}
-                position={position}
-                eventsList={allEvents}
-            />
-            <div className="event__container">
-             {loading ? <PlaceHolder array={allEvents} title="" />:<CardGroupEvents array={allEvents} title="" />}
-            </div>
-            <Footer />
-        </div>
-    );
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
+    fetchAllEvents();
+  }, []);
+
+  return (
+    <div className="event">
+      <Navbar />
+      <Header textAlign="center" as="h1">
+        Evénements en cours
+      </Header>
+      <Map
+        className={'map__container--large'}
+        position={position}
+        eventsList={allEvents}
+      />
+      <div className="event__container">
+        {loading ? <PlaceHolder array={allEvents} title="" /> : <CardGroupEvents array={allEvents} title="" />}
+      </div>
+      <Footer />
+    </div>
+  );
 }

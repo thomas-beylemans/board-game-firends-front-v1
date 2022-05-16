@@ -20,6 +20,7 @@ export default function Profile() {
         }
   }, [dispatch]);
 
+  
   return (
     <div className="profile">
       <Navbar />
