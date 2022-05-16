@@ -4,6 +4,7 @@ import { saveError } from "../actions/error";
 
 export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
+  // baseURL: 'http://localhost:46655/api/v1',
 });
 
 
@@ -15,7 +16,7 @@ const event = (store) => (next) => async (action) => {
         const token = JSON.parse(localStorage.getItem('user'));
 
         const response = await api.post('/events',
-        {
+          {
             "event": {
               "name": state.event.name,
               // picture: state.event.picture,
@@ -31,8 +32,8 @@ const event = (store) => (next) => async (action) => {
                 "lat": 32.12345,
                 "long": -123.12345,
               }
-          }
-        },{
+            }
+          }, {
           headers: {
             Authorization: `Bearer ${token.accessToken}`,
           },

@@ -24,6 +24,7 @@ export default function Dashboard() {
   const fetchUserInfos = async () => {
     setLoading(true);
     const userInfos = await fetchAPI('dashboard');
+    console.log(userInfos);
     setGames(userInfos.user.game);
     setAllEvents(userInfos.user.event);
     setMyEvents(userInfos.user.event.filter(event => event.event_admin.username === userInfos.user.username));

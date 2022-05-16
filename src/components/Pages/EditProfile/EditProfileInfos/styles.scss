@@ -1,6 +1,6 @@
 .infos {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   background-color: rgb(241, 206, 109);
   padding: 1rem;
   border-radius: 1rem;
@@ -17,26 +17,29 @@
   width: 200px;
   margin-left: -120px;
   padding: 5px;
-  display: block;
+  display: block;  
 }
 
 .description {
-  
-    &__row {
-      display: flex;
-      justify-content: center;
-      margin-left: -120px;
-      padding: 5px;
-    }
-
-    &__input {
-      width: 200px;
-      text-align: center;
-    }
+  &-padded {
+    padding: 8px;
   }
 
-  .save-btn-group {
-      &>a {
-        padding-top: 1.5rem !important;
-      }
+  &__row {
+    display: flex;
+    justify-content: center;
+    margin-left: -120px;
+    padding: 5px;
   }
+
+  &__input {
+    width: 200px;
+    text-align: center;
+  }
+}
+
+.save-btn-group {
+  & > a {
+    padding-top: 1.5rem !important;
+  }
+}
