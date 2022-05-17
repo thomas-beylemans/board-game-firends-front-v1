@@ -23,8 +23,6 @@ export default function PageEvent() {
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
 
-  console.log(allEvents)
-
   const fetchAllEvents = async () => {
     setLoading(true);
     const selectedEvent = await fetchAPI('events');

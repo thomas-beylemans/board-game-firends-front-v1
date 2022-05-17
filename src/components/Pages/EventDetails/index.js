@@ -48,14 +48,14 @@ export default function DetailEvent() {
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
     console.log(event);
-    setEventTitle(event.events.event.name);
-    setEventAdminId(event.events.event.event_admin.id);
-    setEventAdmin(event.events.event.event_admin.username);
-    setEventDescription(event.events.event.description);
-    setEventDate(event.events.event.start_date);
-    setSeatsAvailable(event.events.event.seats);
-    setEventLocation(event.events.event.geo.city);
-    setEvent([event.events.event]);
+    setEventTitle(event.event.name);
+    setEventAdminId(event.event.event_admin.id);
+    setEventAdmin(event.event.event_admin.username);
+    setEventDescription(event.event.description);
+    setEventDate(event.event.start_date);
+    setSeatsAvailable(event.event.seats);
+    setEventLocation(event.event.geo.city);
+    setEvent([event.event]);
     if (userId === eventAdminId) {
       setIsAdmin(true);
     } 

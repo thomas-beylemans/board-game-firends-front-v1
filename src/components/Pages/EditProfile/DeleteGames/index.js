@@ -21,7 +21,7 @@ export default function DeleteGames({ title }) {
   }
   useEffect(() => {
     fetchUserInfos();
-  }, [myGames]);
+  }, []);
 
   return (
     <Segment className='games-segment' color='orange' padded>
