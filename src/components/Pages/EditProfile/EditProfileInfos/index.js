@@ -38,7 +38,7 @@ export default function EditProfileInfos() {
   }
 
   const handleAvatar = (event) => {
-    dispatch(saveAvatar(event.target.value))    
+    dispatch(saveAvatar(event.target.files[0]))    
   }
 
   const handleSubmit = (event) => {
