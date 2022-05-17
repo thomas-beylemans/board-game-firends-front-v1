@@ -108,7 +108,7 @@ export default function EditProfileInfos() {
           <Button type="submit" color="orange" size='large'>
             Sauvegarder
           </Button>
-          <Button onClick={handleClickDelete} basic color="red" size='large'>
+          <Button onClick={handleClickDelete} basic color="red" size='large' disabled>
             Supprimer le compte
           </Button>
         </Button.Group>

@@ -26,7 +26,6 @@ export default function PageEvent() {
   const fetchAllEvents = async () => {
     setLoading(true);
     const selectedEvent = await fetchAPI('events?zoomFactor=10');
-    console.log(selectedEvent)
     if (selectedEvent.isEventFound) {
       setAllEvents(selectedEvent.event);
     } else {
