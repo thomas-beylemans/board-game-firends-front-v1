@@ -22,7 +22,7 @@ import {
   Icon,
   Divider,
   Button,
-  Container,  
+  Container,
   Modal,
 } from 'semantic-ui-react';
 
@@ -34,11 +34,13 @@ export default function DetailEvent() {
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
   const userId = useSelector(state => state.user.id);
+  const isSubscribed = useSelector(state => state.event.isSubscribed);
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
+  const [eventPicture, setEventPicture] = useState('');
   const [eventAdmin, setEventAdmin] = useState('');
-  const [eventAdminId, setEventAdminId] = useState('');
+  const [eventAdminId, setEventAdminId] = useState(0);
   const [eventDescription, setEventDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
@@ -47,7 +49,9 @@ export default function DetailEvent() {
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
+    console.log(event)
     setEventTitle(event.event.name);
+    setEventPicture(event.event.picture);
     setEventAdminId(event.event.event_admin.id);
     setEventAdmin(event.event.event_admin.username);
     setEventDescription(event.event.description);
@@ -55,9 +59,12 @@ export default function DetailEvent() {
     setSeatsAvailable(event.event.seats);
     setEventLocation(event.event.geo.city);
     setEvent([event.event]);
+    console.log('userId =>', userId)
+    console.log('eventadminId=>', eventAdminId)
+    // console.log(eventDate)
     if (userId === eventAdminId) {
       setIsAdmin(true);
-    } 
+    }
   };
 
   useEffect(() => {
@@ -77,7 +84,7 @@ export default function DetailEvent() {
   const handleSubscribeEvent = () => {
     dispatch(subscribeEvent(eventId));
   };
-  
+
   const handleUnsubscribeEvent = () => {
     dispatch(unsubscribeEvent(eventId))
   }
@@ -95,7 +102,7 @@ export default function DetailEvent() {
           alt="Event Image"
           centered
           rounded
-          src="https://cdn.pixabay.com/photo/2020/02/26/05/45/cards-4880676_960_720.jpg"
+          src={eventPicture}
           size="large"
         />
         <Button
@@ -108,7 +115,7 @@ export default function DetailEvent() {
           title="edit avatar"
           color="orange"
           style={{ display: 'none' }}
-        >          
+        >
           <Icon name="edit" />
         </Button>
         <ControlledInput
@@ -168,76 +175,75 @@ export default function DetailEvent() {
         </Grid>
       </Segment>
 
-      { isAdmin ? (
-      <Modal
-        closeIcon
-        onClose={() => setmodalValidation(false)}
-        onOpen={() => setmodalValidation(true)}
-        open={modalValidation}
-        trigger={
-          <Button
-            onClick={handleSubscribeEvent}
-            className="eventdetail__button"
-            fluid
-            color="orange"
-            animated
-          >
-            <Button.Content visible>Participer à l'événement</Button.Content>
-            <Button.Content hidden>
-              <Icon name="calendar plus" />
-            </Button.Content>
-          </Button>
-        }
-      >
-        <Header icon="chess" content="Participation validée" />
-        <Modal.Content>
-          <p>
-            Votre participation vient d'être ajoutée à votre{' '}
-            <Link to="/dashboard"> Menu principal! </Link>
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={() => setmodalValidation(false)}>
-            <Icon name="checkmark" /> Retour
-          </Button>
-        </Modal.Actions>
-      </Modal>
-      ) : ( 
+      {isSubscribed ? (
+        <Modal
+          closeIcon
+          onClose={() => setmodalUnsubscribe(false)}
+          onOpen={() => setmodalUnsubscribe(true)}
+          open={modalUnsubscribe}
+          trigger={
+            <Button
+              onClick={handleUnsubscribeEvent}
+              className="eventdetail__button"
+              fluid
+              color="red"
+              animated
+            >
+              <Button.Content visible>Se désinscrire de l'événement</Button.Content>
+              <Button.Content hidden>
+                <Icon name="calendar plus" />
+              </Button.Content>
+            </Button>
+          }
+        >
+          <Header icon="chess" content="Désinscription validée" />
+          <Modal.Content>
+            <p>
+              Votre participation vient d'être supprimée de votre{' '}
+              <Link to="/dashboard"> Menu principal ! </Link>
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={() => setmodalUnsubscribe(false)}>
+              <Icon name="checkmark" /> Retour
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      ) : (
+        <Modal
+          closeIcon
+          onClose={() => setmodalValidation(false)}
+          onOpen={() => setmodalValidation(true)}
+          open={modalValidation}
+          trigger={
+            <Button
+              onClick={handleSubscribeEvent}
+              className="eventdetail__button"
+              fluid
+              color="orange"
+              animated
+            >
+              <Button.Content visible>Participer à l'événement</Button.Content>
+              <Button.Content hidden>
+                <Icon name="calendar plus" />
+              </Button.Content>
+            </Button>
+          }
+        >
+          <Header icon="chess" content="Participation validée" />
+          <Modal.Content>
+            <p>
+              Votre participation vient d'être ajoutée à votre{' '}
+              <Link to="/dashboard"> Menu principal! </Link>
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={() => setmodalValidation(false)}>
+              <Icon name="checkmark" /> Retour
+            </Button>
+          </Modal.Actions>
+        </Modal>
 
-
-      <Modal
-        closeIcon
-        onClose={() => setmodalUnsubscribe(false)}
-        onOpen={() => setmodalUnsubscribe(true)}
-        open={modalUnsubscribe}
-        trigger={
-          <Button
-            onClick={handleUnsubscribeEvent}
-            className="eventdetail__button"
-            fluid
-            color="red"
-            animated
-          >
-            <Button.Content visible>Se désinscrire de l'événement</Button.Content>
-            <Button.Content hidden>
-              <Icon name="calendar plus" />
-            </Button.Content>
-          </Button>
-        }
-      >
-        <Header icon="chess" content="Désinscription validée" />
-        <Modal.Content>
-          <p>
-            Votre participation vient d'être supprimée de votre{' '}
-            <Link to="/dashboard"> Menu principal ! </Link>
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={() => setmodalUnsubscribe(false)}>
-            <Icon name="checkmark" /> Retour
-          </Button>
-        </Modal.Actions>
-      </Modal>     
       )}
 
       <Divider />
