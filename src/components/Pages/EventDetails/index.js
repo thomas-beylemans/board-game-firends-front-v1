@@ -33,8 +33,7 @@ export default function DetailEvent() {
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
-  const userId = loggedUser.user.id;
-  const isSubscribed = useSelector(state => state.event.isSubscribed);
+  const userId = useSelector(state => state.user.id);
 
   const eventTitle = useSelector(state => state.eventDetails.title);
   const eventPicture = useSelector(state => state.eventDetails.picture);
@@ -44,8 +43,10 @@ export default function DetailEvent() {
   const seatsAvailable = useSelector(state => state.eventDetails.seats);
   const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
+  const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
 
   const isAdmin = userId === eventAdminId;
+  const isSubscribed = eventPlayers.find(player => player.id === userId);
 
   const [event, setEvent] = useState([]);
 
@@ -71,10 +72,12 @@ export default function DetailEvent() {
 
   const handleSubscribeEvent = () => {
     dispatch(subscribeEvent(eventId));
+    fetchEvent();
   };
 
   const handleUnsubscribeEvent = () => {
     dispatch(unsubscribeEvent(eventId))
+    fetchEvent();
   }
 
   return (
@@ -162,8 +165,9 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
-
-      {isSubscribed ? (
+      { !isAdmin &&
+      <div>
+        { isSubscribed !== undefined ? (
         <Modal
           closeIcon
           onClose={() => setmodalUnsubscribe(false)}
@@ -231,9 +235,9 @@ export default function DetailEvent() {
             </Button>
           </Modal.Actions>
         </Modal>
-
       )}
-
+      </div>
+      }
       <Divider />
 
       <Footer />
