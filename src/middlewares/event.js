@@ -48,10 +48,8 @@ const event = (store) => (next) => async (action) => {
     case SUBSCRIBE_EVENT:
       {
         
-        console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-        console.log('token 1 =>',token.accessToken)        
         const response = await api.post(`/events/${action.id}/subscribe`,
         {
             "event": {
@@ -62,9 +60,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        console.log(response.data, "RESPONSE DATA")
         store.dispatch(saveSubscribeEvent(response.data.event.successMessage));
-        console.log(response.data.event.successMessage) //undefined.. => bad     
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.event.errorMessage));
@@ -75,10 +71,8 @@ const event = (store) => (next) => async (action) => {
 
     case UNSUBSCRIBE_EVENT:
       {        
-        console.log(action.id);
       try {
         const token = JSON.parse(localStorage.getItem('user'));
-        console.log('token 2 =>', token.accessToken)        
 
         const response = await api.delete(`/events/${action.id}/subscribe`, {
           data: {
@@ -90,10 +84,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           }
         });        
-        console.log(response.data, "RESPONSE DATA")
-        store.dispatch(saveUnsubscribeEvent(response.data.event.successMessage));
-        console.log(response.data.event.successMessage)
-        
+        store.dispatch(saveUnsubscribeEvent(response.data.event.successMessage));        
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.event.errorMessage));

@@ -47,7 +47,6 @@ export default function DetailEvent() {
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
-    console.log(event);
     setEventTitle(event.event.name);
     setEventAdminId(event.event.event_admin.id);
     setEventAdmin(event.event.event_admin.username);
@@ -67,7 +66,6 @@ export default function DetailEvent() {
       dispatch(saveUserInfos(loggedUser.user));
     }
     fetchEvent();
-    console.log(userId, eventAdminId);
   }, []);
 
   const [modalValidation, setmodalValidation] = useState(false);
