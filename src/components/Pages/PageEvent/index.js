@@ -46,7 +46,7 @@ export default function PageEvent() {
     <div className="event">
       <Navbar />
       <Header textAlign="center" as="h1">
-        Evénements en cours
+        Les évènements près de chez vous
       </Header>
       <Map
         className={'map__container--large'}

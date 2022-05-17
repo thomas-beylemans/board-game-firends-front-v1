@@ -229,7 +229,7 @@ export default function DetailEvent() {
         <Modal.Content>
           <p>
             Votre participation vient d'être supprimée de votre{' '}
-            <Link to="/dashboard"> Menu principal! </Link>
+            <Link to="/dashboard"> Menu principal ! </Link>
           </p>
         </Modal.Content>
         <Modal.Actions>
