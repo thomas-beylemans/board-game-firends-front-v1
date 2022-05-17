@@ -24,6 +24,7 @@ export default function EditProfileInfos() {
   const bio = useSelector(state => state.user.bio)
   const avatar = useSelector(state => state.user.avatar);
 
+  const [picture, setPicture] = useState('');
 
   const handleChangeCity = (e) => {
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
@@ -38,14 +39,30 @@ export default function EditProfileInfos() {
   }
 
   const handleAvatar = (event) => {
-    dispatch(saveAvatar(event.target.files[0]))    
+    setPicture(event.target.files[0]);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const { accessToken } = JSON.parse(localStorage.getItem('user'));
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-    dispatch(editUserInfos())// to dispatch the action to trigger the api patch   
-    navigate('/profile')
+    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
+    const formData = new FormData();
+    formData.append('picture', picture, picture.name);
+    const upload = axios({
+      method: 'PATCH',
+      url: `https://boardgamefriends.herokuapp.com/api/v1/profile`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}` }
+    })
+    upload.then(res => {
+      // dispatch(saveAvatar(res.data.avatar));
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    navigate('/profile');
   }
 
   const handleClickDelete = () => {
@@ -113,7 +130,7 @@ export default function EditProfileInfos() {
           </Button>
         </Button.Group>
       </div>
-    </Form >
+    </Form>
   );
 }
 
