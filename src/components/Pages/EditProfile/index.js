@@ -20,7 +20,7 @@ export default function EditProfile() {
   const [gameName, setGameName] = useState('');
 
 
-  const fetchUserInfos = async () => {
+  const fetchUserGames = async () => {
     const userInfos = await fetchAPI('dashboard');
     setMyGames(userInfos.user.game);
   }
@@ -31,7 +31,7 @@ export default function EditProfile() {
     setGameName('');
     setMyGames([...myGames, foundGame]);
     dispatch(getUserInfos());
-    fetchUserInfos(); 
+    fetchUserGames(); 
   }
 
   const handleChange = async (e) => {
@@ -43,7 +43,7 @@ export default function EditProfile() {
 
   useEffect(() => {
     dispatch(getUserInfos());
-    fetchUserInfos(); 
+    fetchUserGames(); 
   }, []);
 
     return (
