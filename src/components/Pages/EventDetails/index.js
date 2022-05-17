@@ -162,8 +162,9 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
-
-      {isSubscribed ? (
+      { !isAdmin &&
+      <div>
+        {isSubscribed ? (
         <Modal
           closeIcon
           onClose={() => setmodalUnsubscribe(false)}
@@ -231,9 +232,9 @@ export default function DetailEvent() {
             </Button>
           </Modal.Actions>
         </Modal>
-
       )}
-
+      </div>
+      }
       <Divider />
 
       <Footer />
