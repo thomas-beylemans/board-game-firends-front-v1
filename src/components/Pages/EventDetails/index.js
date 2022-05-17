@@ -52,17 +52,7 @@ export default function DetailEvent() {
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
     setEvent([event.event]);
-<<<<<<< HEAD
-    console.log('userId =>', userId)  
-    console.log(event.event.event_admin.id) 
-    console.log('eventAdminId =>', eventAdminId) 
-    console.log(eventDate)
-    if (userId === eventAdminId) {
-      setIsAdmin(true);
-    }
-=======
     dispatch(saveEventDetails(event.event));
->>>>>>> 12b58a5f8aafbea2a80bcea5d2e18927e366b8a0
   };
 
   useEffect(() => {
