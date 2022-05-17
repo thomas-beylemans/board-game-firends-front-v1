@@ -18,6 +18,7 @@ export default function Navbar() {
     dispatch(logOut());
     localStorage.removeItem('user');
     localStorage.removeItem('userInfos');
+    localStorage.removeItem('userGames');
     navigate("/");
   }
 
