@@ -64,7 +64,6 @@ const event = (store) => (next) => async (action) => {
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.event.errorMessage));
-        // {errorMessage: 'Vous êtes déjà inscrit à cet événement.'}  => good
       }
       break;        
       }
