@@ -33,7 +33,7 @@ export default function DetailEvent() {
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
-  const userId = useSelector(state => state.user.id);
+  const userId = loggedUser.user.id;
   const isSubscribed = useSelector(state => state.event.isSubscribed);
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -59,9 +59,10 @@ export default function DetailEvent() {
     setSeatsAvailable(event.event.seats);
     setEventLocation(event.event.geo.city);
     setEvent([event.event]);
-    console.log('userId =>', userId)
-    console.log('eventadminId=>', eventAdminId)
-    // console.log(eventDate)
+    console.log('userId =>', userId)  
+    console.log(event.event.event_admin.id) 
+    console.log('eventAdminId =>', eventAdminId) 
+    console.log(eventDate)
     if (userId === eventAdminId) {
       setIsAdmin(true);
     }
