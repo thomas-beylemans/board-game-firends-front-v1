@@ -28,7 +28,7 @@ export default function PageEvent() {
     const selectedEvent = await fetchAPI('events');
     console.log(selectedEvent)
     if (selectedEvent.isEventFound) {
-      setAllEvents(selectedEvent.events);
+      setAllEvents(selectedEvent.event);
     } else {
       setAllEvents([])
     }

@@ -39,7 +39,6 @@ export default function EditProfileInfos() {
 
   const handleAvatar = (event) => {
     dispatch(saveAvatar(event.target.value))    
-    // console.log('Avatar')
   }
 
   const handleSubmit = (event) => {
