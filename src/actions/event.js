@@ -45,3 +45,9 @@ export const saveUnsubscribeEvent = (validation) => ({
   type: SAVE_UNSUBSCRIBE_EVENT,
   validation,
 })
+
+export const SAVE_EVENT_DETAILS = 'SAVE_EVENT_DETAILS';
+export const saveEventDetails = (event) => ({
+  type: SAVE_EVENT_DETAILS,
+  event,
+});

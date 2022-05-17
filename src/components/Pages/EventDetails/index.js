@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { saveUserInfos } from '../../../actions/user';
-import { subscribeEvent, unsubscribeEvent } from '../../../actions/event';
+import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -36,35 +36,23 @@ export default function DetailEvent() {
   const userId = useSelector(state => state.user.id);
   const isSubscribed = useSelector(state => state.event.isSubscribed);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [eventTitle, setEventTitle] = useState('');
-  const [eventPicture, setEventPicture] = useState('');
-  const [eventAdmin, setEventAdmin] = useState('');
-  const [eventAdminId, setEventAdminId] = useState(0);
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventLocation, setEventLocation] = useState('');
-  const [seatsAvailable, setSeatsAvailable] = useState('');
+  const eventTitle = useSelector(state => state.eventDetails.title);
+  const eventPicture = useSelector(state => state.eventDetails.picture);
+  const eventDescription = useSelector(state => state.eventDetails.description);
+  const eventLocation = useSelector(state => state.eventDetails.location.city);
+  const eventDate = useSelector(state => state.eventDetails.start_date);
+  const seatsAvailable = useSelector(state => state.eventDetails.seats);
+  const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
+  const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
+
+  const isAdmin = userId === eventAdminId;
+
   const [event, setEvent] = useState([]);
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
-    console.log(event)
-    setEventTitle(event.event.name);
-    setEventPicture(event.event.picture);
-    setEventAdminId(event.event.event_admin.id);
-    setEventAdmin(event.event.event_admin.username);
-    setEventDescription(event.event.description);
-    setEventDate(event.event.start_date);
-    setSeatsAvailable(event.event.seats);
-    setEventLocation(event.event.geo.city);
     setEvent([event.event]);
-    console.log('userId =>', userId)
-    console.log('eventadminId=>', eventAdminId)
-    // console.log(eventDate)
-    if (userId === eventAdminId) {
-      setIsAdmin(true);
-    }
+    dispatch(saveEventDetails(event.event));
   };
 
   useEffect(() => {
