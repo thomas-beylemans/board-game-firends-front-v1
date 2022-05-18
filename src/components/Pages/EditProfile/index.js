@@ -74,7 +74,6 @@ export default function EditProfile() {
 
   const handleTextarea = (event) => {
     dispatch(saveBio(event.target.value));
-    console.log(event.target.value);
   }
 
   const handleAvatar = (event) => {
