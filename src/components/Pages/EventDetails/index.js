@@ -12,6 +12,8 @@ import 'moment/locale/fr';
 import Map from '../../Map';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
+import Alert from '../../Alert';
+import { clearError, saveError } from '../../../actions/error';
 import './styles.scss';
 import {
   Header,
@@ -44,10 +46,12 @@ export default function DetailEvent() {
   const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
   const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
+  const errorMessage = useSelector(state => state.error.errorMessage);
 
   const isAdmin = userId === eventAdminId;
   const isSubscribed = eventPlayers.find(player => player.id === userId);
 
+  const [isHidden, setIsHidden] = useState(true);
   const [event, setEvent] = useState([]);
   const [eventAction, setEventAction] = useState(false);
 
@@ -64,6 +68,16 @@ export default function DetailEvent() {
     }
     fetchEvent();
   }, [eventAction]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      setIsHidden(false);
+      setTimeout(() => {
+        dispatch(clearError());
+        setIsHidden(true);
+      }, 3000);
+    }
+  }, [dispatch, errorMessage]);
 
   const handleSubscribeEvent = () => {
     setEventAction(!eventAction);
@@ -144,7 +158,11 @@ export default function DetailEvent() {
       </Segment>
       {!isAdmin &&
         <div>
+              <div className="register__container__column__error">
+              <Alert hidden={isHidden} message={errorMessage} positive={false} negative={true} />
+              </div>
           {isSubscribed !== undefined ? (
+          
             <Button
               onClick={handleUnsubscribeEvent}
               className="eventdetail__button"
@@ -153,11 +171,12 @@ export default function DetailEvent() {
               // animated
             >
               <Button.Content visible>Se désinscrire de l'événement</Button.Content>
+              
               <Button.Content hidden>
                 {/* <Icon name="calendar plus" /> */}
               </Button.Content>
             </Button>
-
+             
           ) : (
             <Button
               onClick={handleSubscribeEvent}
