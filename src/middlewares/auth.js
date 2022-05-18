@@ -102,12 +102,6 @@ const user = (store) => (next) => async (action) => {
             user,
           })
         );
-        localStorage.setItem(
-          'userGames',
-          JSON.stringify({
-            games: result.user.game,
-          })
-        );
         store.dispatch(saveUserInfos(user));
       }
       catch (err) {
@@ -119,7 +113,6 @@ const user = (store) => (next) => async (action) => {
     case EDIT_USER_INFOS: {
       const state = store.getState();
       const token = JSON.parse(localStorage.getItem('user'));
-      console.log('je passe dans le edit-user-infos')
       try {
         const response = await api.patch('/profile', {
           "user": {
@@ -134,15 +127,15 @@ const user = (store) => (next) => async (action) => {
               "lat": state.user.lat,
               "long": state.user.long
             }
-          }},
-            {
+          }
+        },
+          {
             headers: {
               Authorization: `Bearer ${token.accessToken}`,
             }
           }
         );
-        console.log(response.data)
-        
+
         const id = response.data.user.id;
         const email = response.data.user.email;
         const username = response.data.user.username;
@@ -166,7 +159,7 @@ const user = (store) => (next) => async (action) => {
         }
         store.dispatch(getUserInfos(user));
         store.dispatch(saveUser(username)); // Put the username in the store
-       
+
       } catch (err) {
         store.dispatch(saveError(err.response.data.errorMessage));
         console.log(err.response.data.errorMessage)

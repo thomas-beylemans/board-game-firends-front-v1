@@ -23,14 +23,11 @@ export default function PageEvent() {
   const [loading, setLoading] = useState(false);
   const [allEvents, setAllEvents] = useState([]);
 
-  console.log(allEvents)
-
   const fetchAllEvents = async () => {
     setLoading(true);
-    const selectedEvent = await fetchAPI('events');
-    console.log(selectedEvent)
+    const selectedEvent = await fetchAPI('events?zoomFactor=10');
     if (selectedEvent.isEventFound) {
-      setAllEvents(selectedEvent.events);
+      setAllEvents(selectedEvent.event);
     } else {
       setAllEvents([])
     }
@@ -49,7 +46,7 @@ export default function PageEvent() {
     <div className="event">
       <Navbar />
       <Header textAlign="center" as="h1">
-        Evénements en cours
+        Les évènements près de chez vous
       </Header>
       <Map
         className={'map__container--large'}

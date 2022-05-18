@@ -1,29 +1,8 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Segment, Header, Button, Grid, Input } from 'semantic-ui-react'
-import { addGame } from '../../../../actions/game';
 
 import './styles.scss';
 
-export default function AddGame() {
-  const dispatch = useDispatch();
-
-  const [gameArray, setGameArray] = useState([]);
-  const [gameName, setGameName] = useState('');
-
-  const handleClickAdd = () => {
-    const foundGame = gameArray.find(game => game.name === gameName);
-    dispatch(addGame(foundGame));
-    setGameName('');
-  }
-
-  const handleChange = async (e) => {
-    setGameName(e.target.value);
-    const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
-    const gamesList = response.data.games;
-    setGameArray(gamesList);
-  }
+export default function AddGame({ handleChange, handleClickAdd, gameArray, gameName }) {
 
   return (
     <div>
@@ -31,7 +10,7 @@ export default function AddGame() {
         <Header as='h2' color='orange'>Ajouter un jeu à ma ludothèque</Header>
         <Grid stackable>
           <Grid.Row textAlign="center" className="add-game">
-            <Input label='Nom du jeu' name="game" type="text" placeholder="Taper le nom d'un jeu" list="games" onChange={handleChange} value={gameName} />
+            <Input label='Nom du jeu' name="game" type="text" placeholder="Chercher un jeu" list="games" onChange={handleChange} value={gameName} />
             <datalist id="games">
                     {
                       gameArray.map(game => (
