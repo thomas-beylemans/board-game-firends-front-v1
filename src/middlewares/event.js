@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT,saveSubscribeEvent, UNSUBSCRIBE_EVENT, saveUnsubscribeEvent} from "../actions/event";
+import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT, saveSubscribeEvent, UNSUBSCRIBE_EVENT, saveUnsubscribeEvent } from "../actions/event";
 import { saveError } from "../actions/error";
 
 export const api = axios.create({
@@ -47,48 +47,48 @@ const event = (store) => (next) => async (action) => {
 
     case SUBSCRIBE_EVENT:
       {
-        
-      try {
-        const token = JSON.parse(localStorage.getItem('user'));
-        const response = await api.post(`/events/${action.id}/subscribe`,
-        {
-            "event": {
-              "id": action.id,
-          }
-        },{
-          headers: {
-            Authorization: `Bearer ${token.accessToken}`,
-          },
-        });
-        store.dispatch(saveSubscribeEvent(response.data.event.successMessage));
-      }
-      catch (err) {
-        store.dispatch(saveError(err.response.data.event.errorMessage));
-      }
-      break;        
+
+        try {
+          const token = JSON.parse(localStorage.getItem('user'));
+          const response = await api.post(`/events/${action.id}/subscribe`,
+            {
+              "event": {
+                "id": action.id,
+              }
+            }, {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+          });          
+          store.dispatch(saveSubscribeEvent(response.data.isSubscribed));
+        }
+        catch (err) {
+          store.dispatch(saveError(err.response.data.event.errorMessage));
+        }
+        break;
       }
 
     case UNSUBSCRIBE_EVENT:
-      {        
-      try {
-        const token = JSON.parse(localStorage.getItem('user'));
+      {
+        try {
+          const token = JSON.parse(localStorage.getItem('user'));
 
-        const response = await api.delete(`/events/${action.id}/subscribe`, {
-          data: {
-            "event":{
-            "id": action.id,
+          const response = await api.delete(`/events/${action.id}/subscribe`, {
+            data: {
+              "event": {
+                "id": action.id,
+              }
+            },
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
             }
-          },
-          headers: {
-            Authorization: `Bearer ${token.accessToken}`,
-          }
-        });        
-        store.dispatch(saveUnsubscribeEvent(response.data.event.successMessage));        
-      }
-      catch (err) {
-        store.dispatch(saveError(err.response.data.event.errorMessage));
-      }
-      break;        
+          });          
+          store.dispatch(saveUnsubscribeEvent(response.data.isSubscribed));
+        }
+        catch (err) {
+          store.dispatch(saveError(err.response.data.event.errorMessage));
+        }
+        break;
       }
     default:
       return next(action);

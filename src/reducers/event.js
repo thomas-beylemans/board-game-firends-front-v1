@@ -32,13 +32,13 @@ const reducer = (state = initialState, action = {}) => {
         return {
           ...state,
           ...initialState,
-          message: action.validation
+          isSubscribed: action.validation
         }
       case SAVE_UNSUBSCRIBE_EVENT:
         return {
           ...state,
           ...initialState,
-          message: action.validation
+          isSubscribed: action.validation
         }
 
     case SAVE_CITY:
