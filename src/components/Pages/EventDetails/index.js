@@ -2,7 +2,7 @@ import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { saveUserInfos } from '../../../actions/user';
 import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
@@ -27,7 +27,7 @@ import {
 
 export default function DetailEvent() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const eventId = useParams().id;
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
@@ -133,6 +133,14 @@ export default function DetailEvent() {
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
+                <Card.Description children={eventPlayers}>
+                  <Icon color="orange" name="users" />
+                  Inscrits: {eventPlayers.map(player => (              
+                  <span><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>, </span>                          
+                ))}
+                </Card.Description>
+              </Grid.Row>
+              <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="talk" />
                   {eventDescription}
@@ -150,7 +158,7 @@ export default function DetailEvent() {
               className="eventdetail__button"
               fluid
               color="red"
-              // animated
+            // animated
             >
               <Button.Content visible>Se désinscrire de l'événement</Button.Content>
               <Button.Content hidden>
@@ -164,7 +172,7 @@ export default function DetailEvent() {
               className="eventdetail__button"
               fluid
               color="orange"
-              // animated
+            // animated
             >
               <Button.Content visible>Participer à l'événement</Button.Content>
               <Button.Content hidden>
@@ -180,3 +188,4 @@ export default function DetailEvent() {
     </>
   );
 }
+
