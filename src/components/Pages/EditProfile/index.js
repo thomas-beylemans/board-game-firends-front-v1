@@ -28,11 +28,11 @@ export default function EditProfile() {
   const [newCity, setNewCity] = useState('');
   const [picture, setPicture] = useState('');
 
-  const username = useSelector(state => state.user.username)
-  const postcode = useSelector(state => state.user.postcode)
-  const city = useSelector(state => state.user.city)
-  const email = useSelector(state => state.user.email)
-  const bio = useSelector(state => state.user.bio)
+  const username = useSelector(state => state.user.username);
+  const postcode = useSelector(state => state.user.postcode);
+  const city = useSelector(state => state.user.city);
+  const email = useSelector(state => state.user.email);
+  const bio = useSelector(state => state.user.bio);
   const avatar = useSelector(state => state.user.avatar);
 
   const fetchUserGames = async () => {
@@ -46,7 +46,7 @@ export default function EditProfile() {
     setGameName('');
     setMyGames([...myGames, foundGame]);
     dispatch(getUserInfos());
-    fetchUserGames(); 
+    fetchUserGames();
   }
 
   const handleChange = async (e) => {
@@ -75,14 +75,14 @@ export default function EditProfile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newCity !== '') {
-    dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
+      dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
+      dispatch(editUserInfos())// to dispatch the action to trigger the api patch
     }
     if (picture) {
       uploadPicture(picture)
-      .then(res => {
-       dispatch(saveAvatar(res));
-      })
+        .then(res => {
+          dispatch(saveAvatar(res));
+        })
     }
     navigate('/profile');
   }
@@ -93,31 +93,31 @@ export default function EditProfile() {
 
   useEffect(() => {
     dispatch(getUserInfos());
-    fetchUserGames(); 
+    fetchUserGames();
   }, []);
 
-    return (
-        <div className="profile">
-            <Navbar />
-            <div className='profile__container'>
-            <EditProfileInfos
-                handleChangeCity={handleChangeCity}
-                handleTextArea={handleTextarea}
-                handleAvatar={handleAvatar}
-                handleSubmit={handleSubmit}
-                handleClickDelete={handleClickDelete}
-                username={username}
-                postcode={postcode}
-                city={city}
-                email={email}
-                bio={bio}
-                avatar={avatar}
-                suggestedCity={suggestedCity}
-                />
-            <AddGame handleChange={handleChange} handleClickAdd={handleClickAdd} gameArray={gameArray} gameName={gameName} />
-            <DeleteGames title={'Ma ludothèque'} games={myGames} />
-            </div>
-            <Footer />
-        </div>
-    );
+  return (
+    <div className="profile">
+      <Navbar />
+      <div className='profile__container'>
+        <EditProfileInfos
+          handleChangeCity={handleChangeCity}
+          handleTextArea={handleTextarea}
+          handleAvatar={handleAvatar}
+          handleSubmit={handleSubmit}
+          handleClickDelete={handleClickDelete}
+          username={username}
+          postcode={postcode}
+          city={city}
+          email={email}
+          bio={bio}
+          avatar={avatar}
+          suggestedCity={suggestedCity}
+        />
+        <AddGame handleChange={handleChange} handleClickAdd={handleClickAdd} gameArray={gameArray} gameName={gameName} />
+        <DeleteGames title={'Ma ludothèque'} games={myGames} />
+      </div>
+      <Footer />
+    </div>
+  );
 }
