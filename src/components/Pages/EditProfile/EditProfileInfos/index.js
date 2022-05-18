@@ -1,60 +1,25 @@
-import axios from 'axios';
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
-import { findCity } from '../../../../utils/findCity';
-import { saveCity, editUserInfos, saveBio, saveAvatar } from '../../../../actions/user';
-import { uploadPicture } from '../../../../utils/upload';
 
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
 
-export default function EditProfileInfos() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
- 
-  const [suggestedCity, setSuggestedCity] = useState([]);
-  const [newCity, setNewCity] = useState('');
-
-  const username = useSelector(state => state.user.username)
-  const postcode = useSelector(state => state.user.postcode)
-  const city = useSelector(state => state.user.city)
-  const email = useSelector(state => state.user.email)
-  const bio = useSelector(state => state.user.bio)
-  const avatar = useSelector(state => state.user.avatar);
-
-  const [picture, setPicture] = useState('');
-
-  const handleChangeCity = (e) => {
-    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
-      .then(res => {
-        setSuggestedCity(res.data);
-      })
-    setNewCity(e.target.value);
-  };
-
-  const handleTextarea = (event) => {
-    dispatch(saveBio(event.target.value))
-  }
-
-  const handleAvatar = (event) => {
-    setPicture(event.target.files[0]);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
-    uploadPicture(picture);
-    navigate('/profile');
-  }
-
-  const handleClickDelete = () => {
-    console.log('Je supprime mon compte')
-  }
+export default function EditProfileInfos({
+  handleChangeCity,
+  handleTextarea,
+  handleAvatar,
+  handleSubmit,
+  handleClickDelete,
+  username,
+  postcode,
+  city,
+  email,
+  bio,
+  avatar,
+  suggestedCity
+}) {
 
   return (
     <Form onSubmit={handleSubmit} className="form__flex">

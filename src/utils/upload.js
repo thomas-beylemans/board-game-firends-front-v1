@@ -11,7 +11,7 @@ export const uploadPicture = async (picture) => {
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}` }
     })
-    return upload.data.avatar;
+    return upload.data.user.avatar;
   }
   catch (err) {
     console.log(err);

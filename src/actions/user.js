@@ -67,7 +67,6 @@ export const saveUserInfos = (user) => ({
 });
 
 export const EDIT_USER_INFOS = 'EDIT_USER_INFOS';
-export const editUserInfos = (user) => ({
+export const editUserInfos = () => ({
   type: EDIT_USER_INFOS,
-  user,
 });
