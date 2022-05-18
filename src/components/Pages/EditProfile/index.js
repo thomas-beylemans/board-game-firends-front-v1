@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
 import { fetchAPI } from '../../../utils/fetchAPI';
-import { addGame } from '../../../actions/game';
+import { addGame, deleteGame } from '../../../actions/game';
 
 import Navbar from '../../Navbar';
 import EditProfileInfos from './EditProfileInfos';
@@ -34,6 +34,13 @@ export default function EditProfile() {
     fetchUserGames(); 
   }
 
+  const handleDeleteGame = (e) => {
+    dispatch(deleteGame(e.target.value));
+    setMyGames(myGames.filter(game => game.id !== e.target.value));
+    dispatch(getUserInfos());
+    fetchUserGames();
+  }
+
   const handleChange = async (e) => {
     setGameName(e.target.value);
     const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
@@ -52,7 +59,7 @@ export default function EditProfile() {
             <div className='profile__container'>
             <EditProfileInfos />
             <AddGame handleChange={handleChange} handleClickAdd={handleClickAdd} gameArray={gameArray} gameName={gameName} />
-            <DeleteGames title={'Ma ludothèque'} games={myGames} />
+            <DeleteGames title={'Ma ludothèque'} games={myGames} handleDeleteGame={handleDeleteGame} />
             </div>
             <Footer />
         </div>

@@ -4,12 +4,7 @@ import { Card, Segment, Header, Image, Button, Icon } from 'semantic-ui-react';
 import { deleteGame } from '../../../../actions/game';
 import './styles.scss';
 
-export default function DeleteGames({ title, games }) {
-  const dispatch = useDispatch();
-
-  const handleClick = (e) => {
-    dispatch(deleteGame(e.target.value));
-  }
+export default function DeleteGames({ title, games, handleDeleteGame }) {
 
   return (
     <Segment className='games-segment' color='orange' padded>
@@ -21,7 +16,7 @@ export default function DeleteGames({ title, games }) {
             <Card.Content>
               <Card.Header>{game.name}</Card.Header>
             </Card.Content>
-            <Button color='red' onClick={handleClick} value={game.id} icon>
+            <Button color='red' onClick={handleDeleteGame} value={game.id} icon>
               <Icon name='trash alternate' />
             </Button>
           </Card>
@@ -34,6 +29,7 @@ export default function DeleteGames({ title, games }) {
 DeleteGames.propTypes = {
   title: PropTypes.string.isRequired,
   games: PropTypes.array.isRequired,
+  handleDeleteGame: PropTypes.func.isRequired,
 };
 
 
