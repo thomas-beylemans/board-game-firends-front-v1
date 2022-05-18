@@ -113,7 +113,7 @@ export default function EditProfileInfos() {
           </Button>
         </Button.Group>
       </div>
-    </Form >
+    </Form>
   );
 }
 
