@@ -74,7 +74,7 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
+                      <Input className="modal__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
                       <datalist id="cities">
                         {
                           suggestedCity.map(city => (
