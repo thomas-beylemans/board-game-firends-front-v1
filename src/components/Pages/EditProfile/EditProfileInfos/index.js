@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 import { findCity } from '../../../../utils/findCity';
 import { saveCity, editUserInfos, saveBio, saveAvatar } from '../../../../actions/user';
+import { uploadPicture } from '../../../../utils/upload';
+
 import './styles.scss';
 
 import games_img from '../../../../assets/img/games.jpg';
@@ -44,24 +46,9 @@ export default function EditProfileInfos() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { accessToken } = JSON.parse(localStorage.getItem('user'));
     dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
     dispatch(editUserInfos())// to dispatch the action to trigger the api patch
-    const formData = new FormData();
-    formData.append('picture', picture, picture.name);
-    const upload = axios({
-      method: 'PATCH',
-      url: `https://boardgamefriends.herokuapp.com/api/v1/profile`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${accessToken}` }
-    })
-    upload.then(res => {
-      // dispatch(saveAvatar(res.data.avatar));
-      console.log(res.data);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    uploadPicture(picture);
     navigate('/profile');
   }
 
