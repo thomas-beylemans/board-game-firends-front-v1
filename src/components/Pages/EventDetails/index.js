@@ -49,6 +49,7 @@ export default function DetailEvent() {
   const isSubscribed = eventPlayers.find(player => player.id === userId);
 
   const [event, setEvent] = useState([]);
+  const [eventAction, setEventAction] = useState(false);
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
@@ -62,22 +63,21 @@ export default function DetailEvent() {
       dispatch(saveUserInfos(loggedUser.user));
     }
     fetchEvent();
-  }, []);
-
-  const [modalValidation, setmodalValidation] = useState(false);
-  const [modalUnsubscribe, setmodalUnsubscribe] = useState(false);
+  }, [eventAction]);
 
   // const message = useSelector((state) => state.event.message);
   // const errorMessage = useSelector((state) => state.error.errorMessage);
 
   const handleSubscribeEvent = () => {
+    setEventAction(!eventAction);
     dispatch(subscribeEvent(eventId));
-    fetchEvent();
+    // fetchEvent();
   };
 
   const handleUnsubscribeEvent = () => {
+    setEventAction(!eventAction);
     dispatch(unsubscribeEvent(eventId))
-    fetchEvent();
+    // fetchEvent();
   }
 
   return (
@@ -96,27 +96,7 @@ export default function DetailEvent() {
           src={eventPicture}
           size="large"
         />
-        <Button
-          className="eventdetail__edit__avatar"
-          as="label"
-          htmlFor="file"
-          type="button"
-          icon
-          circular
-          title="edit avatar"
-          color="orange"
-          style={{ display: 'none' }}
-        >
-          <Icon name="edit" />
-        </Button>
-        <ControlledInput
-          name="event-picture"
-          type="file"
-          id="file"
-          style={{ display: 'none' }}
-        />
       </Container>
-
       <Divider />
 
       <Segment className="eventdetail" size="huge">
@@ -165,78 +145,37 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
-      { !isAdmin &&
-      <div>
-        { isSubscribed !== undefined ? (
-        <Modal
-          closeIcon
-          onClose={() => setmodalUnsubscribe(false)}
-          onOpen={() => setmodalUnsubscribe(true)}
-          open={modalUnsubscribe}
-          trigger={
+      {!isAdmin &&
+        <div>
+          {isSubscribed !== undefined ? (
             <Button
               onClick={handleUnsubscribeEvent}
               className="eventdetail__button"
               fluid
               color="red"
-              animated
+              // animated
             >
               <Button.Content visible>Se désinscrire de l'événement</Button.Content>
               <Button.Content hidden>
-                <Icon name="calendar plus" />
+                {/* <Icon name="calendar plus" /> */}
               </Button.Content>
             </Button>
-          }
-        >
-          <Header icon="chess" content="Désinscription validée" />
-          <Modal.Content>
-            <p>
-              Votre participation vient d'être supprimée de votre{' '}
-              <Link to="/dashboard"> Menu principal ! </Link>
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="green" onClick={() => setmodalUnsubscribe(false)}>
-              <Icon name="checkmark" /> Retour
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      ) : (
-        <Modal
-          closeIcon
-          onClose={() => setmodalValidation(false)}
-          onOpen={() => setmodalValidation(true)}
-          open={modalValidation}
-          trigger={
+
+          ) : (
             <Button
               onClick={handleSubscribeEvent}
               className="eventdetail__button"
               fluid
               color="orange"
-              animated
+              // animated
             >
               <Button.Content visible>Participer à l'événement</Button.Content>
               <Button.Content hidden>
-                <Icon name="calendar plus" />
+                {/* <Icon name="calendar plus" /> */}
               </Button.Content>
             </Button>
-          }
-        >
-          <Header icon="chess" content="Participation validée" />
-          <Modal.Content>
-            <p>
-              Votre participation vient d'être ajoutée à votre{' '}
-              <Link to="/dashboard"> Menu principal! </Link>
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="green" onClick={() => setmodalValidation(false)}>
-              <Icon name="checkmark" /> Retour
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      )}
-      </div>
+          )}
+        </div>
       }
       <Divider />
 
