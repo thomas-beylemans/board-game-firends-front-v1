@@ -56,7 +56,7 @@ export default function EditProfileInfos({
             <Grid.Column className="description">
               <div className='description-padded'>
                 <Header as='h2'>Quelques mots sur moi</Header>
-                <TextArea rows={8} value={bio === null ? '' : bio} placeholder='Merci de renseigner une description' onChange={handleTextarea}>
+                <TextArea rows={8} value={bio} placeholder='Merci de renseigner une description' onChange={handleTextarea}>
                 </TextArea>
               </div>
               <Grid.Row className="description__row">

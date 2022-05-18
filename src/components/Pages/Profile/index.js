@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getUserInfos } from '../../../actions/user';
+import { getUserInfos, saveUserInfos } from '../../../actions/user';
 import { fetchAPI } from '../../../utils/fetchAPI';
 
 import Navbar from '../../Navbar';
@@ -20,6 +20,10 @@ export default function Profile() {
   }
 
   useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
     dispatch(getUserInfos());
     fetchUserInfos();
   }, []);

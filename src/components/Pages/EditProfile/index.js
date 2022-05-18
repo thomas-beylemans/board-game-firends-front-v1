@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { addGame } from '../../../actions/game';
-import { saveCity, editUserInfos, saveBio, saveAvatar } from '../../../actions/user';
+import { saveCity, editUserInfos, saveBio, saveAvatar, saveUserInfos } from '../../../actions/user';
 import { uploadPicture } from '../../../utils/upload';
 import { useNavigate } from 'react-router-dom';
 import { findCity } from '../../../utils/findCity';
@@ -73,7 +73,8 @@ export default function EditProfile() {
   };
 
   const handleTextarea = (event) => {
-    dispatch(saveBio(event.target.value))
+    dispatch(saveBio(event.target.value));
+    console.log(event.target.value);
   }
 
   const handleAvatar = (event) => {
@@ -84,7 +85,6 @@ export default function EditProfile() {
     event.preventDefault();
     if (newCity !== '') {
       dispatch(saveCity(findCity(suggestedCity, newCity, postcode)));
-      dispatch(editUserInfos())// to dispatch the action to trigger the api patch
     }
     if (picture) {
       uploadPicture(picture)
@@ -92,6 +92,8 @@ export default function EditProfile() {
           dispatch(saveAvatar(res));
         })
     }
+    dispatch(editUserInfos())// to dispatch the action to trigger the api patch
+    dispatch(saveUserInfos());
     navigate('/profile');
   }
 
@@ -100,6 +102,10 @@ export default function EditProfile() {
   }
 
   useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
     dispatch(getUserInfos());
     fetchUserGames();
   }, []);
@@ -110,7 +116,7 @@ export default function EditProfile() {
       <div className='profile__container'>
         <EditProfileInfos
           handleChangeCity={handleChangeCity}
-          handleTextArea={handleTextarea}
+          handleTextarea={handleTextarea}
           handleAvatar={handleAvatar}
           handleSubmit={handleSubmit}
           handleClickDelete={handleClickDelete}

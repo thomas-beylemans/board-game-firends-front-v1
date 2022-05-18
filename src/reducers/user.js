@@ -54,11 +54,7 @@ const reducer = (state = initialState, action = {}) => {
     case LOGOUT:
       return {
         ...state,
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        username: '',
-        logged: false,
+        ...initialState,
       };
 
     case SAVE_USER_INFOS:
