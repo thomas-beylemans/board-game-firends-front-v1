@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { Card, Segment, Header, Image, Button, Icon } from 'semantic-ui-react';
-import { deleteGame } from '../../../../actions/game';
 import './styles.scss';
 
 export default function DeleteGames({ title, games, handleDeleteGame }) {
