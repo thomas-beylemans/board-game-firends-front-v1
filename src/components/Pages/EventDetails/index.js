@@ -1,6 +1,6 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { saveUserInfos } from '../../../actions/user';
@@ -9,7 +9,6 @@ import moment from 'moment';
 import 'moment/locale/fr';
 
 import Map from '../../Map';
-import ControlledInput from '../../ControlledInput';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
 import './styles.scss';
@@ -23,7 +22,6 @@ import {
   Divider,
   Button,
   Container,
-  Modal,
 } from 'semantic-ui-react';
 
 export default function DetailEvent() {
@@ -65,19 +63,16 @@ export default function DetailEvent() {
     fetchEvent();
   }, [eventAction]);
 
-  // const message = useSelector((state) => state.event.message);
-  // const errorMessage = useSelector((state) => state.error.errorMessage);
-
   const handleSubscribeEvent = () => {
     setEventAction(!eventAction);
     dispatch(subscribeEvent(eventId));
-    // fetchEvent();
+    fetchEvent();
   };
 
   const handleUnsubscribeEvent = () => {
     setEventAction(!eventAction);
-    dispatch(unsubscribeEvent(eventId))
-    // fetchEvent();
+    dispatch(unsubscribeEvent(eventId));
+    fetchEvent();
   }
 
   return (
