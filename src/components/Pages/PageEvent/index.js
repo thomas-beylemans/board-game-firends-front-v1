@@ -28,6 +28,7 @@ export default function PageEvent() {
     const selectedEvent = await fetchAPI('events?zoomFactor=10');
     if (selectedEvent.isEventFound) {
       setAllEvents(selectedEvent.event);
+      console.log(selectedEvent.event)
     } else {
       setAllEvents([])
     }
