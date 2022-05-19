@@ -9,6 +9,7 @@ import { saveCity } from '../../actions/event';
 import { findCity } from '../../utils/findCity';
 
 import './styles.scss';
+import game from '../../middlewares/game';
 
 export default function ModalEvent() {
 
@@ -18,6 +19,8 @@ export default function ModalEvent() {
   const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [city, setCity] = useState('');
+  const [gameArray, setGameArray] = useState([]);
+  const [gameName, setGameName] = useState('');
 
   const postcode = useSelector(state => state.event.postcode);
 
@@ -28,6 +31,14 @@ export default function ModalEvent() {
         setSuggestedCity(res.data);
       })
     setCity(e.target.value);
+  };
+
+
+  const handleChangeGame = async (e) => {
+    setGameName(e.target.value);
+    const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
+    const gamesList = response.data.games;
+    setGameArray(gamesList);    
   };
 
   const handleSubmitCreate = (e) => {
@@ -113,13 +124,14 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <EventInput
-                        className="modal__img__input"
-                        name="picture"
-                        label="Image"
-                        type="file"
-                        id="file"
-                      />
+                      <Input className="modal__input" label='Jeu' name="game" type="text" placeholder="Jeu" list="games" onChange={handleChangeGame} value={gameName} />
+                      <datalist id="games">
+                        {
+                          gameArray.map(game => (
+                            <option key={game.id} value={game.name} />
+                          ))
+                        }
+                      </datalist>
                     </Grid.Row>
                     <TextArea
                       className="textarea"
