@@ -26,25 +26,25 @@ export const SUBSCRIBE_EVENT = 'SUBSCRIBE_EVENT';
 export const subscribeEvent = (id) => ({
   type: SUBSCRIBE_EVENT,
   id,
-})
+});
 
 export const SAVE_SUBSCRIBE_EVENT = 'SAVE_SUBSCRIBE_EVENT';
 export const saveSubscribeEvent = (validation) => ({
   type: SAVE_SUBSCRIBE_EVENT,
   validation,
-})
+});
 
-export const UNSUBSCRIBE_EVENT ='UNSUBSCRIBE_EVENT';
+export const UNSUBSCRIBE_EVENT = 'UNSUBSCRIBE_EVENT';
 export const unsubscribeEvent = (id) => ({
   type: UNSUBSCRIBE_EVENT,
   id,
-})
+});
 
-export const SAVE_UNSUBSCRIBE_EVENT ='SAVE_UNSUBSCRIBE_EVENT';
+export const SAVE_UNSUBSCRIBE_EVENT = 'SAVE_UNSUBSCRIBE_EVENT';
 export const saveUnsubscribeEvent = (validation) => ({
   type: SAVE_UNSUBSCRIBE_EVENT,
   validation,
-})
+});
 
 export const SAVE_EVENT_DETAILS = 'SAVE_EVENT_DETAILS';
 export const saveEventDetails = (event) => ({

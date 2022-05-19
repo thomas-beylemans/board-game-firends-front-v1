@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CREATE_EVENT, saveEvent, SUBSCRIBE_EVENT, saveSubscribeEvent, UNSUBSCRIBE_EVENT, saveUnsubscribeEvent } from "../actions/event";
-import { saveError } from "../actions/error";
+import { saveError,successMessage } from "../actions/error";
 
 export const api = axios.create({
   baseURL: 'https://boardgamefriends.herokuapp.com/api/v1',
@@ -61,6 +61,9 @@ const event = (store) => (next) => async (action) => {
             },
           });          
           store.dispatch(saveSubscribeEvent(response.data.isSubscribed));
+          store.dispatch(successMessage(response.data.successMessage));
+          console.log(response.data.isSubscribed)
+          console.log(response.data.successMessage)
         }
         catch (err) {
           store.dispatch(saveError(err.response.data.event.errorMessage));
@@ -84,6 +87,9 @@ const event = (store) => (next) => async (action) => {
             }
           });          
           store.dispatch(saveUnsubscribeEvent(response.data.isSubscribed));
+          store.dispatch(successMessage(response.data.successMessage));
+          console.log(response.data.isSubscribed)
+          console.log(response.data.successMessage)
         }
         catch (err) {
           store.dispatch(saveError(err.response.data.event.errorMessage));

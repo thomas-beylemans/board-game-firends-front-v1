@@ -39,7 +39,7 @@ const reducer = (state = initialState, action = {}) => {
           ...state,
           ...initialState,
           isSubscribed: action.validation
-        }
+        }     
 
     case SAVE_CITY:
       return {

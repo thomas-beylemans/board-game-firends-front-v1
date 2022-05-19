@@ -1,5 +1,4 @@
 .register {
-
   &__container {
     margin: 0 !important;
 
@@ -22,14 +21,14 @@
         top: 0;
         left: 0;
         object-fit: cover;
-        opacity: .6;
+        opacity: 0.6;
       }
-      
+
       &__button {
         margin-bottom: 1rem !important;
         width: 50%;
       }
-      
+
       &__input {
         width: 300px;
         margin-bottom: 1rem;

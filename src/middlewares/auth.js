@@ -68,7 +68,7 @@ const user = (store) => (next) => async (action) => {
 
     case GET_USER_INFOS: {
       try {
-        const token = JSON.parse(localStorage.getItem('user'));
+        const token = JSON.parse(localStorage.getItem('user'));        
         let result = await api.get('/dashboard', {
           headers: {
             Authorization: `Bearer ${token.accessToken}`,

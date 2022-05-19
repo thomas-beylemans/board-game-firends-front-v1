@@ -2,10 +2,14 @@ import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import { saveUserInfos } from '../../../actions/user';
-import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
+import {
+  saveEventDetails,
+  subscribeEvent,
+  unsubscribeEvent,
+} from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -13,7 +17,7 @@ import Map from '../../Map';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
 import Alert from '../../Alert';
-import { clearError, saveError } from '../../../actions/error';
+import { clearError } from '../../../actions/error';
 import './styles.scss';
 import {
   Header,
@@ -29,27 +33,32 @@ import {
 
 export default function DetailEvent() {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const eventId = useParams().id;
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
   const position = [loggedUser.user.lat, loggedUser.user.long];
 
-  const userId = useSelector(state => state.user.id);
+  const userId = useSelector((state) => state.user.id);
 
-  const eventTitle = useSelector(state => state.eventDetails.title);
-  const eventPicture = useSelector(state => state.eventDetails.picture);
-  const eventDescription = useSelector(state => state.eventDetails.description);
-  const eventLocation = useSelector(state => state.eventDetails.location.city);
-  const eventDate = useSelector(state => state.eventDetails.start_date);
-  const seatsAvailable = useSelector(state => state.eventDetails.seats);
-  const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
-  const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
-  const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
-  const errorMessage = useSelector(state => state.error.errorMessage);
+  const eventTitle = useSelector((state) => state.eventDetails.title);
+  const eventPicture = useSelector((state) => state.eventDetails.picture);
+  const eventDescription = useSelector(
+    (state) => state.eventDetails.description
+  );
+  const eventLocation = useSelector(
+    (state) => state.eventDetails.location.city
+  );
+  const eventDate = useSelector((state) => state.eventDetails.start_date);
+  const seatsAvailable = useSelector((state) => state.eventDetails.seats);
+  const eventAdmin = useSelector(
+    (state) => state.eventDetails.eventAdmin.username
+  );
+  const eventAdminId = useSelector((state) => state.eventDetails.eventAdmin.id);
+  const eventPlayers = useSelector((state) => state.eventDetails.eventPlayer);
+  const successMessage = useSelector((state) => state.error.successMessage);
 
   const isAdmin = userId === eventAdminId;
-  const isSubscribed = eventPlayers.find(player => player.id === userId);
+  const isSubscribed = eventPlayers.find((player) => player.id === userId);
 
   const [isHidden, setIsHidden] = useState(true);
   const [event, setEvent] = useState([]);
@@ -62,22 +71,22 @@ export default function DetailEvent() {
   };
 
   useEffect(() => {
-    const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
-    if (loggedUser) {
-      dispatch(saveUserInfos(loggedUser.user));
-    }
-    fetchEvent();
-  }, [eventAction]);
-
-  useEffect(() => {
-    if (errorMessage) {
+    if (isSubscribed) {
       setIsHidden(false);
       setTimeout(() => {
         dispatch(clearError());
         setIsHidden(true);
       }, 3000);
     }
-  }, [dispatch, errorMessage]);
+  }, [dispatch, isSubscribed]);
+
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
+    fetchEvent();
+  }, [eventAction]);
 
   const handleSubscribeEvent = () => {
     setEventAction(!eventAction);
@@ -89,7 +98,7 @@ export default function DetailEvent() {
     setEventAction(!eventAction);
     dispatch(unsubscribeEvent(eventId));
     fetchEvent();
-  }
+  };
 
   return (
     <>
@@ -149,9 +158,18 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description children={eventPlayers}>
                   <Icon color="orange" name="users" />
-                  Inscrits: {eventPlayers.map(player => (              
-                  <span><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>, </span>                          
-                ))}
+                  Inscrits:{' '}
+                  {eventPlayers.map((player) => (
+                    <span>
+                      <Link
+                        className="link-profile"
+                        to={`/profile/${player.id}`}
+                      >
+                        {player.username}
+                      </Link>
+                      ,{' '}
+                    </span>
+                  ))}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
@@ -164,47 +182,52 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
-      {!isAdmin &&
+      {!isAdmin && (
         <div>
-              <div className="register__container__column__error">
-              <Alert hidden={isHidden} message={errorMessage} positive={false} negative={true} />
-              </div>
           {isSubscribed !== undefined ? (
-          
-            <Button
-              onClick={handleUnsubscribeEvent}
-              className="eventdetail__button"
-              fluid
-              color="red"
-            // animated
-            >
-              <Button.Content visible>Se désinscrire de l'événement</Button.Content>
-              
-              <Button.Content hidden>
-                {/* <Icon name="calendar plus" /> */}
-              </Button.Content>
-            </Button>
-             
+            <>
+              <div className="eventdetail__alert">
+                <Alert
+                  hidden={isHidden}
+                  message={successMessage}
+                  positive={true}
+                  negative={false}
+                />
+              </div>
+              <Button
+                onClick={handleUnsubscribeEvent}
+                className="eventdetail__button"
+                fluid
+                color="red"
+              >
+                <Button.Content visible>Se désinscrire{}</Button.Content>
+              </Button>
+            </>
           ) : (
-            <Button
-              onClick={handleSubscribeEvent}
-              className="eventdetail__button"
-              fluid
-              color="orange"
-            // animated
-            >
-              <Button.Content visible>Participer à l'événement</Button.Content>
-              <Button.Content hidden>
-                {/* <Icon name="calendar plus" /> */}
-              </Button.Content>
-            </Button>
+            <>
+              <div className="eventdetail__alert">
+                <Alert
+                  hidden={isHidden}
+                  message={successMessage}
+                  positive={true}
+                  negative={false}
+                />
+              </div>
+              <Button
+                onClick={handleSubscribeEvent}
+                className="eventdetail__button"
+                fluid
+                color="orange"
+              >
+                <Button.Content visible>S'inscrire{}</Button.Content>
+              </Button>
+            </>
           )}
         </div>
-      }
+      )}
       <Divider />
 
       <Footer />
     </>
   );
 }
-
