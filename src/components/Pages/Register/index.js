@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { saveCity, signUp } from '../../../actions/user';
+import { signUp, checkCity } from '../../../actions/user';
 import { clearError, saveError } from '../../../actions/error';
 import { checkForm } from '../../../utils/checkForm';
-import { findCity } from '../../../utils/findCity';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Input, Popup } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Popup, Dropdown, Input, Label } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/background_home.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -28,7 +27,6 @@ export default function Register() {
 
   const password = useSelector(state => state.user.password);
   const passwordConfirm = useSelector(state => state.user.passwordConfirm);
-  const postcode = useSelector(state => state.user.postcode);
   const email = useSelector(state => state.user.email);
   const username = useSelector(state => state.user.username);
   const errorMessage = useSelector(state => state.error.errorMessage);
@@ -38,19 +36,36 @@ export default function Register() {
   };
 
   const handleChangeCity = (e) => {
+    const cityList = []
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
-        setSuggestedCity(res.data);
+        res.data.map(city => {
+          cityList.push(
+            {
+              key: city.code,
+              text: `${city.nom}, ${city.departement.code}`,
+              value: `${city.nom}#${city.codesPostaux[0]}#${city.centre.coordinates[0]}#${city.centre.coordinates[1]}`,
+            });
+        });
+        setSuggestedCity(cityList);
       })
-    setCity(e.target.value);
   };
 
+  const handleSelectCity = (e, { value }) => {
+    setCity({
+      "geo": {
+        "city": value.split('#')[0],
+        "postcode": value.split('#')[1],
+        "long": value.split('#')[2],
+        "lat": value.split('#')[3],
+      }
+    })
+  };
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    // pass an array, a city and postcode to find it in the array of suggested cities returned by the API GeoGouv
-    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    dispatch(checkCity(city));
     const checkedForm = checkForm(password, passwordConfirm, email, username, checked);
     if (checkedForm.passwordChecked) {
       setPasswordError(true);
@@ -132,17 +147,24 @@ export default function Register() {
                   <ControlledInput className="register__container__column__input" label='Pseudo' name="username" type="text" placeholder="Pseudo" />
                 </Grid.Row>
                 <Grid.Row>
-                  <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} />
-                  <datalist id="cities">
-                    {
-                      suggestedCity.map(city => (
-                        <option key={city.code} value={city.nom.normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )} />
-                      ))
-                    }
-                  </datalist>
-                  <Grid.Row>
-                    <ControlledInput className="register__container__column__input" label='Code Postal' name="postcode" type="text" placeholder="Code Postal" />
-                  </Grid.Row>
+                  <div className='city-autocomplete'>
+                    <Label
+                      className='city-label'
+                      content='Ville'
+                    />
+                    <Dropdown
+                      className='city-dropdown'
+                      scrolling
+                      clearable
+                      search
+                      selection
+                      closeOnBlur
+                      options={suggestedCity}
+                      placeholder='Chercher...'
+                      onSearchChange={handleChangeCity}
+                      onChange={handleSelectCity}
+                    />
+                  </div>
                 </Grid.Row>
                 <Grid.Row>
                   <Popup
@@ -183,6 +205,20 @@ export default function Register() {
                   </Button>
                 </Grid.Row>
               </form>
+            <Button
+              className="register__container__column__button"
+              as={Link}
+              to="/"
+              color="orange"
+              size="big"
+              type="button"
+              loading={isLoading}
+              icon
+              labelPosition='right'
+            >
+              Retour à l'accueil
+              <Icon name='reply' />
+            </Button>
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>

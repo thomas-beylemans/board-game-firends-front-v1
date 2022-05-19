@@ -1,15 +1,15 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { saveUserInfos } from '../../../actions/user';
-import { subscribeEvent, unsubscribeEvent } from '../../../actions/event';
+import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
 import Map from '../../Map';
-import ControlledInput from '../../ControlledInput';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
 import './styles.scss';
@@ -22,12 +22,12 @@ import {
   Icon,
   Divider,
   Button,
-  Container,  
-  Modal,
+  Container,
 } from 'semantic-ui-react';
 
 export default function DetailEvent() {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const eventId = useParams().id;
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
@@ -35,29 +35,26 @@ export default function DetailEvent() {
 
   const userId = useSelector(state => state.user.id);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [eventTitle, setEventTitle] = useState('');
-  const [eventAdmin, setEventAdmin] = useState('');
-  const [eventAdminId, setEventAdminId] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventLocation, setEventLocation] = useState('');
-  const [seatsAvailable, setSeatsAvailable] = useState('');
+  const eventTitle = useSelector(state => state.eventDetails.title);
+  const eventPicture = useSelector(state => state.eventDetails.picture);
+  const eventDescription = useSelector(state => state.eventDetails.description);
+  const eventLocation = useSelector(state => state.eventDetails.location.city);
+  const eventDate = useSelector(state => state.eventDetails.start_date);
+  const seatsAvailable = useSelector(state => state.eventDetails.seats);
+  const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
+  const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
+  const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
+
+  const isAdmin = userId === eventAdminId;
+  const isSubscribed = eventPlayers.find(player => player.id === userId);
+
   const [event, setEvent] = useState([]);
+  const [eventAction, setEventAction] = useState(false);
 
   const fetchEvent = async () => {
     const event = await fetchAPI(`events/${eventId}`);
-    setEventTitle(event.event.name);
-    setEventAdminId(event.event.event_admin.id);
-    setEventAdmin(event.event.event_admin.username);
-    setEventDescription(event.event.description);
-    setEventDate(event.event.start_date);
-    setSeatsAvailable(event.event.seats);
-    setEventLocation(event.event.geo.city);
     setEvent([event.event]);
-    if (userId === eventAdminId) {
-      setIsAdmin(true);
-    } 
+    dispatch(saveEventDetails(event.event));
   };
 
   useEffect(() => {
@@ -66,20 +63,18 @@ export default function DetailEvent() {
       dispatch(saveUserInfos(loggedUser.user));
     }
     fetchEvent();
-  }, []);
-
-  const [modalValidation, setmodalValidation] = useState(false);
-  const [modalUnsubscribe, setmodalUnsubscribe] = useState(false);
-
-  // const message = useSelector((state) => state.event.message);
-  // const errorMessage = useSelector((state) => state.error.errorMessage);
+  }, [eventAction]);
 
   const handleSubscribeEvent = () => {
+    setEventAction(!eventAction);
     dispatch(subscribeEvent(eventId));
+    fetchEvent();
   };
-  
+
   const handleUnsubscribeEvent = () => {
-    dispatch(unsubscribeEvent(eventId))
+    setEventAction(!eventAction);
+    dispatch(unsubscribeEvent(eventId));
+    fetchEvent();
   }
 
   return (
@@ -95,30 +90,10 @@ export default function DetailEvent() {
           alt="Event Image"
           centered
           rounded
-          src="https://cdn.pixabay.com/photo/2020/02/26/05/45/cards-4880676_960_720.jpg"
+          src={eventPicture}
           size="large"
         />
-        <Button
-          className="eventdetail__edit__avatar"
-          as="label"
-          htmlFor="file"
-          type="button"
-          icon
-          circular
-          title="edit avatar"
-          color="orange"
-          style={{ display: 'none' }}
-        >          
-          <Icon name="edit" />
-        </Button>
-        <ControlledInput
-          name="event-picture"
-          type="file"
-          id="file"
-          style={{ display: 'none' }}
-        />
       </Container>
-
       <Divider />
 
       <Segment className="eventdetail" size="huge">
@@ -158,6 +133,14 @@ export default function DetailEvent() {
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
+                <Card.Description children={eventPlayers}>
+                  <Icon color="orange" name="users" />
+                  Inscrits: {eventPlayers.map(player => (              
+                  <span><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>, </span>                          
+                ))}
+                </Card.Description>
+              </Grid.Row>
+              <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="talk" />
                   {eventDescription}
@@ -167,82 +150,42 @@ export default function DetailEvent() {
           </Grid.Row>
         </Grid>
       </Segment>
+      {!isAdmin &&
+        <div>
+          {isSubscribed !== undefined ? (
+            <Button
+              onClick={handleUnsubscribeEvent}
+              className="eventdetail__button"
+              fluid
+              color="red"
+            // animated
+            >
+              <Button.Content visible>Se désinscrire de l'événement</Button.Content>
+              <Button.Content hidden>
+                {/* <Icon name="calendar plus" /> */}
+              </Button.Content>
+            </Button>
 
-      { isAdmin ? (
-      <Modal
-        closeIcon
-        onClose={() => setmodalValidation(false)}
-        onOpen={() => setmodalValidation(true)}
-        open={modalValidation}
-        trigger={
-          <Button
-            onClick={handleSubscribeEvent}
-            className="eventdetail__button"
-            fluid
-            color="orange"
-            animated
-          >
-            <Button.Content visible>Participer à l'événement</Button.Content>
-            <Button.Content hidden>
-              <Icon name="calendar plus" />
-            </Button.Content>
-          </Button>
-        }
-      >
-        <Header icon="chess" content="Participation validée" />
-        <Modal.Content>
-          <p>
-            Votre participation vient d'être ajoutée à votre{' '}
-            <Link to="/dashboard"> Menu principal! </Link>
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={() => setmodalValidation(false)}>
-            <Icon name="checkmark" /> Retour
-          </Button>
-        </Modal.Actions>
-      </Modal>
-      ) : ( 
-
-
-      <Modal
-        closeIcon
-        onClose={() => setmodalUnsubscribe(false)}
-        onOpen={() => setmodalUnsubscribe(true)}
-        open={modalUnsubscribe}
-        trigger={
-          <Button
-            onClick={handleUnsubscribeEvent}
-            className="eventdetail__button"
-            fluid
-            color="red"
-            animated
-          >
-            <Button.Content visible>Se désinscrire de l'événement</Button.Content>
-            <Button.Content hidden>
-              <Icon name="calendar plus" />
-            </Button.Content>
-          </Button>
-        }
-      >
-        <Header icon="chess" content="Désinscription validée" />
-        <Modal.Content>
-          <p>
-            Votre participation vient d'être supprimée de votre{' '}
-            <Link to="/dashboard"> Menu principal ! </Link>
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={() => setmodalUnsubscribe(false)}>
-            <Icon name="checkmark" /> Retour
-          </Button>
-        </Modal.Actions>
-      </Modal>     
-      )}
-
+          ) : (
+            <Button
+              onClick={handleSubscribeEvent}
+              className="eventdetail__button"
+              fluid
+              color="orange"
+            // animated
+            >
+              <Button.Content visible>Participer à l'événement</Button.Content>
+              <Button.Content hidden>
+                {/* <Icon name="calendar plus" /> */}
+              </Button.Content>
+            </Button>
+          )}
+        </div>
+      }
       <Divider />
 
       <Footer />
     </>
   );
 }
+

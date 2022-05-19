@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
 import { saveCity } from '../../actions/event';
 import { findCity } from '../../utils/findCity';
+import { saveGame } from '../../actions/event';
 
 import './styles.scss';
+// import game from '../../middlewares/game';
 
 export default function ModalEvent() {
 
@@ -18,6 +20,8 @@ export default function ModalEvent() {
   const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [city, setCity] = useState('');
+  const [gameArray, setGameArray] = useState([]);
+  const [gameName, setGameName] = useState('');
 
   const postcode = useSelector(state => state.event.postcode);
 
@@ -30,9 +34,19 @@ export default function ModalEvent() {
     setCity(e.target.value);
   };
 
+
+  const handleChangeGame = async (e) => {
+    setGameName(e.target.value);
+    const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
+    const gamesList = response.data.games;
+    setGameArray(gamesList);
+  };
+
   const handleSubmitCreate = (e) => {
     e.preventDefault();
     dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    const foundGame = gameArray.find(game => game.name === gameName);
+    dispatch(saveGame(foundGame))
     dispatch(createEvent());
   };
 
@@ -49,7 +63,7 @@ export default function ModalEvent() {
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
-        <Modal.Header>A propos de mon événement..</Modal.Header>
+        <Modal.Header>À propos de mon événement..</Modal.Header>
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
@@ -74,7 +88,7 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
+                      <Input className="modal__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
                       <datalist id="cities">
                         {
                           suggestedCity.map(city => (
@@ -113,13 +127,14 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <EventInput
-                        className="modal__img__input"
-                        name="picture"
-                        label="Image"
-                        type="file"
-                        id="file"
-                      />
+                      <Input className="modal__input" label='Jeu' name="game" type="text" placeholder="Jeu" list="games" onChange={handleChangeGame} value={gameName} />
+                      <datalist id="games">
+                        {
+                          gameArray.map(game => (
+                            <option key={game.id} value={game.name} />
+                          ))
+                        }
+                      </datalist>
                     </Grid.Row>
                     <TextArea
                       className="textarea"

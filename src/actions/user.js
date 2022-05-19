@@ -67,7 +67,12 @@ export const saveUserInfos = (user) => ({
 });
 
 export const EDIT_USER_INFOS = 'EDIT_USER_INFOS';
-export const editUserInfos = (user) => ({
+export const editUserInfos = () => ({
   type: EDIT_USER_INFOS,
-  user,
+});
+
+export const CHECK_CITY = 'CHECK_CITY';
+export const checkCity = (city) => ({
+  type: CHECK_CITY,
+  city,
 });

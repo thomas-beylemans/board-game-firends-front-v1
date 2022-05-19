@@ -12,7 +12,7 @@ export default function CardGroupEvents({ array, title }) {
   return (
     <Segment className='cardgroup' color='orange' padded>
       <Header as='h1' color='orange'>{title}</Header>
-      <Card.Group centered children={array} itemsPerRow={3} stackable>
+      <Card.Group centered children={array} itemsPerRow={4} stackable>
         {array.map(card => (
           <Card key={card.id} as={Link} to={`/events/${card.id}`}>
             <Image src={card.picture} className="cardgroup__img" />

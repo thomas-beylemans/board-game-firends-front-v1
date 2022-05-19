@@ -118,7 +118,6 @@ const user = (store) => (next) => async (action) => {
           "user": {
             "email": state.user.email,
             "password": state.user.password,
-            "avatar": state.user.avatar,
             "username": state.user.username,
             "bio": state.user.bio,
             "geo": {
@@ -139,7 +138,6 @@ const user = (store) => (next) => async (action) => {
         const id = response.data.user.id;
         const email = response.data.user.email;
         const username = response.data.user.username;
-        const avatar = response.data.user.avatar;
         const bio = response.data.user.bio;
         const city = response.data.user.geo.city;
         const postcode = response.data.user.geo.postcode;
@@ -150,7 +148,6 @@ const user = (store) => (next) => async (action) => {
           id,
           email,
           username,
-          avatar,
           bio,
           city,
           postcode,

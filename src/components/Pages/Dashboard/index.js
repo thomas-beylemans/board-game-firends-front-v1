@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchAPI } from '../../../utils/fetchAPI';
-import { getUserInfos } from '../../../actions/user';
+import { getUserInfos, saveUserInfos } from '../../../actions/user';
 import { Tab } from 'semantic-ui-react';
 
 import Navbar from '../../../components/Navbar';
@@ -31,6 +31,10 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
+    if (loggedUser) {
+      dispatch(saveUserInfos(loggedUser.user));
+    }
     dispatch(getUserInfos());
     fetchUserInfos();
   }, []);

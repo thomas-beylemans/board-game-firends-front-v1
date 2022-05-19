@@ -22,7 +22,7 @@ export default function CGU() {
         if (loggedUser) {
             dispatch(saveUserInfos(loggedUser.user));
         }
-  }, [dispatch]);
+  }, []);
   
   return (
     <div className="cgu">
