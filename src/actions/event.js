@@ -58,3 +58,9 @@ export const saveEventDetails = (event) => ({
   type: SAVE_EVENT_DETAILS,
   event,
 });
+
+export const CHECK_CITY = 'CHECK_CITY';
+export const checkCity = (city) => ({
+  type: CHECK_CITY,
+  city,
+});
