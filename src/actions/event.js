@@ -22,6 +22,13 @@ export const saveCity = (city) => ({
   type: SAVE_CITY,
   city,
 });
+
+export const SAVE_GAME = 'SAVE_GAME';
+export const saveGame = (game) => ({
+  type: SAVE_GAME,
+  game,
+});
+
 export const SUBSCRIBE_EVENT = 'SUBSCRIBE_EVENT';
 export const subscribeEvent = (id) => ({
   type: SUBSCRIBE_EVENT,

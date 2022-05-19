@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
 import { saveCity } from '../../actions/event';
 import { findCity } from '../../utils/findCity';
+import { saveGame } from '../../actions/event';
 
 import './styles.scss';
-import game from '../../middlewares/game';
+// import game from '../../middlewares/game';
 
 export default function ModalEvent() {
 
@@ -43,7 +44,10 @@ export default function ModalEvent() {
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    dispatch(saveCity(findCity(suggestedCity, city, postcode)));    
+    const foundGame = gameArray.find(game => game.name === gameName);
+    dispatch(saveGame(foundGame))
+    // console.log(foundGame)    
     dispatch(createEvent());
   };
 
@@ -60,7 +64,7 @@ export default function ModalEvent() {
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
-        <Modal.Header>A propos de mon événement..</Modal.Header>
+        <Modal.Header>À propos de mon événement..</Modal.Header>
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
