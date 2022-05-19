@@ -40,7 +40,8 @@ export default function DetailEvent() {
   const eventDescription = useSelector(state => state.eventDetails.description);
   const eventLocation = useSelector(state => state.eventDetails.location.city);
   const eventDate = useSelector(state => state.eventDetails.start_date);
-  const seatsAvailable = useSelector(state => state.eventDetails.seats);
+  // const seats = useSelector(state => state.eventDetails.seats);
+  const seatsAvailable = useSelector(state => state.eventDetails.seats_available);
   const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
   const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
@@ -129,13 +130,13 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                  {seatsAvailable} places disponibles
+                   {seatsAvailable} places disponibles
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description children={eventPlayers}>
                   <Icon color="orange" name="users" />
-                  Inscrits: {eventPlayers.map(player => (              
+                  Participants: {eventPlayers.map(player => (               
                   <span><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>, </span>                          
                 ))}
                 </Card.Description>
