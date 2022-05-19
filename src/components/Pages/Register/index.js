@@ -6,7 +6,7 @@ import { signUp, checkCity } from '../../../actions/user';
 import { clearError, saveError } from '../../../actions/error';
 import { checkForm } from '../../../utils/checkForm';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Input, Popup, Dropdown } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Popup, Dropdown, Input, Label } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/background_home.jpg';
 
 import ControlledInput from '../../ControlledInput';
@@ -36,9 +36,9 @@ export default function Register() {
   };
 
   const handleChangeCity = (e) => {
+    const cityList = []
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
-        const cityList = []
         res.data.map(city => {
           cityList.push(
             {
@@ -56,8 +56,8 @@ export default function Register() {
       "geo" : {
         "city": value.split('#')[0],
         "postcode": value.split('#')[1],
-        "lat": value.split('#')[2],
-        "long": value.split('#')[3],
+        "long": value.split('#')[2],
+        "lat": value.split('#')[3],
       }
     })
   };
@@ -147,40 +147,25 @@ export default function Register() {
                   <ControlledInput className="register__container__column__input" label='Pseudo' name="username" type="text" placeholder="Pseudo" />
                 </Grid.Row>
                 <Grid.Row>
-                  {/* <Input className="register__container__column__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} /> */}
-                  {/* <div class="combo-wrap">
-                    <Input type='text' id='city' role='combobox' aria-autocomplete='list' aria-expanded='false' aria-controls='cities' aria-owns='city-listbox' aria-haspopup='true' placeholder='Ville' onChange={handleChangeCity} />
-                    <span aria-hidden="true" data-trigger="multiselect"></span>
-                    <ul id="cities" role="listbox" aria-label="Villes">
-                      {suggestedCity.map(city => (
-                        <li role="option" aria-selected="false" tabIndex="0" key={city.code}>
-                          <span>{city.nom}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    </div> */}
-
-                  {/* <datalist id="cities">
-                    {
-                      suggestedCity.length > 0 && suggestedCity.map(city => (
-                        <option key={city.code} value={city.nom.normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )} />
-                      ))
-                    }
-                  </datalist> */}
+                <div className='city-autocomplete'>
+                  <Label 
+                    className='city-label'
+                    content='Ville'
+                  />
                   <Dropdown
+                    className='city-dropdown'
+                    additionLabel='Ville'
                     scrolling
                     clearable
                     search
                     selection
                     closeOnBlur
                     options={suggestedCity}
-                    placeholder='Chercher une ville'
+                    placeholder='Chercher...'
                     onSearchChange={handleChangeCity}
                     onChange={handleSelectCity}
                   />
-                  <Grid.Row>
-                    <ControlledInput className="register__container__column__input" label='Code Postal' name="postcode" type="text" placeholder="Code Postal" />
-                  </Grid.Row>
+                  </div>
                 </Grid.Row>
                 <Grid.Row>
                   <Popup
