@@ -76,7 +76,7 @@ export default function DetailEvent() {
       setTimeout(() => {
         dispatch(clearError());
         setIsHidden(true);
-      }, 3000);
+      }, 4000);
     }
   }, [dispatch, isSubscribed]);
 
