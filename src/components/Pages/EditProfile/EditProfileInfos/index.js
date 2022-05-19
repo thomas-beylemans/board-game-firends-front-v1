@@ -1,4 +1,4 @@
-import { Image, Header, Grid, Container, Button, TextArea, Form, Icon } from 'semantic-ui-react'
+import { Image, Header, Grid, Container, Button, TextArea, Form, Icon, Label, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
 
@@ -13,12 +13,11 @@ export default function EditProfileInfos({
   handleSubmit,
   handleClickDelete,
   username,
-  postcode,
-  city,
   email,
   bio,
   avatar,
-  suggestedCity
+  suggestedCity,
+  handleSelectCity,
 }) {
 
   return (
@@ -39,17 +38,24 @@ export default function EditProfileInfos({
                   <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
                 </Grid.Row>
                 <Grid.Row>
-                  <ControlledInput defaultValue={city} label='Ville' name='city' className="infos__input" onChange={handleChangeCity} list="cities" />
-                  <datalist id="cities">
-                    {
-                      suggestedCity.map(city => (
-                        <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
-                      ))
-                    }
-                  </datalist>
-                  <Grid.Row>
-                    <ControlledInput value={postcode} label='Code postal' name='postcode' className="infos__input" />
-                  </Grid.Row>
+                  <div className='city-autocomplete'>
+                    <Label
+                      className='city-label'
+                      content='Ville'
+                    />
+                    <Dropdown
+                      className='city-dropdown'
+                      scrolling
+                      clearable
+                      search
+                      selection
+                      closeOnBlur
+                      options={suggestedCity}
+                      placeholder='Chercher...'
+                      onSearchChange={handleChangeCity}
+                      onChange={handleSelectCity}
+                    />
+                  </div>
                 </Grid.Row>
               </Container>
             </Grid.Column>

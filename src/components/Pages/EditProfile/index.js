@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfos } from '../../../actions/user';
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { addGame } from '../../../actions/game';
-import { saveCity, editUserInfos, saveBio, saveAvatar, saveUserInfos } from '../../../actions/user';
+import { saveCity, editUserInfos, saveBio, saveAvatar, saveUserInfos, checkCity } from '../../../actions/user';
 import { uploadPicture } from '../../../utils/upload';
 import { useNavigate } from 'react-router-dom';
 import { findCity } from '../../../utils/findCity';
@@ -31,7 +31,7 @@ export default function EditProfile() {
 
   const username = useSelector(state => state.user.username);
   const postcode = useSelector(state => state.user.postcode);
-  const city = useSelector(state => state.user.city);
+  // const city = useSelector(state => state.user.city);
   const email = useSelector(state => state.user.email);
   const bio = useSelector(state => state.user.bio);
   const avatar = useSelector(state => state.user.avatar);
@@ -64,14 +64,6 @@ export default function EditProfile() {
     setGameArray(gamesList);
   }
 
-  const handleChangeCity = (e) => {
-    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
-      .then(res => {
-        setSuggestedCity(res.data);
-      })
-    setNewCity(e.target.value);
-  };
-
   const handleTextarea = (event) => {
     dispatch(saveBio(event.target.value));
   }
@@ -79,6 +71,33 @@ export default function EditProfile() {
   const handleAvatar = (event) => {
     setPicture(event.target.files[0]);
   }
+
+  const handleChangeCity = (e) => {
+    const cityList = []
+    axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
+      .then(res => {
+        res.data.map(city => {
+          cityList.push(
+            {
+              key: city.code,
+              text: `${city.nom}, ${city.departement.code}`,
+              value: `${city.nom}#${city.codesPostaux[0]}#${city.centre.coordinates[0]}#${city.centre.coordinates[1]}`,
+            });
+        });
+        setSuggestedCity(cityList);
+      })
+  };
+
+  const handleSelectCity = (e, { value }) => {
+    setNewCity({
+      "geo": {
+        "city": value.split('#')[0],
+        "postcode": value.split('#')[1],
+        "long": value.split('#')[2],
+        "lat": value.split('#')[3],
+      }
+    })
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -91,6 +110,7 @@ export default function EditProfile() {
           dispatch(saveAvatar(res));
         })
     }
+    dispatch(checkCity(newCity));
     dispatch(editUserInfos())// to dispatch the action to trigger the api patch
     dispatch(saveUserInfos());
     navigate('/profile');
@@ -119,9 +139,10 @@ export default function EditProfile() {
           handleAvatar={handleAvatar}
           handleSubmit={handleSubmit}
           handleClickDelete={handleClickDelete}
+          handleSelectCity={handleSelectCity}
           username={username}
           postcode={postcode}
-          city={city}
+          city={newCity}
           email={email}
           bio={bio}
           avatar={avatar}

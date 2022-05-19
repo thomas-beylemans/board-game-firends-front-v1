@@ -43,7 +43,7 @@ export default function Register() {
           cityList.push(
             {
               key: city.code,
-              text: `${city.nom}, ${city.departement.nom}`,
+              text: `${city.nom}, ${city.departement.code}`,
               value: `${city.nom}#${city.codesPostaux[0]}#${city.centre.coordinates[0]}#${city.centre.coordinates[1]}`,
             });
         });
@@ -154,7 +154,6 @@ export default function Register() {
                     />
                     <Dropdown
                       className='city-dropdown'
-                      additionLabel='Ville'
                       scrolling
                       clearable
                       search
