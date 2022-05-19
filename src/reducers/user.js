@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, SAVE_USER_INFOS, SAVE_BIO, SAVE_AVATAR } from "../actions/user";
+import { CHANGE_VALUE, SAVE_USER, LOGOUT, SAVE_CITY, SAVE_USER_INFOS, SAVE_BIO, SAVE_AVATAR, CHECK_CITY } from "../actions/user";
 
 export const initialState = {
     id: '',
@@ -38,6 +38,15 @@ const reducer = (state = initialState, action = {}) => {
         lat: action.city.centre.coordinates[1],
         long: action.city.centre.coordinates[0],
       };
+
+      case CHECK_CITY:
+        return {
+          ...state,
+          city: action.city.geo.city,
+          lat: action.city.geo.lat,
+          long: action.city.geo.long,
+          postcode: action.city.geo.postcode,
+        };
 
       case SAVE_BIO:
       return {
