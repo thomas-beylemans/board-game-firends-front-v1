@@ -53,7 +53,7 @@ export default function Register() {
 
   const handleSelectCity = (e, { value }) => {
     setCity({
-      "geo" : {
+      "geo": {
         "city": value.split('#')[0],
         "postcode": value.split('#')[1],
         "long": value.split('#')[2],
@@ -147,24 +147,24 @@ export default function Register() {
                   <ControlledInput className="register__container__column__input" label='Pseudo' name="username" type="text" placeholder="Pseudo" />
                 </Grid.Row>
                 <Grid.Row>
-                <div className='city-autocomplete'>
-                  <Label 
-                    className='city-label'
-                    content='Ville'
-                  />
-                  <Dropdown
-                    className='city-dropdown'
-                    additionLabel='Ville'
-                    scrolling
-                    clearable
-                    search
-                    selection
-                    closeOnBlur
-                    options={suggestedCity}
-                    placeholder='Chercher...'
-                    onSearchChange={handleChangeCity}
-                    onChange={handleSelectCity}
-                  />
+                  <div className='city-autocomplete'>
+                    <Label
+                      className='city-label'
+                      content='Ville'
+                    />
+                    <Dropdown
+                      className='city-dropdown'
+                      additionLabel='Ville'
+                      scrolling
+                      clearable
+                      search
+                      selection
+                      closeOnBlur
+                      options={suggestedCity}
+                      placeholder='Chercher...'
+                      onSearchChange={handleChangeCity}
+                      onChange={handleSelectCity}
+                    />
                   </div>
                 </Grid.Row>
                 <Grid.Row>
@@ -206,6 +206,20 @@ export default function Register() {
                   </Button>
                 </Grid.Row>
               </form>
+            <Button
+              className="register__container__column__button"
+              as={Link}
+              to="/"
+              color="orange"
+              size="big"
+              type="button"
+              loading={isLoading}
+              icon
+              labelPosition='right'
+            >
+              Retour à l'accueil
+              <Icon name='reply' />
+            </Button>
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>
