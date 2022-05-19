@@ -52,7 +52,7 @@ const reducer = (state = initialState, action = {}) => {
     case SAVE_GAME:
       return {
         ...state,
-        game: action.game.name,
+        // game: action.game.name,
         game_picture: action.game.thumb_url,        
       };
 

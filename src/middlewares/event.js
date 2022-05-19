@@ -18,8 +18,7 @@ const event = (store) => (next) => async (action) => {
         const response = await api.post('/events',
           {
             "event": {
-              "name": state.event.name,
-              "game": state.event.game,
+              "name": state.event.name,              
               "picture": state.event.game_picture,
               "seats": state.event.seats,
               "start_date": state.event.start_date,

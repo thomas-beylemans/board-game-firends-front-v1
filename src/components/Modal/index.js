@@ -39,15 +39,14 @@ export default function ModalEvent() {
     setGameName(e.target.value);
     const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
     const gamesList = response.data.games;
-    setGameArray(gamesList);    
+    setGameArray(gamesList);
   };
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    dispatch(saveCity(findCity(suggestedCity, city, postcode)));    
+    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
     const foundGame = gameArray.find(game => game.name === gameName);
     dispatch(saveGame(foundGame))
-    // console.log(foundGame)    
     dispatch(createEvent());
   };
 
