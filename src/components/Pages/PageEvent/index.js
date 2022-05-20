@@ -45,6 +45,7 @@ export default function PageEvent() {
   return (
     <div className="event">
       <Navbar />
+      <div className="event__container">
       <Header textAlign="center" as="h1">
         Les évènements près de chez vous
       </Header>
@@ -53,7 +54,6 @@ export default function PageEvent() {
         position={position}
         eventsList={allEvents}
       />
-      <div className="event__container">
         {loading ? <PlaceHolder array={allEvents} title="" /> : <CardGroupEvents array={allEvents} title="" />}
       </div>
       <Footer />
