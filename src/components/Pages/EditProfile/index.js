@@ -12,7 +12,6 @@ import { deleteGame } from '../../../actions/game';
 
 
 import Navbar from '../../Navbar';
-import Alert from '../../Alert';
 import EditProfileInfos from './EditProfileInfos';
 import AddGame from './AddGame';
 import DeleteGames from './DeleteGames';
@@ -29,7 +28,7 @@ export default function EditProfile() {
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [newCity, setNewCity] = useState('');
   const [picture, setPicture] = useState('');
-  const [avatarOk, setAvatarOk] = useState(false);
+  const [avatarOk, setAvatarOk] = useState(false);  
 
   const username = useSelector(state => state.user.username);
   const postcode = useSelector(state => state.user.postcode);
@@ -132,6 +131,7 @@ export default function EditProfile() {
     fetchUserGames();
   }, []);
 
+  
   return (
     <div className="profile">
       <Navbar />
@@ -149,6 +149,7 @@ export default function EditProfile() {
           email={email}
           bio={bio}
           avatar={avatar}
+          avatarOk={avatarOk}          
           suggestedCity={suggestedCity}
         />
         <AddGame handleChange={handleChange} handleClickAdd={handleClickAdd} gameArray={gameArray} gameName={gameName} />

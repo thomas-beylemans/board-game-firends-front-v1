@@ -1,6 +1,7 @@
 import { Image, Header, Grid, Container, Button, TextArea, Form, Icon, Label, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import ControlledInput from '../../../ControlledInput';
+import Alert from '../../../Alert';
 
 import './styles.scss';
 
@@ -16,6 +17,7 @@ export default function EditProfileInfos({
   email,
   bio,
   avatar,
+  avatarOk,  
   suggestedCity,
   handleSelectCity,
 }) {
@@ -34,6 +36,7 @@ export default function EditProfileInfos({
                   <Icon name='edit' />
                 </Button>
                 <input type="file" id="file" onChange={handleAvatar} style={{ display: "none" }} />
+                {avatarOk && <Alert message='Avatar importé' positive hidden={false} />}
                 <Grid.Row>
                   <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
                 </Grid.Row>
