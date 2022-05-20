@@ -176,7 +176,6 @@ export default function Register() {
                         name="password"
                         type="password"
                         placeholder="Mot de passe"
-                        error={passwordError}
                       />}
                   />
                 </Grid.Row>
@@ -186,7 +185,6 @@ export default function Register() {
                     label='Répéter' name="passwordConfirm"
                     type="password"
                     placeholder="Mot de passe"
-                    error={passwordError}
                   />
                 </Grid.Row>
                 <Checkbox className="home__container__column__checkbox" toggle checked={checked} label="J'accepte les conditions générales d'utilisation" onClick={handleToggle} />
