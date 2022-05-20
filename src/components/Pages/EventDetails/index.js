@@ -13,7 +13,6 @@ import Map from '../../Map';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
 import Alert from '../../Alert';
-import { clearError } from '../../../actions/error';
 import './styles.scss';
 import {
   Header,
@@ -188,7 +187,7 @@ export default function DetailEvent() {
                 fluid
                 color="red"
               >
-                <Button.Content visible>Se désinscrire{}</Button.Content>
+                <Button.Content visible>Se désinscrire</Button.Content>
               </Button>
             </>
           ) : (
@@ -207,7 +206,7 @@ export default function DetailEvent() {
                 fluid
                 color="orange"
               >
-                <Button.Content visible>S'inscrire{}</Button.Content>
+                <Button.Content visible>S'inscrire</Button.Content>
               </Button>
             </>
           )}
