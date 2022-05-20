@@ -38,13 +38,13 @@ export default function EditProfileInfos({
                   <ControlledInput value={username} label='Pseudo' name='username' className="infos__input" />
                 </Grid.Row>
                 <Grid.Row>
-                  <div className='city-autocomplete'>
+                  <div className='profile-autocomplete'>
                     <Label
-                      className='city-label'
+                      className='profile-label'
                       content='Ville'
                     />
                     <Dropdown
-                      className='city-dropdown'
+                      className='profile-dropdown'
                       scrolling
                       clearable
                       search

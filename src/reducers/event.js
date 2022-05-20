@@ -1,4 +1,4 @@
-import { CHANGE_EVENT_VALUE, SAVE_EVENT, SAVE_CITY, SAVE_SUBSCRIBE_EVENT, SAVE_UNSUBSCRIBE_EVENT, SAVE_GAME } from "../actions/event";
+import { CHANGE_EVENT_VALUE, SAVE_EVENT, SAVE_CITY, SAVE_SUBSCRIBE_EVENT, SAVE_UNSUBSCRIBE_EVENT, SAVE_GAME, CHECK_CITY } from "../actions/event";
 
 export const initialState = {
   name: '',
@@ -49,11 +49,20 @@ const reducer = (state = initialState, action = {}) => {
         long: action.city.centre.coordinates[0],
       };
 
+    case CHECK_CITY:
+      return {
+        ...state,
+        city: action.city.geo.city,
+        lat: action.city.geo.lat,
+        long: action.city.geo.long,
+        postcode: action.city.geo.postcode,
+      };
+    
     case SAVE_GAME:
       return {
         ...state,
         // game: action.game.name,
-        game_picture: action.game.thumb_url,        
+        game_picture: action.game.thumb_url,
       };
 
     default:

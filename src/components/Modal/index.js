@@ -1,19 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Button, Image, Modal, TextArea, Grid, Form, Input } from 'semantic-ui-react';
+import { Button, Image, Modal, TextArea, Grid, Form, Input, Label, Dropdown } from 'semantic-ui-react';
 import EventInput from '../EventInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
-import { saveCity } from '../../actions/event';
-import { findCity } from '../../utils/findCity';
-import { saveGame } from '../../actions/event';
+import { saveGame, checkCity } from '../../actions/event';
 
 import './styles.scss';
-// import game from '../../middlewares/game';
 
 export default function ModalEvent() {
-
   const dispatch = useDispatch();
 
   const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
@@ -23,15 +19,31 @@ export default function ModalEvent() {
   const [gameArray, setGameArray] = useState([]);
   const [gameName, setGameName] = useState('');
 
-  const postcode = useSelector(state => state.event.postcode);
-
-
   const handleChangeCity = (e) => {
+    const cityList = []
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
-        setSuggestedCity(res.data);
+        res.data.map(city => {
+          cityList.push(
+            {
+              key: city.code,
+              text: `${city.nom}, ${city.departement.code}`,
+              value: `${city.nom}#${city.codesPostaux[0]}#${city.centre.coordinates[0]}#${city.centre.coordinates[1]}`,
+            });
+        });
+        setSuggestedCity(cityList);
       })
-    setCity(e.target.value);
+  };
+
+  const handleSelectCity = (e, { value }) => {
+    setCity({
+      "geo": {
+        "city": value.split('#')[0],
+        "postcode": value.split('#')[1],
+        "long": value.split('#')[2],
+        "lat": value.split('#')[3],
+      }
+    })
   };
 
 
@@ -44,7 +56,7 @@ export default function ModalEvent() {
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    dispatch(checkCity(city));
     const foundGame = gameArray.find(game => game.name === gameName);
     dispatch(saveGame(foundGame))
     dispatch(createEvent());
@@ -88,24 +100,24 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <Input className="modal__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
-                      <datalist id="cities">
-                        {
-                          suggestedCity.map(city => (
-                            <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
-                          ))
-                        }
-                      </datalist>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <EventInput
-                        className="modal__input"
-                        label="Code Postal"
-                        name="postcode"
-                        type="text"
-                        min="0"
-                        placeholder="Code Postal"
-                      />
+                    <div className='modal-autocomplete'>
+                    <Label
+                      className='modal-label'
+                      content='Ville'
+                    />
+                    <Dropdown
+                      className='modal-dropdown'
+                      scrolling
+                      clearable
+                      search
+                      selection
+                      closeOnBlur
+                      options={suggestedCity}
+                      placeholder='Chercher...'
+                      onSearchChange={handleChangeCity}
+                      onChange={handleSelectCity}
+                    />
+                  </div>
                     </Grid.Row>
                     <Grid.Row>
                       <EventInput

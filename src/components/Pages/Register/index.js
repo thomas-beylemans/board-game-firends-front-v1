@@ -6,7 +6,7 @@ import { signUp, checkCity } from '../../../actions/user';
 import { clearError, saveError } from '../../../actions/error';
 import { checkForm } from '../../../utils/checkForm';
 
-import { Button, Grid, Image, Checkbox, Header, Icon, Popup, Dropdown, Input, Label } from 'semantic-ui-react';
+import { Button, Grid, Image, Checkbox, Header, Icon, Popup, Dropdown, Label } from 'semantic-ui-react';
 import bg_img from '../../../assets/img/background_home.jpg';
 
 import ControlledInput from '../../ControlledInput';
