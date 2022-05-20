@@ -130,15 +130,15 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                   {seatsAvailable} places disponibles
+                  {seatsAvailable} places disponibles
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description children={eventPlayers}>
                   <Icon color="orange" name="users" />
-                  Participants: {eventPlayers.map(player => (               
-                  <span key={player.id}><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>{eventPlayers.length > 1 && ', '}</span>                          
-                ))}
+                  Participants: {eventPlayers.map(player => (
+                    <span key={player.id}><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>{eventPlayers.length > 1 && ', '}</span>
+                  ))}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
