@@ -17,12 +17,12 @@
 }
 
 .link-profile {
-  color: orangered;    
+  color: orangered;  
+  // &-length {
+  //   color: orangered; 
+  //   &:before {
+  //     content: ', '
+  //   }   
+  // }
 }
 
-.link-profile-length {
-  color: orangered; 
-  &:before {
-    content: ', '
-  }   
-}
