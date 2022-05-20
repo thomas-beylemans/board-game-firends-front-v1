@@ -71,7 +71,7 @@ export default function DetailEvent() {
         //   setIsHidden(true);
         // }, 1000);
       }, 3000);
-      clearTimeout(test);
+      // clearTimeout(test);
     }
   }, [dispatch, isSubscribed]);
 

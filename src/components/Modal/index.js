@@ -1,38 +1,65 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Button, Image, Modal, TextArea, Grid, Form, Input } from 'semantic-ui-react';
+import { Button, Image, Modal, TextArea, Grid, Form, Input, Label, Dropdown } from 'semantic-ui-react';
 import EventInput from '../EventInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
-import { saveCity } from '../../actions/event';
-import { findCity } from '../../utils/findCity';
+import { saveGame, checkCity } from '../../actions/event';
 
 import './styles.scss';
+import bgImg from '../../assets/img/event_background.jpg';
 
 export default function ModalEvent() {
-
   const dispatch = useDispatch();
 
   const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
   const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [city, setCity] = useState('');
-
-  const postcode = useSelector(state => state.event.postcode);
-
+  const [gameArray, setGameArray] = useState([]);
+  const [gameName, setGameName] = useState('');
 
   const handleChangeCity = (e) => {
+    const cityList = []
     axios.get(`https://geo.api.gouv.fr/communes?nom=${e.target.value}&boost=population&fields=code,nom,centre,departement,codesPostaux`)
       .then(res => {
-        setSuggestedCity(res.data);
+        res.data.map(city => {
+          cityList.push(
+            {
+              key: city.code,
+              text: `${city.nom}, ${city.departement.code}`,
+              value: `${city.nom}#${city.codesPostaux[0]}#${city.centre.coordinates[0]}#${city.centre.coordinates[1]}`,
+            });
+        });
+        setSuggestedCity(cityList);
       })
-    setCity(e.target.value);
+  };
+
+  const handleSelectCity = (e, { value }) => {
+    setCity({
+      "geo": {
+        "city": value.split('#')[0],
+        "postcode": value.split('#')[1],
+        "long": value.split('#')[2],
+        "lat": value.split('#')[3],
+      }
+    })
+  };
+
+
+  const handleChangeGame = async (e) => {
+    setGameName(e.target.value);
+    const response = await axios.get(`https://api.boardgameatlas.com/api/search?name=${e.target.value}&pretty=true&client_id=GlJMJ8GUHb`);
+    const gamesList = response.data.games;
+    setGameArray(gamesList);
   };
 
   const handleSubmitCreate = (e) => {
     e.preventDefault();
-    dispatch(saveCity(findCity(suggestedCity, city, postcode)));
+    dispatch(checkCity(city));
+    const foundGame = gameArray.find(game => game.name === gameName);
+    dispatch(saveGame(foundGame))
     dispatch(createEvent());
   };
 
@@ -49,7 +76,7 @@ export default function ModalEvent() {
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
-        <Modal.Header>A propos de mon événement..</Modal.Header>
+        <Modal.Header>À propos de mon événement..</Modal.Header>
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
@@ -58,10 +85,10 @@ export default function ModalEvent() {
                   className="modal__img"
                   fluid
                   rounded
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                  src={bgImg}
                 />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column className="modal__column">
                 <Grid.Row>
                   <Modal.Description>
                     <Grid.Row>
@@ -74,24 +101,24 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <Input className="modal__input" label='Ville' name="city" type="text" placeholder="Ville" list="cities" onChange={handleChangeCity} value={city} />
-                      <datalist id="cities">
-                        {
-                          suggestedCity.map(city => (
-                            <option key={city.code} value={city.nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "")} />
-                          ))
-                        }
-                      </datalist>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <EventInput
-                        className="modal__input"
-                        label="Code Postal"
-                        name="postcode"
-                        type="text"
-                        min="0"
-                        placeholder="Code Postal"
-                      />
+                    <div className='modal-autocomplete'>
+                    <Label
+                      className='modal-label'
+                      content='Ville'
+                    />
+                    <Dropdown
+                      className='modal-dropdown'
+                      scrolling
+                      clearable
+                      search
+                      selection
+                      closeOnBlur
+                      options={suggestedCity}
+                      placeholder='Chercher...'
+                      onSearchChange={handleChangeCity}
+                      onChange={handleSelectCity}
+                    />
+                  </div>
                     </Grid.Row>
                     <Grid.Row>
                       <EventInput
@@ -113,13 +140,14 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                      <EventInput
-                        className="modal__img__input"
-                        name="picture"
-                        label="Image"
-                        type="file"
-                        id="file"
-                      />
+                      <Input className="modal__input" label='Jeu' name="game" type="text" placeholder="Jeu" list="games" onChange={handleChangeGame} value={gameName} />
+                      <datalist id="games">
+                        {
+                          gameArray.map(game => (
+                            <option key={game.id} value={game.name} />
+                          ))
+                        }
+                      </datalist>
                     </Grid.Row>
                     <TextArea
                       className="textarea"
