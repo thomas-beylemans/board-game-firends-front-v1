@@ -12,6 +12,7 @@ import { deleteGame } from '../../../actions/game';
 
 
 import Navbar from '../../Navbar';
+import Alert from '../../Alert';
 import EditProfileInfos from './EditProfileInfos';
 import AddGame from './AddGame';
 import DeleteGames from './DeleteGames';
@@ -28,6 +29,7 @@ export default function EditProfile() {
   const [suggestedCity, setSuggestedCity] = useState([]);
   const [newCity, setNewCity] = useState('');
   const [picture, setPicture] = useState('');
+  const [avatarOk, setAvatarOk] = useState(false);
 
   const username = useSelector(state => state.user.username);
   const postcode = useSelector(state => state.user.postcode);
@@ -70,6 +72,7 @@ export default function EditProfile() {
 
   const handleAvatar = (event) => {
     setPicture(event.target.files[0]);
+    setAvatarOk(true)
   }
 
   const handleChangeCity = (e) => {
