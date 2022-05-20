@@ -35,7 +35,7 @@ const event = (store) => (next) => async (action) => {
             Authorization: `Bearer ${token.accessToken}`,
           },
         });
-        store.dispatch(saveEvent(response.data.event.successMessage));
+        store.dispatch(saveEvent(response.data.event.successMessage, response.data.event.result.id));
       }
       catch (err) {
         store.dispatch(saveError(err.response.data.event.errorMessage));
