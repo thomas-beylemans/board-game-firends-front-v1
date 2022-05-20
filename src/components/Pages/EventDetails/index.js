@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { saveUserInfos } from '../../../actions/user';
-import {
-  saveEventDetails,
-  subscribeEvent,
-  unsubscribeEvent,
-} from '../../../actions/event';
+import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -42,17 +38,11 @@ export default function DetailEvent() {
 
   const eventTitle = useSelector((state) => state.eventDetails.title);
   const eventPicture = useSelector((state) => state.eventDetails.picture);
-  const eventDescription = useSelector(
-    (state) => state.eventDetails.description
-  );
-  const eventLocation = useSelector(
-    (state) => state.eventDetails.location.city
-  );
+  const eventDescription = useSelector((state) => state.eventDetails.description);
+  const eventLocation = useSelector((state) => state.eventDetails.location.city);
   const eventDate = useSelector((state) => state.eventDetails.start_date);
   const seatsAvailable = useSelector((state) => state.eventDetails.seats);
-  const eventAdmin = useSelector(
-    (state) => state.eventDetails.eventAdmin.username
-  );
+  const eventAdmin = useSelector((state) => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector((state) => state.eventDetails.eventAdmin.id);
   const eventPlayers = useSelector((state) => state.eventDetails.eventPlayer);
   const successMessage = useSelector((state) => state.error.successMessage);

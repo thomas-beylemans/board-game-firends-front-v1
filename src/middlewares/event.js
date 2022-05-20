@@ -24,18 +24,18 @@ const event = (store) => (next) => async (action) => {
         const response = await api.post(
           '/events',
           {
-            event: {
-              name: state.event.name,
+            "event": {
+              "name": state.event.name,
               // picture: state.event.picture,
-              picture: 'google.fr',
-              seats: state.event.seats,
-              start_date: state.event.start_date,
-              description: state.event.description,
-              geo: {
-                city: state.event.city,
-                postcode: state.event.postcode,
-                lat: state.event.lat,
-                long: state.event.long,
+              "picture": 'google.fr',
+              "seats": state.event.seats,
+              "start_date": state.event.start_date,
+              "description": state.event.description,
+              "geo": {
+                "city": state.event.city,
+                "postcode": state.event.postcode,
+                "lat": state.event.lat,
+                "long": state.event.long,
               },
             },
           },
