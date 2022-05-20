@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
 
-export default function Alert({ hidden, message, negative, positive }) {
+export default function Alert({ hidden, message, negative, positive, color }) {
   return (
-    <Message hidden={hidden} negative={negative} positive={positive} floating>{message}</Message>
+    <Message color={color} hidden={hidden} negative={negative} positive={positive} floating>{message}</Message>
   );
 };
 
 Alert.defaultProps = {
   hidden: true,
   message: '',
+  color: 'pink',
 };
 
 Alert.propTypes = {

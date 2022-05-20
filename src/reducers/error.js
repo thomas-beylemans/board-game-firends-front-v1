@@ -1,9 +1,9 @@
-import { SUCCESS_MESSAGE } from "../actions/error";
-import { CLEAR_ERROR, SAVE_ERROR } from "../actions/user";
+import { SUCCESS_MESSAGE } from '../actions/error';
+import { CLEAR_ERROR, SAVE_ERROR } from '../actions/user';
 
 export const initialState = {
   errorMessage: '',
-  sucessMessage: '',
+  successMessage: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -23,9 +23,9 @@ const reducer = (state = initialState, action = {}) => {
     case SUCCESS_MESSAGE:
       return {
         ...state,
-        sucessMessage: action.message,
+        successMessage: action.message,
       };
-    
+
     default:
       return state;
   }
