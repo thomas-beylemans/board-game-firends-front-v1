@@ -133,14 +133,18 @@ export default function DetailEvent() {
                   {seatsAvailable} places disponibles
                 </Card.Description>
               </Grid.Row>
-              <Grid.Row>
-                <Card.Description children={eventPlayers}>
-                  <Icon color="orange" name="users" />
-                  Participants: {eventPlayers.map(player => (
-                    <span key={player.id}><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>{eventPlayers.length > 1 && ', '}</span>
-                  ))}
-                </Card.Description>
-              </Grid.Row>
+
+              {eventPlayers.length !== 0 &&
+                <div>
+                  <Grid.Row>
+                    <Card.Description children={eventPlayers}><Icon color="orange" name="users" />
+                      Participants: {eventPlayers.map(player => (
+                        <span key={player.id}><Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link>{eventPlayers.length > 1 && ', '}</span>
+                      ))}
+                    </Card.Description>
+                  </Grid.Row>
+                </div>}
+
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="talk" />
