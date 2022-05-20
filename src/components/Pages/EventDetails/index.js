@@ -73,10 +73,15 @@ export default function DetailEvent() {
   useEffect(() => {
     if (isSubscribed) {
       setIsHidden(false);
-      setTimeout(() => {
+      const test = setTimeout(() => {
         dispatch(clearError());
         setIsHidden(true);
+        // setTimeout(() => {
+        //   dispatch(clearError());
+        //   setIsHidden(true);
+        // }, 1000);
       }, 3000);
+      clearTimeout(test);
     }
   }, [dispatch, isSubscribed]);
 
