@@ -6,12 +6,14 @@ import EventInput from '../EventInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeEventValue, createEvent } from '../../actions/event';
 import { saveGame, checkCity } from '../../actions/event';
+import { useNavigate } from 'react-router-dom';
 
 import './styles.scss';
 import bgImg from '../../assets/img/event_background.jpg';
 
 export default function ModalEvent() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [firstModalCreateEvent, setfirstModalCreateEvent] = useState(false);
   const [secondModalCreateEvent, setSecondModalCreateEvent] = useState(false);
@@ -19,6 +21,8 @@ export default function ModalEvent() {
   const [city, setCity] = useState('');
   const [gameArray, setGameArray] = useState([]);
   const [gameName, setGameName] = useState('');
+
+  const id = useSelector(state => state.event.id);
 
   const handleChangeCity = (e) => {
     const cityList = []
@@ -61,6 +65,7 @@ export default function ModalEvent() {
     const foundGame = gameArray.find(game => game.name === gameName);
     dispatch(saveGame(foundGame))
     dispatch(createEvent());
+    setGameName('');
   };
 
   const message = useSelector(state => state.event.message);
@@ -194,6 +199,7 @@ export default function ModalEvent() {
               onClick={() => {
                 setfirstModalCreateEvent(false);
                 setSecondModalCreateEvent(false);
+                navigate(`/events/${id}`);
               }}
             />
           </Modal.Actions>

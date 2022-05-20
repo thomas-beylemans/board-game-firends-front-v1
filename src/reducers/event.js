@@ -11,6 +11,7 @@ export const initialState = {
   lat: '',
   long: '',
   message: '',
+  id: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -26,6 +27,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         ...initialState,
         message: action.message,
+        id: action.id,
       };
 
     case SAVE_SUBSCRIBE_EVENT:

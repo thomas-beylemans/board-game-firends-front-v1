@@ -35,15 +35,16 @@ export default function DetailEvent() {
 
   const userId = useSelector((state) => state.user.id);
 
-  const eventTitle = useSelector((state) => state.eventDetails.title);
-  const eventPicture = useSelector((state) => state.eventDetails.picture);
-  const eventDescription = useSelector((state) => state.eventDetails.description);
-  const eventLocation = useSelector((state) => state.eventDetails.location.city);
-  const eventDate = useSelector((state) => state.eventDetails.start_date);
-  const seatsAvailable = useSelector((state) => state.eventDetails.seats);
-  const eventAdmin = useSelector((state) => state.eventDetails.eventAdmin.username);
-  const eventAdminId = useSelector((state) => state.eventDetails.eventAdmin.id);
-  const eventPlayers = useSelector((state) => state.eventDetails.eventPlayer);
+  const eventTitle = useSelector(state => state.eventDetails.title);
+  const eventPicture = useSelector(state => state.eventDetails.picture);
+  const eventDescription = useSelector(state => state.eventDetails.description);
+  const eventLocation = useSelector(state => state.eventDetails.location.city);
+  const eventDate = useSelector(state => state.eventDetails.start_date);
+  // const seats = useSelector(state => state.eventDetails.seats);
+  const seatsAvailable = useSelector(state => state.eventDetails.seats_available);
+  const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
+  const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
+  const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
   const successMessage = useSelector((state) => state.error.successMessage);
 
   const isAdmin = userId === eventAdminId;
@@ -142,22 +143,18 @@ export default function DetailEvent() {
                   {seatsAvailable} places disponibles
                 </Card.Description>
               </Grid.Row>
-              <Grid.Row>
-                <Card.Description children={eventPlayers}>
-                  <Icon color="orange" name="users" />
-                  Inscrits:{' '}
-                  {eventPlayers.map((player) => (
-                    <span>
-                      <Link
-                        className="link-profile"
-                        to={`/profile/${player.id}`}
-                      >
-                        {player.username}
-                      </Link>
-                    </span>
-                  ))}
-                </Card.Description>
-              </Grid.Row>
+
+              {eventPlayers.length !== 0 &&
+                <div>
+                  <Grid.Row>
+                    <Card.Description children={eventPlayers}><Icon color="orange" name="users" />
+                      Participants: {eventPlayers.map(player => (
+                        <span key={player.id}> - <Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link></span>
+                      ))}
+                    </Card.Description>
+                  </Grid.Row>
+                </div>}
+
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="talk" />

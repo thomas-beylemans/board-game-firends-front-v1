@@ -8,21 +8,21 @@
     width: 200px !important;
     margin: auto !important;
   }
-  &__img {
-    box-shadow: 5px 5px 5px rgb(122, 117, 117) !important;
-  }
+  // &__img {
+  //     box-shadow: 5px 5px 5px rgb(122, 117, 117) !important;
+  // }
   &__edit__avatar {
     margin-top: 1rem !important;
-  }
-
-  &__alert {
-    font-size: 1rem;
-    text-align: center;
-    position: relative;
-    margin-bottom: 1rem !important;
   }
 }
 
 .link-profile {
-  color: orangered;
+  color: orangered;  
+  // &-length {
+  //   color: orangered; 
+  //   &:before {
+  //     content: ', '
+  //   }   
+  // }
 }
+

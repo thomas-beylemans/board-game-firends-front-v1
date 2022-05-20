@@ -12,9 +12,10 @@ export const createEvent = (event) => ({
 });
 
 export const SAVE_EVENT = 'SAVE_EVENT';
-export const saveEvent = (message) => ({
+export const saveEvent = (message, id) => ({
   type: SAVE_EVENT,
   message,
+  id,
 });
 
 export const SAVE_CITY = 'SAVE_CITY';
