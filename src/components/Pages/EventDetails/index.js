@@ -154,7 +154,6 @@ export default function DetailEvent() {
                       >
                         {player.username}
                       </Link>
-                      ,{' '}
                     </span>
                   ))}
                 </Card.Description>
