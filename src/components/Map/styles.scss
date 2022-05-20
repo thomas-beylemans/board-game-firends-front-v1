@@ -1,0 +1,15 @@
+.map {
+
+  &__container {
+
+    &--small {
+      height: 200px;
+      width: 100%;
+    }
+
+    &--large {
+      height: 600px;
+      width: 100%;
+    }
+  }
+}

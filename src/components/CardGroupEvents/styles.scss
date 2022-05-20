@@ -1,0 +1,12 @@
+.cardgroup {
+    margin-top: 2.5rem !important;
+
+    &__img {
+        height: 228px;
+        background-color: white !important;        
+        width: 100%;       
+        padding: 1rem !important;
+        object-fit: contain;
+        margin-top: .1rem;
+      }
+}

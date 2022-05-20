@@ -1,0 +1,54 @@
+.textarea {
+    resize: none;
+}
+
+.modal__img {
+  margin-top: 1rem !important;    
+}
+.modal__img__input {
+  text-align: center;
+  width: 200px;    
+  margin-bottom: 1rem !important;
+}
+
+.modal__input {
+  text-align: center;
+  width: 200px;
+  width: 300px;
+  margin-bottom: 1rem;
+}
+
+.modal-autocomplete {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-dropdown {
+  margin-bottom: 1rem;
+  border-top-right-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  border-color: orange !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  max-width: 200px !important;
+  height: 52px !important;
+}
+
+.modal-label {
+  background-color: #FFA500 !important;
+  height: 52px !important;
+  width: 120px !important;
+  color: black !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  text-align: center !important;
+  padding-top: 1.2rem !important;
+}
+
+.modal__column {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}

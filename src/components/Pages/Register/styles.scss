@@ -1,0 +1,115 @@
+.register {
+  &__container {
+    margin: 0 !important;
+
+    &__row {
+      padding: 0 !important;
+      height: 100vh;
+    }
+
+    &__column {
+      display: flex !important;
+      flex-flow: column;
+      justify-content: center;
+      height: 100vh;
+
+      &__img {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        opacity: 0.6;
+      }
+
+      &__button {
+        margin-bottom: 1rem !important;
+        width: 50%;
+      }
+
+      &__input {
+        width: 300px;
+        margin-bottom: 1rem;
+        margin-left: -1rem;
+      }
+
+      &__error {
+        height: 50px;
+        margin-bottom: 1rem;
+      }
+
+      &__checkbox {
+        margin-bottom: 1rem;
+      }
+
+      &__h1 {
+        margin-bottom: 3rem !important;
+        font-size: 4rem !important;
+        position: relative;
+      }
+
+      &__h2 {
+        position: relative;
+      }
+
+      &__sub {
+        font-size: 1.5rem;
+        text-align: center;
+        position: relative;
+      }
+    }
+
+    &__footer {
+      justify-content: flex-end;
+      width: 100%;
+      text-align: right;
+      position: absolute;
+      bottom: 10px;
+      right: 30px;
+
+      &__nav {
+        text-decoration: none;
+        color: black;
+      }
+    }
+  }
+}
+
+.city-autocomplete {
+  display: flex;
+  justify-content: center;
+}
+
+.city-dropdown {
+  margin-bottom: 1rem;
+  border-top-right-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  border-color: orange !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  max-width: 200px !important;
+  height: 52px !important;
+
+  // &>.text {
+  //   width: 200px !important;
+  //   text-overflow: clip !important;
+  //   white-space: nowrap !important;
+  //   word-break: break-all !important;
+  //   color: red !important;
+  // }
+}
+
+.city-label {
+  background-color: #FFA500 !important;
+  height: 52px !important;
+  width: 120px !important;
+  color: black !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  text-align: center !important;
+  padding-top: 1.2rem !important;
+}

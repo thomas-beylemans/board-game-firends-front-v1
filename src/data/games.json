@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Monopoly",
+    "picture": "https://cdn3.philibertnet.com/375938-large_default/monopoly-classique.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Mystic Vale",
+    "picture": "https://cdn3.philibertnet.com/358209-large_default/mystic-vale.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Dice Throne Adventures",
+    "picture": "https://cdn1.philibertnet.com/536883-medium_default/dice-throne-adventures.jpg"
+  }
+]
