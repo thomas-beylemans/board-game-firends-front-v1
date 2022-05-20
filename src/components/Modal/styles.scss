@@ -3,8 +3,7 @@
 }
 
 .modal__img {
-    box-shadow: 5px 5px 5px rgb(122, 117, 117) !important;
-    
+  margin-top: 1rem !important;    
 }
 .modal__img__input {
   text-align: center;
@@ -33,14 +32,6 @@
   border-bottom-left-radius: 0px !important;
   max-width: 200px !important;
   height: 52px !important;
-
-  // &>.text {
-  //   width: 200px !important;
-  //   text-overflow: clip !important;
-  //   white-space: nowrap !important;
-  //   word-break: break-all !important;
-  //   color: red !important;
-  // }
 }
 
 .modal-label {
@@ -54,4 +45,10 @@
   border-bottom-right-radius: 0px !important;
   text-align: center !important;
   padding-top: 1.2rem !important;
+}
+
+.modal__column {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }

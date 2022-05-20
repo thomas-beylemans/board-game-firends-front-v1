@@ -8,6 +8,7 @@ import { changeEventValue, createEvent } from '../../actions/event';
 import { saveGame, checkCity } from '../../actions/event';
 
 import './styles.scss';
+import bgImg from '../../assets/img/event_background.jpg';
 
 export default function ModalEvent() {
   const dispatch = useDispatch();
@@ -84,10 +85,10 @@ export default function ModalEvent() {
                   className="modal__img"
                   fluid
                   rounded
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                  src={bgImg}
                 />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column className="modal__column">
                 <Grid.Row>
                   <Modal.Description>
                     <Grid.Row>
