@@ -22,6 +22,7 @@ const reducer = (state = initialState, action = {}) => {
         description: action.event.description,
         location: action.event.geo,
         seats: action.event.seats,
+        seats_available: action.event.seats_available,
         start_date: action.event.start_date,
         picture: action.event.picture,
         eventAdmin : action.event.event_admin,

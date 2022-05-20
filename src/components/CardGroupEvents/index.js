@@ -37,7 +37,7 @@ export default function CardGroupEvents({ array, title }) {
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="users" />
-                {card.seats} places disponibles
+                {card.seats_available} places disponibles
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="talk" />
