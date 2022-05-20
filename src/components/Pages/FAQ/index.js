@@ -22,6 +22,7 @@ export default function FAQ() {
     if (loggedUser) {
       dispatch(saveUserInfos(loggedUser.user));
     }
+    window.scrollTo(0, 0, { behavior: 'smooth' });
   }, [dispatch]);
 
   return (

@@ -56,12 +56,12 @@ export default function DetailEvent() {
   const [eventAction, setEventAction] = useState(false);
 
   const fetchEvent = async () => {
-      const event = await fetchAPI(`events/${eventId}`);
-      if (event === 'Aucun événement ne correspond à la recherche !') {
-        return navigate('/error');
-      }
-      setEvent([event.event]);
-      dispatch(saveEventDetails(event.event));
+    const event = await fetchAPI(`events/${eventId}`);
+    if (event === 'Aucun événement ne correspond à la recherche !') {
+      return navigate('/error');
+    }
+    setEvent([event.event]);
+    dispatch(saveEventDetails(event.event));
   };
 
   useEffect(() => {
@@ -93,8 +93,9 @@ export default function DetailEvent() {
   };
 
   return (
-    <>
-      <Navbar />
+    <div>
+    <Navbar />
+    <div className='detailEvent'>
       <Header textAlign="center" as="h1">
         {eventTitle}
       </Header>
@@ -110,7 +111,6 @@ export default function DetailEvent() {
         />
       </Container>
       <Divider />
-
       <Segment className="eventdetail" size="huge">
         <Grid columns={2} relaxed="very" divided stackable>
           <Grid.Row>
@@ -177,7 +177,7 @@ export default function DetailEvent() {
                 <Alert
                   hidden={isHidden}
                   message={successMessage}
-                  positive={false}
+                  positive={true}
                   negative={false}
                 />
               </div>
@@ -197,7 +197,7 @@ export default function DetailEvent() {
                   hidden={isHidden}
                   message={successMessage}
                   positive={false}
-                  negative={false}
+                  negative={true}
                 />
               </div>
               <Button
@@ -213,8 +213,8 @@ export default function DetailEvent() {
         </div>
       )}
       <Divider />
-
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }

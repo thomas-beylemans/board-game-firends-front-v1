@@ -10,7 +10,6 @@ export default function Alert({ hidden, message, negative, positive, color }) {
 Alert.defaultProps = {
   hidden: true,
   message: '',
-  color: 'pink',
 };
 
 Alert.propTypes = {
