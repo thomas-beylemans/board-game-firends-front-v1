@@ -25,14 +25,8 @@ const event = (store) => (next) => async (action) => {
           '/events',
           {
             "event": {
-<<<<<<< HEAD
-              "name": state.event.name,
-              // picture: state.event.picture,
-              "picture": 'google.fr',
-=======
               "name": state.event.name,              
               "picture": state.event.game_picture,
->>>>>>> dev
               "seats": state.event.seats,
               "start_date": state.event.start_date,
               "description": state.event.description,

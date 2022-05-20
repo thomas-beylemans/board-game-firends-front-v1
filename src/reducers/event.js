@@ -27,21 +27,6 @@ const reducer = (state = initialState, action = {}) => {
         ...initialState,
         message: action.message,
       };
-<<<<<<< HEAD
-      
-      case SAVE_SUBSCRIBE_EVENT:
-        return {
-          ...state,
-          ...initialState,
-          isSubscribed: action.validation
-        }
-      case SAVE_UNSUBSCRIBE_EVENT:
-        return {
-          ...state,
-          ...initialState,
-          isSubscribed: action.validation
-        }     
-=======
 
     case SAVE_SUBSCRIBE_EVENT:
       return {
@@ -55,7 +40,6 @@ const reducer = (state = initialState, action = {}) => {
         ...initialState,
         isSubscribed: action.validation
       }
->>>>>>> dev
 
     case SAVE_CITY:
       return {

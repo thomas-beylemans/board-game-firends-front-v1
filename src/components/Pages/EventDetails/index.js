@@ -61,21 +61,6 @@ export default function DetailEvent() {
   };
 
   useEffect(() => {
-    if (isSubscribed) {
-      setIsHidden(false);
-      const test = setTimeout(() => {
-        dispatch(clearError());
-        setIsHidden(true);
-        // setTimeout(() => {
-        //   dispatch(clearError());
-        //   setIsHidden(true);
-        // }, 1000);
-      }, 3000);
-      // clearTimeout(test);
-    }
-  }, [dispatch, isSubscribed]);
-
-  useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
     if (loggedUser) {
       dispatch(saveUserInfos(loggedUser.user));
@@ -86,13 +71,21 @@ export default function DetailEvent() {
   const handleSubscribeEvent = () => {
     setEventAction(!eventAction);
     dispatch(subscribeEvent(eventId));
+    setIsHidden(false);
     fetchEvent();
+    setTimeout(() => {
+      setIsHidden(true);
+    }, 2000);
   };
 
   const handleUnsubscribeEvent = () => {
     setEventAction(!eventAction);
     dispatch(unsubscribeEvent(eventId));
+    setIsHidden(false);
     fetchEvent();
+    setTimeout(() => {
+      setIsHidden(true);
+    }, 2000);
   };
 
   return (
@@ -185,7 +178,7 @@ export default function DetailEvent() {
                 <Alert
                   hidden={isHidden}
                   message={successMessage}
-                  positive={true}
+                  positive={false}
                   negative={false}
                 />
               </div>
@@ -204,7 +197,7 @@ export default function DetailEvent() {
                 <Alert
                   hidden={isHidden}
                   message={successMessage}
-                  positive={true}
+                  positive={false}
                   negative={false}
                 />
               </div>
