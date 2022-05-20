@@ -100,13 +100,13 @@ export default function ModalEvent() {
                       />
                     </Grid.Row>
                     <Grid.Row>
-                    <div className='city-autocomplete'>
+                    <div className='modal-autocomplete'>
                     <Label
-                      className='city-label'
+                      className='modal-label'
                       content='Ville'
                     />
                     <Dropdown
-                      className='city-dropdown'
+                      className='modal-dropdown'
                       scrolling
                       clearable
                       search
