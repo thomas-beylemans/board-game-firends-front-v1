@@ -56,12 +56,12 @@ export default function DetailEvent() {
   const [eventAction, setEventAction] = useState(false);
 
   const fetchEvent = async () => {
-      const event = await fetchAPI(`events/${eventId}`);
-      if (event === 'Aucun événement ne correspond à la recherche !') {
-        return navigate('/error');
-      }
-      setEvent([event.event]);
-      dispatch(saveEventDetails(event.event));
+    const event = await fetchAPI(`events/${eventId}`);
+    if (event === 'Aucun événement ne correspond à la recherche !') {
+      return navigate('/error');
+    }
+    setEvent([event.event]);
+    dispatch(saveEventDetails(event.event));
   };
 
   useEffect(() => {
@@ -144,7 +144,8 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                  {seatsAvailable} places disponibles
+                  {seatsAvailable > 1 && `${seatsAvailable} places disponibles`}
+                  {seatsAvailable <= 1 && `${seatsAvailable} place disponible`}
                 </Card.Description>
               </Grid.Row>
 
