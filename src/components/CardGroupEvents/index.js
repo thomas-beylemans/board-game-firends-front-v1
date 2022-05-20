@@ -36,8 +36,10 @@ export default function CardGroupEvents({ array, title }) {
               {card.geo.city}
               </Card.Description>
               <Card.Description>
-                <Icon color="orange" name="users" />
-                {card.seats_available} places disponibles
+                <Icon color="orange" name="users" />   
+                {card.seats_available === 1 && `${card.seats_available} place disponible`} 
+                {card.seats_available === 0 && `${card.seats_available} place disponible`}        
+                {card.seats_available > 1 && `${card.seats_available} places disponibles`}  
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="talk" />
