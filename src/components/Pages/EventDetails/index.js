@@ -1,6 +1,6 @@
 import { fetchAPI } from '../../../utils/fetchAPI';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -28,6 +28,7 @@ import {
 
 export default function DetailEvent() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const eventId = useParams().id;
   const loggedUser = JSON.parse(localStorage.getItem('userInfos'));
@@ -55,9 +56,12 @@ export default function DetailEvent() {
   const [eventAction, setEventAction] = useState(false);
 
   const fetchEvent = async () => {
-    const event = await fetchAPI(`events/${eventId}`);
-    setEvent([event.event]);
-    dispatch(saveEventDetails(event.event));
+      const event = await fetchAPI(`events/${eventId}`);
+      if (event === 'Aucun événement ne correspond à la recherche !') {
+        return navigate('/error');
+      }
+      setEvent([event.event]);
+      dispatch(saveEventDetails(event.event));
   };
 
   useEffect(() => {
