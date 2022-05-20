@@ -96,16 +96,17 @@ export default function SignIn() {
               </form>
             </Grid.Row>
             <Grid.Row>
-              <Button
+              {/* <Button
                 className="home__container__column__button"
                 color="orange"
                 size="big"
                 type="button"
                 inverted
+                disabled
                 onClick={() => setFirstModalOpen(true)}
               >
                 Mot de passe oublié
-              </Button>
+              </Button> */}
             </Grid.Row>
             <Grid.Row>
               <Link to="/register">
