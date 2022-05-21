@@ -144,7 +144,8 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                  {seatsAvailable} places disponibles
+                  {seatsAvailable > 1 && `${seatsAvailable} places disponibles`}
+                  {seatsAvailable <= 1 && `${seatsAvailable} place disponible`}
                 </Card.Description>
               </Grid.Row>
 
