@@ -132,7 +132,7 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="clock outline" />
-                  {moment({ eventDate }).format('Do MMMM YYYY, LT')}
+                  { moment(eventDate).format('dddd DD MMMM YYYY, LT')}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
