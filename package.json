@@ -28,7 +28,7 @@
   "scripts": {
     "postinstall": "semantic-ui-css-patch",
     "start": "semantic-ui-css-patch && react-scripts start",
-    "build": "semantic-ui-css-patch && react-scripts build",
+    "build": "semantic-ui-css-patch && react-scripts build && cp build/index.html build/200.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
