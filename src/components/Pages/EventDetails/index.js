@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { saveUserInfos } from '../../../actions/user';
 import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'moment/locale/fr';
 
 import Map from '../../Map';
@@ -41,7 +41,6 @@ export default function DetailEvent() {
   const eventDescription = useSelector(state => state.eventDetails.description);
   const eventLocation = useSelector(state => state.eventDetails.location.city);
   const eventDate = useSelector(state => state.eventDetails.start_date);
-  // const seats = useSelector(state => state.eventDetails.seats);
   const seatsAvailable = useSelector(state => state.eventDetails.seats_available);
   const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
@@ -132,7 +131,7 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="clock outline" />
-                  { moment(eventDate).format('dddd DD MMMM YYYY, LT')}
+                  { moment(eventDate).tz('Africa/Dakar').format('dddd DD MMMM YYYY, LT')}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
