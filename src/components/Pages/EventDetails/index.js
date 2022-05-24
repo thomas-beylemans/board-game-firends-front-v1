@@ -60,7 +60,6 @@ export default function DetailEvent() {
       return navigate('/error');
     }
     setEvent([event.event]);
-    console.log(event);
     dispatch(saveEventDetails(event.event));
   };
 
