@@ -60,6 +60,7 @@ export default function DetailEvent() {
       return navigate('/error');
     }
     setEvent([event.event]);
+    console.log(event);
     dispatch(saveEventDetails(event.event));
   };
 
@@ -125,7 +126,7 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="chess queen" />
-                  Organisateur : {eventAdmin}
+                  Organisateur : {<Link className='link-profile' to={`/profile/${eventAdminId}`}>{eventAdmin}</Link>}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
