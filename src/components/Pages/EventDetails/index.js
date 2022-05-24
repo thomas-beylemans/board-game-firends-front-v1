@@ -115,7 +115,7 @@ export default function DetailEvent() {
           <Grid.Row>
             <Grid.Column>
               <Map
-                className={'map__container--large'}
+                className={'map__container--small'}
                 position={position}
                 eventsList={event}
               />
