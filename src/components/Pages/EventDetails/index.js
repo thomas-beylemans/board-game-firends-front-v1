@@ -97,126 +97,135 @@ export default function DetailEvent() {
 
   return (
     <div>
-    <Navbar />
-    <div className='detailEvent'>
-      <Header textAlign="center" as="h1">
-        {eventTitle}
-      </Header>
+      <Navbar />
+      <div className='detailEvent'>
+        <Header textAlign="center" as="h1">
+          {eventTitle}
+        </Header>
 
-      <Container textAlign="center">
-        <Image
-          className="eventdetail__img"
-          alt="Event Image"
-          centered
-          rounded
-          src={eventPicture}
-          size="large"
-        />
-      </Container>
-      <Divider />
-      <Segment className="eventdetail" size="huge">
-        <Grid columns={2} relaxed="very" divided stackable>
-          <Grid.Row>
-            <Grid.Column>
-              <Map
-                className={'map__container--small'}
-                position={position}
-                eventsList={event}
-              />
-            </Grid.Column>
-
-            <Grid.Column stretched={true}>
-              <Grid.Row>
-                <Card.Description>
-                  <Icon color="orange" name="chess queen" />
-                  Organisateur : {<Link className='link-profile' to={`/profile/${eventAdminId}`}>{eventAdmin}</Link>}
-                </Card.Description>
-              </Grid.Row>
-              <Grid.Row>
-                <Card.Description>
-                  <Icon color="orange" name="clock outline" />
-                  { moment(eventDate).tz('Africa/Dakar').format('dddd DD MMMM YYYY, LT')}
-                </Card.Description>
-              </Grid.Row>
-              <Grid.Row>
-                <Card.Description>
-                  <Icon color="orange" name="map marker alternate" />
-                  {eventLocation}
-                </Card.Description>
-              </Grid.Row>
-              <Grid.Row>
-                <Card.Description>
-                  <Icon color="orange" name="users" />
-                  {seatsAvailable > 1 && `${seatsAvailable} places disponibles`}
-                  {seatsAvailable <= 1 && `${seatsAvailable} place disponible`}
-                </Card.Description>
-              </Grid.Row>
-
-              {eventPlayers.length !== 0 &&
-                <div>
-                  <Grid.Row>
-                    <Card.Description children={eventPlayers}><Icon color="orange" name="users" />
-                      Participants: {eventPlayers.map(player => (
-                        <span key={player.id}> - <Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link></span>
-                      ))}
-                    </Card.Description>
-                  </Grid.Row>
-                </div>}
-
-              <Grid.Row>
-                <Card.Description>
-                  <Icon color="orange" name="talk" />
-                  {eventDescription}
-                </Card.Description>
-              </Grid.Row>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-      {!isAdmin && (
-        <div>
-          {isSubscribed !== undefined ? (
-            <>
-              <div className="eventdetail__alert">
-                <Alert
-                  hidden={isHidden}
-                  message={successMessage}
-                  positive={true}
-                  negative={false}
+        <Container textAlign="center">
+          <Image
+            className="eventdetail__img"
+            alt="Event Image"
+            centered
+            rounded
+            src={eventPicture}
+            size="large"
+          />
+        </Container>
+        <Divider />
+        <Segment className="eventdetail" size="huge">
+          <Grid columns={2} relaxed="very" divided stackable>
+            <Grid.Row>
+              <Grid.Column>
+                <Map
+                  className={'map__container--small'}
+                  position={position}
+                  eventsList={event}
                 />
-              </div>
-              <Button
-                onClick={handleUnsubscribeEvent}
-                className="eventdetail__button"
-                fluid
-                color="red"
-              >
-                <Button.Content visible>Se désinscrire</Button.Content>
-              </Button>
-            </>
-          ) : (
-            <>
-              <div className="eventdetail__alert">
+              </Grid.Column>
+
+              <Grid.Column stretched={true}>
+                <Grid.Row>
+                  <Card.Description>
+                    <Icon color="orange" name="chess queen" />
+                    Organisateur : {<Link className='link-profile' to={`/profile/${eventAdminId}`}>{eventAdmin}</Link>}
+                  </Card.Description>
+                </Grid.Row>
+                <Grid.Row>
+                  <Card.Description>
+                    <Icon color="orange" name="clock outline" />
+                    {moment(eventDate).tz('Africa/Dakar').format('dddd DD MMMM YYYY, LT')}
+                  </Card.Description>
+                </Grid.Row>
+                <Grid.Row>
+                  <Card.Description>
+                    <Icon color="orange" name="map marker alternate" />
+                    {eventLocation}
+                  </Card.Description>
+                </Grid.Row>
+                <Grid.Row>
+                  <Card.Description>
+                    <Icon color="orange" name="users" />
+                    {seatsAvailable > 1 && `${seatsAvailable} places disponibles`}
+                    {seatsAvailable <= 1 && `${seatsAvailable} place disponible`}
+                  </Card.Description>
+                </Grid.Row>
+
+                {eventPlayers.length !== 0 &&
+                  <div>
+                    <Grid.Row>
+                      <Card.Description children={eventPlayers}><Icon color="orange" name="users" />
+                        Participants: {eventPlayers.map(player => (
+                          <span key={player.id}> - <Link className='link-profile' to={`/profile/${player.id}`}>{player.username}</Link></span>
+                        ))}
+                      </Card.Description>
+                    </Grid.Row>
+                  </div>}
+
+                <Grid.Row>
+                  <Card.Description>
+                    <Icon color="orange" name="talk" />
+                    {eventDescription}
+                  </Card.Description>
+                </Grid.Row>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+        {!isAdmin && (
+          <div>
+            {isSubscribed !== undefined ? (
+              <>
+                <div className="eventdetail__alert">
+                  <Alert
+                    hidden={isHidden}
+                    message={successMessage}
+                    positive={true}
+                    negative={false}
+                  />
+                </div>
+                <Button
+                  onClick={handleUnsubscribeEvent}
+                  className="eventdetail__button"
+                  fluid
+                  color="red"
+                >
+                  <Button.Content visible>Se désinscrire</Button.Content>
+                </Button>
+              </>
+            ) : ((seatsAvailable !== 0 ?
+              <>
+                <div className="eventdetail__alert">
+                  <Alert
+                    hidden={isHidden}
+                    message={successMessage || errorMessage}
+                    positive={false}
+                    negative={true}
+                  />
+                </div>
+                <Button
+                  onClick={handleSubscribeEvent}
+                  className="eventdetail__button"
+                  fluid
+                  color="orange"
+                >
+                  <Button.Content visible>S'inscrire</Button.Content>
+                </Button>
+              </>
+              :
+              <>
                 <Alert
-                  hidden={isHidden}
-                  message={successMessage || errorMessage}
+                  hidden={false}
+                  message='Cet évènement est déjà complet'
                   positive={false}
-                  negative={true}
+                  negative={true}                  
                 />
-              </div>
-              <Button
-                onClick={handleSubscribeEvent}
-                className="eventdetail__button"
-                fluid
-                color="orange"
-              >
-                <Button.Content visible>S'inscrire</Button.Content>
-              </Button>
-            </>
-          )}
-        </div>
-      )}
-      <Divider />
+              </>
+            ))}
+          </div>
+        )}
+        <Divider />
       </div>
       <Footer />
     </div>
