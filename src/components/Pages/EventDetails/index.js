@@ -47,6 +47,7 @@ export default function DetailEvent() {
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
   const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
   const successMessage = useSelector((state) => state.error.successMessage);
+  const errorMessage = useSelector((state) => state.error.errorMessage);
 
   const isAdmin = userId === eventAdminId;
   const isSubscribed = eventPlayers.find((player) => player.id === userId);
@@ -198,7 +199,7 @@ export default function DetailEvent() {
               <div className="eventdetail__alert">
                 <Alert
                   hidden={isHidden}
-                  message={successMessage}
+                  message={successMessage || errorMessage}
                   positive={false}
                   negative={true}
                 />
