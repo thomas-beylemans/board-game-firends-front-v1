@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { saveUserInfos } from '../../../actions/user';
 import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
+import { clearError } from '../../../actions/user';
 import moment from 'moment-timezone';
 import 'moment/locale/fr';
 
@@ -78,6 +79,7 @@ export default function DetailEvent() {
     fetchEvent();
     setTimeout(() => {
       setIsHidden(true);
+      dispatch(clearError());
     }, 2000);
   };
 
@@ -88,6 +90,7 @@ export default function DetailEvent() {
     fetchEvent();
     setTimeout(() => {
       setIsHidden(true);
+      dispatch(clearError());
     }, 2000);
   };
 
