@@ -111,7 +111,7 @@ export default function ModalEvent() {
                       className='modal-label'
                       content='Ville'
                     />
-                    <Dropdown
+                    <Dropdown                    
                       className='modal-dropdown'
                       scrolling
                       clearable
@@ -137,7 +137,7 @@ export default function ModalEvent() {
                     </Grid.Row>
                     <Grid.Row>
                       <EventInput
-                        className="modal__img__input"
+                        className="modal__input"
                         label="Date et heure"
                         name="start_date"
                         placeholder="Date et heure"
