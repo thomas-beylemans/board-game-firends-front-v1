@@ -18,6 +18,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         errorMessage: '',
+        successMessage: '',
       };
 
     case SUCCESS_MESSAGE:

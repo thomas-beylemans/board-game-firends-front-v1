@@ -26,18 +26,19 @@ export default function CardGroupEvents({ array, title }) {
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="clock outline" />
-                {moment(card.start_date).format('Do MMMM YYYY, LT')}
+                { moment(card.start_date).tz('Africa/Dakar').format('dddd DD MMMM YYYY, LT')}
               </Card.Description>
               <Card.Description>
                 <Icon
                   color="orange"
                   name="map marker alternate"
                 />
-              {card.geo.city}
+                {card.geo.city}
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="users" />
-                {card.seats_available} places disponibles
+                {card.seats_available > 1 && `${card.seats_available} places disponibles`}
+                {card.seats_available <= 1 && `${card.seats_available} place disponible`}                
               </Card.Description>
               <Card.Description>
                 <Icon color="orange" name="talk" />

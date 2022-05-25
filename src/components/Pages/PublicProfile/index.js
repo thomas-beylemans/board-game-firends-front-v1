@@ -33,11 +33,11 @@ export default function PublicProfile() {
       setGames(selectedUser.user.game);
     } catch (error) {
       setError(error)
-      // console.log(error)
     }
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0, { behavior: 'smooth' });
     const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
     if (loggedUser) {
       dispatch(saveUserInfos(loggedUser.user));

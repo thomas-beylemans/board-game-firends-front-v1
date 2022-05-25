@@ -20,6 +20,7 @@ export default function Profile() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0, { behavior: 'smooth' });
     const loggedUser = JSON.parse(localStorage.getItem("userInfos"));
     if (loggedUser) {
       dispatch(saveUserInfos(loggedUser.user));

@@ -70,7 +70,7 @@ const event = (store) => (next) => async (action) => {
         store.dispatch(saveSubscribeEvent(response.data.isSubscribed));
         store.dispatch(successMessage(response.data.successMessage));
       } catch (err) {
-        store.dispatch(saveError(err.response.data.event.errorMessage));
+        store.dispatch(saveError(err.response.data.errorMessage));
       }
       break;
     }
@@ -92,7 +92,7 @@ const event = (store) => (next) => async (action) => {
         store.dispatch(saveUnsubscribeEvent(response.data.isSubscribed));
         store.dispatch(successMessage(response.data.successMessage));
       } catch (err) {
-        store.dispatch(saveError(err.response.data.event.errorMessage));
+        store.dispatch(saveError(err.response.data.errorMessage));
       }
       break;
     }

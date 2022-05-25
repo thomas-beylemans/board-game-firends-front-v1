@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 import { saveUserInfos } from '../../../actions/user';
 import { saveEventDetails, subscribeEvent, unsubscribeEvent } from '../../../actions/event';
-import moment from 'moment';
+import { clearError } from '../../../actions/user';
+import moment from 'moment-timezone';
 import 'moment/locale/fr';
 
 import Map from '../../Map';
@@ -41,12 +42,12 @@ export default function DetailEvent() {
   const eventDescription = useSelector(state => state.eventDetails.description);
   const eventLocation = useSelector(state => state.eventDetails.location.city);
   const eventDate = useSelector(state => state.eventDetails.start_date);
-  // const seats = useSelector(state => state.eventDetails.seats);
   const seatsAvailable = useSelector(state => state.eventDetails.seats_available);
   const eventAdmin = useSelector(state => state.eventDetails.eventAdmin.username);
   const eventAdminId = useSelector(state => state.eventDetails.eventAdmin.id);
   const eventPlayers = useSelector(state => state.eventDetails.eventPlayer);
   const successMessage = useSelector((state) => state.error.successMessage);
+  const errorMessage = useSelector((state) => state.error.errorMessage);
 
   const isAdmin = userId === eventAdminId;
   const isSubscribed = eventPlayers.find((player) => player.id === userId);
@@ -79,6 +80,7 @@ export default function DetailEvent() {
     fetchEvent();
     setTimeout(() => {
       setIsHidden(true);
+      dispatch(clearError());
     }, 2000);
   };
 
@@ -89,6 +91,7 @@ export default function DetailEvent() {
     fetchEvent();
     setTimeout(() => {
       setIsHidden(true);
+      dispatch(clearError());
     }, 2000);
   };
 
@@ -116,7 +119,7 @@ export default function DetailEvent() {
           <Grid.Row>
             <Grid.Column>
               <Map
-                className={'map__container--large'}
+                className={'map__container--small'}
                 position={position}
                 eventsList={event}
               />
@@ -126,13 +129,13 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="chess queen" />
-                  Organisateur : {eventAdmin}
+                  Organisateur : {<Link className='link-profile' to={`/profile/${eventAdminId}`}>{eventAdmin}</Link>}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="clock outline" />
-                  {moment({ eventDate }).format('Do MMMM YYYY, LT')}
+                  { moment(eventDate).tz('Africa/Dakar').format('dddd DD MMMM YYYY, LT')}
                 </Card.Description>
               </Grid.Row>
               <Grid.Row>
@@ -144,7 +147,8 @@ export default function DetailEvent() {
               <Grid.Row>
                 <Card.Description>
                   <Icon color="orange" name="users" />
-                  {seatsAvailable} places disponibles
+                  {seatsAvailable > 1 && `${seatsAvailable} places disponibles`}
+                  {seatsAvailable <= 1 && `${seatsAvailable} place disponible`}
                 </Card.Description>
               </Grid.Row>
 
@@ -195,7 +199,7 @@ export default function DetailEvent() {
               <div className="eventdetail__alert">
                 <Alert
                   hidden={isHidden}
-                  message={successMessage}
+                  message={successMessage || errorMessage}
                   positive={false}
                   negative={true}
                 />
