@@ -81,7 +81,7 @@ export default function ModalEvent() {
         open={firstModalCreateEvent}
         trigger={<Button circular icon="plus circle" inverted color="yellow" />}
       >
-        <Modal.Header>À propos de mon événement..</Modal.Header>
+        <Modal.Header>À propos de mon événement</Modal.Header>
         <Modal.Content image>
           <Grid columns={2} divided stackable>
             <Grid.Row>
