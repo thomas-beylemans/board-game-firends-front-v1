@@ -215,12 +215,14 @@ export default function DetailEvent() {
               </>
               :
               <>
-                <Alert
-                  hidden={false}
-                  message='Cet évènement est déjà complet'
-                  positive={false}
-                  negative={true}                  
-                />
+                <div className="eventdetail__alert">
+                  <Alert
+                    hidden={false}
+                    message='Cet évènement est déjà complet'
+                    positive={false}
+                    negative={true}
+                  />
+                </div>
               </>
             ))}
           </div>
